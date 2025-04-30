@@ -1,0 +1,196 @@
+.door-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  pointer-events: none; // 添加這行 都可響應點擊
+  overflow: visible !important;
+
+  // .door, .light-line, .light-beam, .light-flash, .light-expansion {
+  //   pointer-events: none; // 所有動畫元素都不響應點擊
+  // }
+
+  .door {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #000;
+
+    &.left-door {
+      left: 0;
+    }
+
+    &.right-door {
+      right: 0;
+    }
+  }
+
+  .light-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.7);
+  }
+
+  .light-beam {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-50%) scaleY(0);
+  }
+
+  .light-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+  }
+
+  .light-expansion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0) 70%);
+    transform: translate(-50%, -50%) scale(1);
+    transform: translate3d(-50%, -50%, 0);
+    backface-visibility: hidden;
+    z-index: 1000; // 確保最高層級
+    opacity: 0.9;  // 提高初始可見度
+    // opacity: 0.5;
+  }
+}
+
+.content-scene {
+  position: relative;
+  min-height: 100vh;
+  z-index: 10;
+  // 確保內容可交互
+  pointer-events: auto;
+}
+
+// 登入畫面
+.content-section {
+  position: fixed; // 只保留 fixed
+  z-index: 15;
+  /* 高於 .trapezoid 的父層 */
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // 確保背景不阻擋點擊
+  background: transparent;
+  background: linear-gradient(160deg,
+      #FFF9E6 0%,
+      /* 淺黃（陽光） */
+      #FFD8A8 50%,
+      /* 淡橙（溫暖） */
+      #C3E2DD 100%
+      /* 淺綠（自然陰影） */
+    );
+
+  p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+  }
+}
+
+.login-box {
+  /* 確保表單內容在梯形上方 */
+  z-index: 16;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 33vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 18px auto;
+  gap: 20px;
+  background: linear-gradient(180deg,
+      #fff8e8 10%,
+      /* 乳白色（光暈） */
+      #ffefd8 60%,
+      /* 淺蜜桃色 */
+      #e4fafd 95%
+      /* 你的青綠色，增加自然感 */
+    );
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 主按鈕（登入） */
+.btn {
+  /* 圓角設計 */
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* 暖米色背景 */
+  background-color: #F9D9CA;
+  /* 深棕色文字（對比可讀） */
+  color: #5C3A21;
+  /* 米色邊框 */
+  border: 2px solid #F9D9CA;
+  border: none;
+  border-radius: 8px;
+    /* 輕微陰影 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 按鈕特效 */
+.btn:hover {
+  /* 懸停時稍深的米色 */
+  background-color: #E8C4B0;
+  /* 輕微上浮效果 */
+  transform: translateY(-1px);
+  /* 陰影 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 50px;
+}
+
+/* 在組件的 CSS 檔案中添加 */
+::ng-deep .input .p-password .p-inputtext {
+  width: 13vw !important;
+  height: 3.9vh !important;
+  font-size: 30px !important;
+}

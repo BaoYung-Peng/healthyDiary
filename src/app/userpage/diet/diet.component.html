@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 class="title">營養計算機</h1>
+  <div class="main-box">
+    <div class="table-box">
+      <h2>{{user}}，你吃了</h2>
+      @for(item of dietForm.mealsName; track $index; let i = $index){
+      <div style="display: flex;">
+        <p>{{item}}</p>
+        <button (click)="delMeal(i)">刪除</button>
+      </div>
+      }
+    </div>
+    <div class="selection-box">
+      <div class="type-box">
+        <div class="input-box">
+          <p-selectbutton [options]="methods" [(ngModel)]="method" optionLabel="label" optionValue="value" />
+        </div>
+        <div class="input-box">
+          <p-selectbutton [options]="types" [(ngModel)]="type" optionLabel="label" optionValue="value" />
+        </div>
+      </div>
+      <input type="text" [(ngModel)]="mealName">
+      <button (click)="addMeal()">新增</button>
+    </div>
+  </div>
+
+</div>

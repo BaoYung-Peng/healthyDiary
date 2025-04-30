@@ -1,0 +1,175 @@
+$reg-login-btn-bg-color: rgb(76, 76, 247);
+$reg-login-btn-hover-bg-color: rgb(27, 27, 188);
+$reg-login-btn-color: yellow;
+$reg-login-btn-hover-color: white;
+
+$ques-color: black;
+$ques-hover-color: rgb(103, 103, 103);
+$ans-text-color: black;
+
+.block {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+// 第一區塊 網站名稱 說明文字 ////////////////////////////
+.title {
+  margin: 80px auto 100px auto;
+
+  // font-family: 'SetoFont Regular';
+  text-align: center;
+  font-size: 10rem;
+
+  animation: focus-in-expand 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.context {
+  max-width: 60%; // 不會超出容器寬度
+
+  word-wrap: break-word; // 長單字自動斷行
+  overflow-wrap: break-word; // 現代寫法，處理自動換行
+  white-space: normal; // 確保文字會正常換行
+  line-height: 1.6; // 閱讀性提升（可選）
+  font-size: 1.5rem; // 可根據實際調整
+}
+
+
+// 第二區塊 說明文字 3張圖片 ////////////////////////////
+.block2 {
+  height: 300vh;
+
+  position: relative;
+
+  .grid {
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .left-box {
+    height: 300vh;
+  }
+
+  .sticky-content {
+    height: 100vh;
+
+    position: sticky;
+    top: 0;
+
+    padding: 2rem;
+
+    .content-box {
+      height: 100%;
+
+      margin-left: 40%;
+
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      flex-direction: column;
+
+      .context {
+        margin-bottom: 10px;
+
+        text-align: start;
+        font-size: 1.5rem;
+        font-weight: 10rem;
+        line-height: 1.6; // 閱讀性提升（可選）
+      }
+
+      li {
+        margin-left: 35px;
+
+        font-size: 2rem;
+        font-weight: 10rem;
+      }
+    }
+  }
+
+  .right-box {
+    height: 300vh;
+
+    overflow: hidden;
+  }
+
+  .scroll-page {
+    height: 100vh;
+
+    position: sticky;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    width: 100px;
+  }
+}
+
+// 第三區塊 註冊按鈕 ////////////////////////////
+.block3 {
+  h1 {
+    font-size: 10rem;
+    margin-bottom: 20px;
+  }
+
+  .btn-box {
+    width: 50%;
+
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    width: 30%;
+    max-width: 300px;
+    min-width: 50px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background-color: $reg-login-btn-bg-color;
+    color: $reg-login-btn-color;
+
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: $reg-login-btn-hover-bg-color;
+    color: $reg-login-btn-hover-color;
+    // animation: jello-horizontal 1s both;
+
+  }
+}
+
+// 第四區塊 Q&A ////////////////////////////
+.block4 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .qa-box {
+    width: 80%;
+
+    h3 {
+      text-align: start;
+      color: $ans-text-color;
+    }
+  }
+
+  p-accordion-header {
+    color: $ques-color;
+  }
+
+  p-accordion-header:hover {
+    color: $ques-hover-color;
+  }
+}

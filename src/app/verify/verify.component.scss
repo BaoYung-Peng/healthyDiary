@@ -1,0 +1,32 @@
+.register-success-container {
+  text-align: center;
+
+  padding: 2rem;
+  margin-bottom: 5rem;
+
+  .success-message {
+    margin-bottom: 2rem;
+
+    .success-icon {
+      font-size: 4rem;
+      color: #28a745;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      font-size: 1rem;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

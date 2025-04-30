@@ -1,0 +1,60 @@
+<!-- 第一區塊 網站名稱、說明文字-->
+<div class="block block1" #block1>
+  <h1 class="title">健康日記</h1>
+  <p class="context">掌握健康，從現在開始！
+    我們是你維持健康人生的忠實夥伴。陪你每天花一點點時間來進步一點點。一年後見證強大37倍的你。
+  </p>
+</div>
+
+<!-- 第二區塊 文字、照片-->
+<div class="block2" #block2>
+  <div class="grid">
+    <!-- 左侧固定内容 -->
+    <div class="left-box">
+      <div class="sticky-content">
+        <div class="content-box">
+          <div>
+            <p class="context">你知道....
+              食物不只填飽你的肚子，他也悄悄的定義了你的人生
+              身體的強壯與內在的平靜交織出情緒的網。
+              活著為了講述，每一次的與自己對話都是為了將來有好故事可以說</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧滚动图片 -->
+    <div class="right-box" #scrollContainer>
+      <div class="scroll-page page1"><img src="imgs/report.svg" /></div>
+      <div class="scroll-page page2"><img src="imgs/report.svg" /></div>
+      <div class="scroll-page page3"><img src="imgs/report.svg" /></div>
+    </div>
+  </div>
+</div>
+
+<!-- 第三區塊 註冊畫面-->
+<div class="block block3">
+  <h1>註冊帳號</h1>
+  <div class="btn-box">
+    <button routerLink="/register">註冊</button>
+    <button routerLink="/login">登入</button>
+  </div>
+</div>
+
+<!-- 第四區塊 Q&A畫面-->
+<div class="block block4">
+  <div class="qa-box">
+    <p-accordion [value]="0">
+      @for (tab of tabs; track $index; let i = $index;) {
+      <p-accordion-panel [value]="tab.value">
+        <p-accordion-header>
+          <h2>問題{{i+1}}:{{ tab.title }}</h2>
+        </p-accordion-header>
+        <p-accordion-content>
+          <h3>{{ tab.content }}</h3>
+        </p-accordion-content>
+      </p-accordion-panel>
+      }
+    </p-accordion>
+  </div>
+</div>

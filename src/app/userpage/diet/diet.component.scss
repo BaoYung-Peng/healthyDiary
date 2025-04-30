@@ -1,0 +1,31 @@
+.container {
+  height: 100vh;
+}
+
+.title {
+  text-align: center;
+
+  margin: 10px auto;
+}
+
+.main-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.table-box, .selection-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.type-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-box {
+  margin: 10px;
+}

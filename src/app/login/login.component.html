@@ -1,0 +1,61 @@
+<div class="door-container">
+  <!-- 左右門 -->
+  <div #leftDoor class="door left-door"></div>
+  <div #rightDoor class="door right-door"></div>
+
+  <!-- 光效元素 -->
+  <div #lightLine class="light-line"></div>
+  <div #lightBeam class="light-beam"></div>
+  <div #lightFlash class="light-flash"></div>
+  <div #lightExpansion class="light-expansion"></div>
+</div>
+
+<!-- 主要內容 -->
+<div #contentScene class="content-scene">
+  <!-- 你的登入表單或其他內容 -->
+  <!-- 動畫容器 -->
+  <div #animationContainer class="animation-container">
+    <!-- content-section（登入介面層） -->
+    <div class="scroll-container">
+      <div class="content-section">
+        <!-- login-box（登入框） -->
+        <div class="login-box">
+          <!-- 帳號輸入 -->
+          <p-floatlabel variant="on">
+            <input pInputText
+            [style.height]="'3.9vh'"
+            [style.width]="'12.85vw'"
+            [style.font-size]="'20px'"
+            id="email"
+            [(ngModel)]="email"
+            class="ng-dirty ng-invalid" />
+            <label for="account">帳號</label>
+          </p-floatlabel>
+
+            <!-- 密碼輸入 -->
+            <p-floatLabel variant="on" class="input">
+              <p-password
+                [style.font-size]="'20px'"
+                [(ngModel)]="password"
+                name="password"
+                inputId="password"
+                [toggleMask]="true"
+                [feedback]="true"
+                promptLabel="請輸入密碼"
+                required />
+              <label for="password">密碼</label>
+            </p-floatLabel>
+
+            <div class="button-group">
+              <button (click)="submit()" class="btn">登入</button>
+              <button type="button" class="btn" routerLink="/home">取消</button>
+            </div>
+
+          <!-- 底部連結 -->
+          <div class="footer-links">
+            <p><a routerLink="/FGP">忘記密碼</a></p>
+            <p><a routerLink="/register">註冊</a></p>
+          </div>
+        </div>
+      </div>
+    </div>

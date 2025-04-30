@@ -1,0 +1,241 @@
+.progress-container {
+  width: 80%;
+  margin: 0 550px 40px 0;
+}
+
+.step-indicator {
+  display: flex;
+  text-align: center;
+  margin: 20px auto 40px 550px;
+  font-weight: bold;
+  font-size:20px;
+  color: var(--progressbar-color);
+}
+
+/* 保留你原有的進度條樣式 */
+:host ::ng-deep .p-progressbar .p-progressbar-value {
+  background-color: var(--progressbar-color) !important;
+  height: 10px;
+}
+
+:host ::ng-deep .p-progressbar {
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 100vh;
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
+  padding: 40px;
+  background: #F2EEE5;
+}
+
+.card-area {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  margin: 40px auto 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+  margin-top: auto;
+}
+
+.card {
+  width: 30vw;
+  height: 70vh;
+  position: absolute;
+  border: 1px solid #F0E4D4;
+  background-color: #F0E4D4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+  transition: transform 0.8s ease, z-index 0.3s;
+  box-shadow: 10px 10px 30px 5px rgba(0, 0, 0, 0.2);
+  transform-style: preserve-3d;
+}
+
+// 調整後的三角錐位置
+.left {
+  transform: translateX(690px) translateY(-60px) rotateY(35deg) scale(0.88);
+  z-index: 1;
+}
+
+.center {
+  transform: translateX(130px) rotateY(0deg) scale(1.05);
+  z-index: 3;
+}
+
+.right {
+  transform: translateX(-400px) translateY(-70px) rotateY(-20deg) scale(0.9);
+  z-index: 2;
+}
+
+//返回按鈕
+.back-htn {
+  position: absolute;
+  bottom: 20px;
+  left: 20%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 20px;
+  background-color: #E1B4D3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+//返回按鈕動畫
+.back-htn:hover {
+  background-color: #CB8A90;
+}
+
+//下一步按鈕
+.action-button {
+  position: absolute;
+  bottom: 20px;
+  left: 80%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 20px;
+  background-color: #E1B4D3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #CB8A90;
+}
+
+input {
+  font-size: 25px;
+  width: 12.85vw;
+  height: 4vh
+}
+
+/* 在組件的 CSS 檔案中添加 */
+::ng-deep .p-password .p-inputtext {
+  width: 13vw !important;
+  height: 4.5vh !important;
+  font-size: 30px !important;
+}
+
+.basic1 {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100px;
+  height: 500px;
+  font-size: 25px;
+  margin: 80px 380px auto auto;
+  justify-content: space-evenly;
+}
+
+//男女性別框架
+.radio-group {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  width: 15vw;
+  font-size: 25px;
+}
+
+li {
+  font-size: 18px;
+}
+
+.card2 {
+  width: 30vw;
+  height: 70vh;
+  position: absolute;
+  border: 1px solid #F0E4D4;
+  background-color: #F0E4D4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+  transition: transform 0.8s ease, z-index 0.3s;
+  box-shadow: 10px 10px 30px 5px rgba(0, 0, 0, 0.2);
+  transform-style: preserve-3d;
+}
+
+.basic2 {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100px;
+  height: 500px;
+  font-size: 25px;
+  margin: 80px 345px auto auto;
+}
+
+.basic3 {
+  font-size: 25px;
+}
+
+/* 調整每個選項的上下間距 */
+.field-checkbox {
+  margin-top: 12px;
+  /* 上間距 */
+  margin-bottom: 12px;
+  /* 下間距 */
+  padding: 8px 0;
+  /* 內間距 (上下) */
+}
+
+.custom-select{
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  margin:20px 15px auto 0px;
+}
+
+/* 調整 select 框本身的樣式 */
+.select-box {
+  font-size: 25px; /* 調整字體大小 */
+  padding: 8px 12px; /* 調整內邊距 */
+  height: 46px; /* 調整高度 */
+  width: 275px; /* 調整寬度 */
+  border: 1px solid #ccc; /* 邊框 */
+  border-radius: 4px; /* 圓角 */
+  background-color: white;
+}
+
+/* 調整下拉選單的樣式 (部分瀏覽器支援有限) */
+.select-box option {
+  font-size: 14px; /* 選項字體大小 */
+  padding: 8px 12px; /* 選項內邊距 */
+  height: 30px; /* 選項高度 (部分瀏覽器可能不支援) */
+}
+
+/* 針對 Firefox 的額外調整 */
+@-moz-document url-prefix() {
+  .select-box {
+    padding: 6px 12px; /* Firefox 的 padding 表現略有不同 */
+  }
+}
