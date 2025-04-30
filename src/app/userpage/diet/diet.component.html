@@ -13,14 +13,27 @@
     <div class="selection-box">
       <div class="type-box">
         <div class="input-box">
-          <p-selectbutton [options]="methods" [(ngModel)]="method" optionLabel="label" optionValue="value" />
+          <p-selectbutton [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value" />
         </div>
         <div class="input-box">
-          <p-selectbutton [options]="types" [(ngModel)]="type" optionLabel="label" optionValue="value" />
+          <p-selectbutton [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value" />
         </div>
       </div>
-      <input type="text" [(ngModel)]="mealName">
-      <button (click)="addMeal()">新增</button>
+      <p-floatlabel variant="in">
+        <input pInputText id="in_label" [(ngModel)]="searchedName" autocomplete="off" />
+        <label for="in_label">食物名稱</label>
+      </p-floatlabel>
+      <p-button (click)="searchFood()" label="查詢" icon="pi pi-check" iconPos="right" />
+      <div class="showDBfood-box">
+        <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          alt="Avatar image" />
+        <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+          alt="Avatar image" />
+        <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"
+          alt="Avatar image" />
+        <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png"
+          alt="Avatar image" [removable]="true" />
+      </div>
     </div>
   </div>
 

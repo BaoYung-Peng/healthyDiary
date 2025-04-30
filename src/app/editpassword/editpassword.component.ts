@@ -60,7 +60,7 @@ export class EditpasswordComponent {
       password: this.password
     }
 
-    this.httpservice.editpassword(editData).subscribe({
+    this.httpservice.editpasswordApi(editData).subscribe({
       next: (res) => {
         this.visible.set(true); // 顯示成功訊息
         setTimeout(() => {

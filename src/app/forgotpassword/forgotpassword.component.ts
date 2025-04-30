@@ -43,7 +43,7 @@ export class ForgotpasswordComponent {
       email: this.email,
     }
 
-    this.httpservice.forgotpassword(submitData).subscribe({
+    this.httpservice.forgotpasswordApi(submitData).subscribe({
     next: (res: any) => {
       console.log(res);
       if (res.code === 400) {

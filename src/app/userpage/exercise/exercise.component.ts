@@ -233,7 +233,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     }
     console.log(exerciseData);
 
-    this.httpservice.fillInExercise(exerciseData).subscribe((res: any) => {
+    this.httpservice.fillInExerciseApi(exerciseData).subscribe((res: any) => {
       console.log(res);
       this.router.navigate(['/userpage']); // 明確指定路徑
     });

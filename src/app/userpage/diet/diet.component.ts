@@ -1,9 +1,13 @@
+import { HttpService } from './../../@services/http.service';
 import { GptService } from './../../@services/gpt.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ButtonModule } from 'primeng/button';
+import { Chip } from 'primeng/chip';
+import { FloatLabelModule } from "primeng/floatlabel"
+import { InputTextModule } from 'primeng/inputtext';
 
 interface Dietfrom {
   email: string;
@@ -22,7 +26,10 @@ interface Items {
     FormsModule,
 
     SelectButtonModule,
-    ButtonModule
+    ButtonModule,
+    Chip,
+    FloatLabelModule,
+    InputTextModule
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'
@@ -30,13 +37,14 @@ interface Items {
 export class DietComponent implements OnInit {
   foodInfo!: any;
   user!: string;
+  // 使用者吃哪些食物的表單(包含email、mealsName、mealsName)
   dietForm!: Dietfrom;
   mealName: string = '';
+  // 查詢的食物名稱
+  searchedName: string = '';
+  searchedType: string = '';
+  searchedMethod: string = '';
   response = '';
-
-  // 所選擇的方法
-  method!: string;
-  type!: string;
 
   methods: Items[] = [
     { label: '煮', value: 'cook' },
@@ -58,8 +66,9 @@ export class DietComponent implements OnInit {
   ];
 
   constructor(
-    private gptService: GptService
-  ){}
+    private gptService: GptService,
+    private http: HttpService
+  ) { }
   ngOnInit(): void {
 
     this.user = localStorage.getItem('userEmail') ?? '';
@@ -68,6 +77,25 @@ export class DietComponent implements OnInit {
       email: this.user,
       mealsName: []
     }
+  }
+
+  searchFood() {
+    const req = {
+      foodName: this.searchedName,
+      type: this.searchedType,
+      cookingMethod: this.searchedMethod
+    }
+    console.log(req);
+
+
+    this.http.saerchedFoodApi(req).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log('API回應', err);
+      }
+    })
   }
 
   addMeal() {
