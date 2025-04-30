@@ -1,1 +1,75 @@
-<p>exercise works!</p>
+<div class="cards-container">
+  @for (item of cards; track item) {
+    <div class="card"
+         [class.selected]="item === selectedCard"
+         (click)="selectCard(item)"
+         [style.background-image]="'url(' + item.backgroundImage + ')'">
+      <div class="card-title">{{ item.title }}</div>
+      <div class="card-description">
+        <p>{{ item.description }}</p>
+        <p>{{ item.note }}</p>
+      </div>
+    </div>
+  }
+</div>
+
+  <!-- <div class="main"> -->
+    <section class="content">
+      <div class="carousel">
+        <button (click)="prevImage()">⬅️</button>
+
+        <div class="carousel-item">
+          <img [src]="images[currentImage]" alt="圖片" />
+        </div>
+
+        <button (click)="nextImage()">➡️</button>
+      </div>
+
+      <div class="bottom-section">
+        <div class="clock-container">
+          <div class="clock-face">
+            <div class="clock-highlight" #highlightDiv></div>
+            <!-- 時鐘數字 -->
+            <div class="clock-numbers">
+              @for (number of numbers; track number.value) {
+              <div class="number" [style.transform]="'rotate(' + number.angle + 'deg) translate(0, -130px)'">
+                {{ number.value }}
+              </div>
+              }
+            </div>
+            <!-- highlight 遮罩 -->
+            <div class="clock-highlight" #highlightDiv></div>
+
+            <!-- 時鐘指針 -->
+            <div class="hand hour-hand" [ngStyle]="{'transform': 'rotate(' + hourDeg + 'deg)'}"></div>
+            <div class="hand minute-hand" [ngStyle]="{'transform': 'rotate(' + minuteDeg + 'deg)'}"></div>
+            <div class="hand second-hand" [ngStyle]="{'transform': 'rotate(' + secondDeg + 'deg)'}"></div>
+
+            <!-- 時鐘中心點 -->
+            <div class="clock-center"></div>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="info-item">
+            顯示選擇的運動名稱
+            <input type="text" [(ngModel)]="exercise_name" placeholder="輸入運動名稱">
+
+            選擇運動多久
+            <input type="number" [(ngModel)]="minutesInput" (ngModelChange)="onMinutesChange($event)"
+              (change)="setStartMinutes()" placeholder="輸入分鐘數">
+            <button>設定時間</button>
+            <div *ngIf="isTimeSet" class="time-display">
+              <p>運動將於 {{ endTime }} 結束</p>
+              <p>持續時間：{{ duration }} 分鐘</p>
+            </div>
+
+            請選擇日期
+            <input type="date" [min]="minDate" [max]="maxDate" [(ngModel)]="date">
+            <!-- <p-datepicker [(ngModel)]="date" dateFormat="yy.mm.dd" /> -->
+          </div>
+          <button class="btn" (click)="confirm()">確認</button>
+        </div>
+      </div>
+    </section>
+  <!-- </div> -->

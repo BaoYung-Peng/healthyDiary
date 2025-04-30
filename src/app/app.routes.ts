@@ -11,6 +11,9 @@ import { VerifyComponent } from './verify/verify.component';
 import { DietComponent } from './userpage/diet/diet.component';
 import { ExerciseComponent } from './userpage/exercise/exercise.component';
 import { SleepComponent } from './userpage/sleep/sleep.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { EditpasswordComponent } from './editpassword/editpassword.component';
+import { EditVerifyComponent } from './edit-verify/edit-verify.component';
 
 
 
@@ -22,6 +25,16 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotpasswordComponent
+  },
+  { path: 'editpassword',
+    component: EditpasswordComponent
+  },
+  { path: 'editconfirm',
+    component: EditVerifyComponent
   },
   {
     path: 'register',

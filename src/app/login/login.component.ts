@@ -8,6 +8,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PasswordModule } from 'primeng/password';
 import { HttpService } from '../@services/http.service';
+import { LocalstorageService } from '../@services/localstorage.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,12 @@ export class LoginComponent implements AfterViewInit {
   value!: string;
   passwordError: string = '';
 
-  constructor(private renderer: Renderer2, private router: Router, private httpservice: HttpService) { }
+  constructor(
+    private renderer: Renderer2,
+    private router: Router,
+    private httpservice: HttpService,
+    private localstorageService:LocalstorageService
+    ) { }
 
   ngOnInit() {
     // gsap.registerPlugin(ScrollTrigger);
@@ -193,7 +199,13 @@ export class LoginComponent implements AfterViewInit {
     // }
     console.log(submitData);
     this.httpservice.loginApi(submitData).subscribe((res: any) => {
+
+      if(res.code == 200){
+        this.localstorageService.setItem('userEmail',submitData.email);
+        this.router.navigateByUrl('/userpage')
+      }
       console.log(res);
     });
+
   }
 }

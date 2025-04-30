@@ -28,7 +28,7 @@
             [style.font-size]="'20px'"
             id="email"
             [(ngModel)]="email"
-            class="ng-dirty ng-invalid" />
+            />
             <label for="account">帳號</label>
           </p-floatlabel>
 
@@ -39,8 +39,8 @@
                 [(ngModel)]="password"
                 name="password"
                 inputId="password"
+                [feedback]="false"
                 [toggleMask]="true"
-                [feedback]="true"
                 promptLabel="請輸入密碼"
                 required />
               <label for="password">密碼</label>
@@ -53,7 +53,7 @@
 
           <!-- 底部連結 -->
           <div class="footer-links">
-            <p><a routerLink="/FGP">忘記密碼</a></p>
+            <p><a routerLink="/forgotpassword">忘記密碼</a></p>
             <p><a routerLink="/register">註冊</a></p>
           </div>
         </div>

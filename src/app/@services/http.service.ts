@@ -10,19 +10,31 @@ export class HttpService {
 
   // 登入
   loginApi(postData: any) {
-    const url = "http://172.16.1.45:8080/daily/login";
+    const url = "http://172.16.0.200:8080/daily/login";
     return this.httpClient.post(url, postData);
+  }
+
+  //忘記密碼
+  forgotpassword(postData:any) {
+    const url = "http://172.16.0.200:8080/daily/send_reset_password";
+    return this.httpClient.post(url, postData);
+  }
+
+  //修改密碼
+  editpassword(postData:any) {
+  const url = "http://172.16.0.200:8080/daily/reset_password";
+  return this.httpClient.post(url, postData);
   }
 
   // 註冊
   registerApi(postData: any) {
-    const url = "http://172.16.1.45:8080/daily/register";
+    const url = "http://172.16.0.200:8080/daily/register";
     return this.httpClient.post(url, postData);
   }
 
   // 註冊認證
   verifyApi(postData: any) {
-    const url = "http://172.16.1.45:8080/daily/verify";
+    const url = "http://172.16.0.200:8080/daily/verify";
     return this.httpClient.post(url, postData);
   }
 
@@ -47,6 +59,12 @@ export class HttpService {
   //取的食物營養資訊
   getFoodInfo(postData: any) {
     const url = "http://172.16.1.106:8080/food/selectFood";
+    return this.httpClient.post(url, postData);
+  }
+
+  //輸入運動資訊
+  fillInExercise(postData: any){
+    const url = "http://172.16.0.200:8080/exercise/fill_in_exercise";
     return this.httpClient.post(url, postData);
   }
 }

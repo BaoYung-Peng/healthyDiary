@@ -1,1 +1,97 @@
 <router-outlet></router-outlet>
+<div class="page-container">
+  <header>
+    <div class="toolbar">
+      Toolbar
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="main">
+      <div class="leftbox">
+        hello
+      </div>
+      <div class="rightbox">
+        hello
+      </div>
+    </div>
+
+    <div class="midcontent">
+
+    </div>
+
+    <div class="schedule">
+      <div class="content">
+        每日任務
+      </div>
+      <div class="schedule-wrapper">
+        <button class="scroll-button left" (click)="scrollLeft()"></button>
+
+        <div class="schedule-container">
+          @for (day of scheduleDays(); track day.date) {
+          <div class="day-card" [class.today]="isToday(day.date)">
+            <div class="day-header">
+              <div class="day-of-week">{{day.dayOfWeek}}</div>
+              <div class="day-of-month">{{day.dayOfMonth}}</div>
+            </div>
+
+            <div class="activities">
+              @for (activity of day.activities; track activity.time) {
+              <div class="activity" [ngClass]="'type-' + activity.type">
+                <button class="complete-btn" (click)="completeActivity(activity)"
+                  [class.completed]="activity.completed">
+                  {{activity.completed ? '✓' : ''}}
+                </button>
+                {{getActivityIcon(activity.type)}}
+                <div class="activity-time">{{activity.time}}</div>
+                <div class="activity-title">{{activity.title}}</div>
+              </div>
+              } @empty {
+              <div class="no-activities">無安排</div>
+              }
+            </div>
+          </div>
+          }
+        </div>
+
+        <button class="scroll-button right" (click)="scrollRight()">
+          >
+        </button>
+      </div>
+    </div>
+
+    <div class="Exp-cotainer">
+      <div class="xp-container">
+        <h3>每日進度</h3>
+        <p-progressBar [value]="dailyProgress" [showValue]="false" styleClass="xp-bar"
+          [style]="{'height': '20px', 'margin-bottom': '10px'}">
+        </p-progressBar>
+        <div class="xp-details">
+          <span>今日完成: {{completedTasksToday}}/{{totalTasksToday}}</span>
+          <span>Lv. {{currentLevel}}</span>
+        </div>
+
+        <h3>每周進度</h3>
+        <p-progressBar [value]="weeklyProgress" [showValue]="false" styleClass="xp-bar weekly"
+          [style]="{'height': '25px'}">
+        </p-progressBar>
+        <div class="xp-details">
+          <span>本周完成: {{completedTasksThisWeek}}/{{totalTasksThisWeek}}</span>
+          <span>{{weeklyProgress}}%</span>
+        </div>
+      </div>
+      <div class="xp-details">
+        <span>今日完成: {{completedTasksToday}}/{{totalTasksToday}}</span>
+        <span>Lv. {{currentLevel}}（{{totalXp}} / {{xpToNextLevel}} XP）</span>
+      </div>
+    </div>
+    <div class="statics">
+
+      555
+      </div>
+
+
+    <footer class="footer">
+      這是頁尾
+    </footer>
+  </div>
