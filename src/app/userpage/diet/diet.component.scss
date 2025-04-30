@@ -29,3 +29,8 @@
 .input-box {
   margin: 10px;
 }
+
+.showDBfood-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

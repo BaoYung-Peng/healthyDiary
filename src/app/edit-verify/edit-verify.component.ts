@@ -30,7 +30,7 @@ export class EditVerifyComponent {
       token: this.token,
     }
 
-    this.http.verifyApi(req).subscribe({
+    this.http.resetPwdApi(req).subscribe({
       next: (res: any) => {
         console.log("API回應", res);
         this.loading = false;

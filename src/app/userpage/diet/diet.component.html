@@ -3,6 +3,7 @@
   <div class="main-box">
     <div class="table-box">
       <h2>{{user}}，你吃了</h2>
+      <p>{{response}}</p>
       @for(item of dietForm.mealsName; track $index; let i = $index){
       <div style="display: flex;">
         <p>{{item}}</p>
@@ -23,16 +24,10 @@
         <input pInputText id="in_label" [(ngModel)]="searchedName" autocomplete="off" />
         <label for="in_label">食物名稱</label>
       </p-floatlabel>
+      <button (click)="sendMessage()">AI回復</button>
       <p-button (click)="searchFood()" label="查詢" icon="pi pi-check" iconPos="right" />
       <div class="showDBfood-box">
-        <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-          alt="Avatar image" />
-        <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
-          alt="Avatar image" />
-        <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"
-          alt="Avatar image" />
-        <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png"
-          alt="Avatar image" [removable]="true" />
+        <app-foodtable></app-foodtable>
       </div>
     </div>
   </div>

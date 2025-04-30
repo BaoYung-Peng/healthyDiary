@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { Chip } from 'primeng/chip';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
+import { FoodtableComponent } from '../../components/foodtable/foodtable.component';
 
 interface Dietfrom {
   email: string;
@@ -24,6 +25,8 @@ interface Items {
   selector: 'app-diet',
   imports: [
     FormsModule,
+
+    FoodtableComponent,
 
     SelectButtonModule,
     ButtonModule,
@@ -109,8 +112,8 @@ export class DietComponent implements OnInit {
   }
 
   sendMessage() {
-    const userInput = `你是一位健康營養師，我會跟你說我得BMI、性別和工作型態(輕度、中度、重度)、今天吃的食物及份量
-    ，要用繁體中文和我說明今天吃的是否達標，並給我一點建議或鼓勵`;
+    const userInput = `你是一位健康營養師，我的BMI是20、性別男性和工作型態輕度、今天中午吃了一個雞腿便當和一杯紅茶
+    ，和我說明今天吃的是否達標，並給我一點建議或鼓勵，用繁體中文回答，自述在70字以內`;
     if (!userInput.trim()) return;
     this.response = 'Loading...';
     this.gptService.sendMessage(userInput).subscribe({

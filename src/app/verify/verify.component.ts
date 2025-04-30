@@ -29,7 +29,7 @@ export class VerifyComponent {
       token: this.token,
     }
 
-    this.http.verifyApi(req).subscribe({
+    this.http.verifyRegApi(req).subscribe({
       next: (res: any) => {
         console.log("API回應", res);
         this.loading = false;

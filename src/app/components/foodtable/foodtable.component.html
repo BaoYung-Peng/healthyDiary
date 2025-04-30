@@ -1,0 +1,55 @@
+<div class="card">
+  <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
+    <ng-template pTemplate="list" let-items>
+      <div class="grid grid-cols-12 gap-4 grid-nogutter">
+        <div class="col-span-12" *ngFor="let item of items; let first = first">
+          <div
+            class="item-container"
+            [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
+          >
+            <div class="image-container">
+              <img
+                class="product-image"
+                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image"
+                [alt]="item.name"
+              />
+              <p-tag
+                [value]="item.inventoryStatus"
+                class="absolute"
+                styleClass="dark:!bg-surface-900"
+                [style.left.px]="4"
+                [style.top.px]="4"
+              ></p-tag>
+            </div>
+            <div class="info-container">
+              <div class="info-header">
+                <div>
+                  <span class="product-category">{{ item.category }}</span>
+                  <div class="product-name">{{ item.name }}</div>
+                </div>
+                <div class="rating-container">
+                  <div class="rating">
+                    <span class="rating-value">{{ item.rating }}</span>
+                    <i class="pi pi-star-fill text-yellow-500"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="price-container">
+                <span class="product-price">{{ '$' + item.price }}</span>
+                <div class="actions">
+                  <p-button icon="pi pi-heart" [outlined]="true"></p-button>
+                  <p-button
+                    icon="pi pi-shopping-cart"
+                    class="buy-button"
+                    label="Buy Now"
+                    [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"
+                  ></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataview>
+</div>

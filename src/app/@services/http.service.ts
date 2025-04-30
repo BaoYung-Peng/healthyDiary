@@ -23,8 +23,32 @@ export class HttpService {
   }
 
   // 註冊認證
-  verifyApi(postData: any) {
+  verifyRegApi(postData: any) {
     const url = `http://${this.IP}:8080/daily/verify`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 忘記密碼
+  forgotpasswordApi(postData: any) {
+    const url = `http://${this.IP}:8080/daily/send_reset_password`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 重設密碼寄驗證信(傳email)
+  sendVerifyPwdApi(postData: any) {
+    const url = `http://${this.IP}:8080/daily/send_reset_password`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 重設密碼()
+  resetPwdApi(postData: any) {
+    const url = `http://${this.IP}:8080/daily/reset_password`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 變更密碼
+  editpasswordApi(postData: any) {
+    const url = `http://${this.IP}:8080/daily/editpassword`;
     return this.httpClient.post(url, postData);
   }
 
@@ -60,20 +84,10 @@ export class HttpService {
 
   // 紀錄運動
   fillInExerciseApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/fillInExercise`;
+    const url = `http://${this.IP}:8080/daily/insert_sports`;
     return this.httpClient.post(url, postData);
   }
 
-  // 忘記密碼
-  forgotpasswordApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/forgetpassword`;
-    return this.httpClient.post(url, postData);
-  }
 
-  // 變更密碼
-  editpasswordApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/editpassword`;
-    return this.httpClient.post(url, postData);
-  }
 
 }
