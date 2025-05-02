@@ -2,5 +2,48 @@ h2 {
   text-align: center;
 }
 
-.calulator {
+textarea {
+  resize: none;
 }
+
+p-button {
+  margin-right: 10px;
+}
+
+td {
+  text-align: center;
+}
+
+.result-table {
+  height: 30vh;
+  width: 100%;
+  background-color: rgb(209, 245, 168);
+  padding: 2rem;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-areas:
+    "data-table input-box"
+    "data-table btn-box";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
+
+
+  p {
+    margin: 10px 0;
+  }
+}
+
+.data-table{
+  grid-area: data-table;
+}
+
+.input-box{
+  grid-area: input-box;
+}
+.btn-box {
+  grid-area: btn-box;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+

@@ -1,28 +1,47 @@
-
-  <div class="calulator">
-    <h2>{{totalCalorie}}</h2>
+<div class="result-table">
+  <div class="data-table">
+    <p>總卡路里: {{totalCalorie}}</p>
+    <p>總膽固醇: {{totalCholesterol}}</p>
+    <p>總蛋白質: {{totalProtein}}</p>
+    <p>總脂肪: {{totalFat}}</p>
+    <p>總碳水化合物: {{totalCarbohydrate}}</p>
   </div>
-  <div class="card">
-    <p-table [value]="selectedFoods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }">
-      <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
-
-      <ng-template #header>
-        <tr>
-          <th style="width:20%">圖片</th>
-          <th style="width:20%">名稱</th>
-          <th style="width:20%"></th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-item>
-        <tr>
-          <td></td>
-          <td>{{item.foodName}}</td>
-          <td>{{item.calorie}}</td>
-          <td>
-            <!-- <p-button label="選擇" icon="pi pi-plus" (click)="add(item)" /> -->
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+  <div class="input-box">
+    <textarea rows="5" cols="30" pTextarea [(ngModel)]="detail" placeholder="對這次飲食的補充說明"></textarea>
   </div>
-
+  <div class="btn-box">
+    <p-button class="save-btn" icon="pi pi-save" (click)="save()" />
+  </div>
+</div>
+<div class="calulator">
+</div>
+<div class="card">
+  <p-table [value]="selectedFoods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '100%' }">
+    <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
+    <ng-template #header>
+      <tr>
+        <th>名稱</th>
+        <th>卡路里</th>
+        <th>蛋白質</th>
+        <th>總脂肪</th>
+        <th>碳水化合物</th>
+        <th>份數</th>
+        <th style="width: 30%;"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-item let-i="rowIndex">
+      <tr>
+        <td>{{item.foodName}}</td>
+        <td>{{item.calorie}}</td>
+        <td>{{item.protein}}</td>
+        <td>{{item.totalFat}}</td>
+        <td>{{item.totalCarbohydrate}}</td>
+        <td>{{item.serve}}</td>
+        <td>
+          <p-button class="op-btn" icon="pi pi-pencil" (click)="editFood(item)" />
+          <p-button class="op-btn" icon="pi pi-times" (click)="delFood(i)" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -50,9 +50,6 @@ export class DietComponent implements OnInit {
   searchedName: string = '';
   searchedType: string = '';
   searchedMethod: string = '';
-  // 和ai說明的細節
-  inputDetail: string = '';
-
 
   methods: Items[] = [
     { label: '煮', value: '煮' },

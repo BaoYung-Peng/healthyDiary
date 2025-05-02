@@ -1,5 +1,3 @@
-
-
 .container {
   height: 85vh;
 }
@@ -7,7 +5,7 @@
 .title {
   text-align: center;
 
-  margin: 10px auto;
+  margin: 10px auto 5px;
 }
 
 .main-box {
@@ -16,31 +14,9 @@
 }
 
 .left-pane, .right-pane {
-  padding: 20px;
+  padding: 0 50px;
 }
 
-
-/* 左側區域 */
-.left-pane {
-  overflow-y: auto;
-  // background-color: lightgray;
-  padding: 1rem;
+p-selectbutton, p-floatlabel {
+  margin: 15px 10px 0 0;
 }
-
-.type-box {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.input-box {
-  margin: 10px 0;
-}
-
-.right-pane {
-
-  input {
-    margin: 10px 10px 0 0;
-  }
-}
-

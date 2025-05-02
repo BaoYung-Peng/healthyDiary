@@ -3,7 +3,7 @@
   <div class="main-box">
     <div class="left-pane">
       <div class="type-box">
-        <app-food-table [detail]="inputDetail"></app-food-table>
+        <app-food-table></app-food-table>
       </div>
     </div>
 
@@ -24,11 +24,6 @@
         </p-floatlabel>
         <p-button (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
       </div>
-
-      <p-floatlabel variant="in">
-        <input pInputText id="detail" [(ngModel)]="inputDetail" autocomplete="off" />
-        <label for="detail">補充說明</label>
-      </p-floatlabel>
       <div class="showDBfood-box">
         <ng-container *ngTemplateOutlet="refTemplate"></ng-container>
       </div>
