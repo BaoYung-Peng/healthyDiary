@@ -1,5 +1,7 @@
+
+
 .container {
-  height: 100vh;
+  height: 85vh;
 }
 
 .title {
@@ -13,11 +15,16 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.table-box, .selection-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.left-pane, .right-pane {
+  padding: 20px;
+}
+
+
+/* 左側區域 */
+.left-pane {
+  overflow-y: auto;
+  // background-color: lightgray;
+  padding: 1rem;
 }
 
 .type-box {
@@ -27,10 +34,13 @@
 }
 
 .input-box {
-  margin: 10px;
+  margin: 10px 0;
 }
 
-.showDBfood-box {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.right-pane {
+
+  input {
+    margin: 10px 10px 0 0;
+  }
 }
+

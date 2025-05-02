@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP:string = '172.16.0.200';
+  IP:string = 'localhost';
 
   // 登入
   loginApi(postData: any) {
@@ -66,18 +66,18 @@ export class HttpService {
 
   //新增食物營養資訊
   addFoodInfoApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/food/foodInsert`;
+    const url = `http://${this.IP}:8080/food/foodInsert`;
     return this.httpClient.post(url, postData);
   }
 
-  //取的食物營養資訊
-  getFoodInfo(postData: any) {
-    const url = `http://${this.IP}:8080/daily/food/selectFood`;
-    return this.httpClient.post(url, postData);
+  //取的所有食物營養資訊
+  getFoodInfoApi() {
+    const url = `http://${this.IP}:8080/food/get_all_food`;
+    return this.httpClient.get(url);
   }
 
-  //新增食物營養資訊
-  saerchedFoodApi(postData: any) {
+  //查詢食物營養資訊
+  saerchFoodApi(postData: any) {
     const url = `http://${this.IP}:8080/food/search_food`;
     return this.httpClient.post(url, postData);
   }

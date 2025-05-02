@@ -1,35 +1,68 @@
 <div class="container">
   <h1 class="title">營養計算機</h1>
   <div class="main-box">
-    <div class="table-box">
-      <h2>{{user}}，你吃了</h2>
-      <p>{{response}}</p>
-      @for(item of dietForm.mealsName; track $index; let i = $index){
-      <div style="display: flex;">
-        <p>{{item}}</p>
-        <button (click)="delMeal(i)">刪除</button>
-      </div>
-      }
-    </div>
-    <div class="selection-box">
+    <div class="left-pane">
       <div class="type-box">
-        <div class="input-box">
-          <p-selectbutton [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value" />
-        </div>
-        <div class="input-box">
-          <p-selectbutton [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value" />
-        </div>
+        <app-food-table [detail]="inputDetail"></app-food-table>
       </div>
+    </div>
+
+    <div class="right-pane">
+      <div class="input-box">
+        <p-selectbutton [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value"
+          (click)="searchFood()" />
+      </div>
+      <div class="input-box">
+        <p-selectbutton [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value"
+          (click)="searchFood()" />
+      </div>
+
+      <div style="display: flex; align-items: center;">
+        <p-floatlabel variant="in">
+          <input pInputText id="foodName" [(ngModel)]="searchedName" autocomplete="off" />
+          <label for="foodName">食物名稱</label>
+        </p-floatlabel>
+        <p-button (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
+      </div>
+
       <p-floatlabel variant="in">
-        <input pInputText id="in_label" [(ngModel)]="searchedName" autocomplete="off" />
-        <label for="in_label">食物名稱</label>
+        <input pInputText id="detail" [(ngModel)]="inputDetail" autocomplete="off" />
+        <label for="detail">補充說明</label>
       </p-floatlabel>
-      <button (click)="sendMessage()">AI回復</button>
-      <p-button (click)="searchFood()" label="查詢" icon="pi pi-check" iconPos="right" />
       <div class="showDBfood-box">
-        <app-foodtable></app-foodtable>
+        <ng-container *ngTemplateOutlet="refTemplate"></ng-container>
       </div>
     </div>
   </div>
-
 </div>
+
+
+<!-- 搜尋結果顯示 -->
+<ng-template #refTemplate>
+  <div class="card">
+    <p-table [value]="foods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }">
+      <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
+
+      <ng-template #header>
+        <tr>
+          <th style="width:20%">圖片</th>
+          <th style="width:20%">名稱</th>
+          <th style="width:20%">類型</th>
+          <th style="width:20%">烹調方式</th>
+          <th style="width:20%"></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td></td>
+          <td>{{item.foodName}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.cookingMethod}}</td>
+          <td>
+            <p-button label="選擇" icon="pi pi-plus" (click)="add(item)" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>

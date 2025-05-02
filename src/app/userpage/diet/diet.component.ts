@@ -1,19 +1,17 @@
-import { HttpService } from './../../@services/http.service';
-import { GptService } from './../../@services/gpt.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+import { HttpService } from '../../@services/http.service';
+import { FoodTableComponent } from '../../components/food-table/food-table.component';
+
 
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ButtonModule } from 'primeng/button';
-import { Chip } from 'primeng/chip';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
-import { FoodtableComponent } from '../../components/foodtable/foodtable.component';
+import { TableModule } from 'primeng/table';
 
-interface Dietfrom {
-  email: string;
-  mealsName: string[];
-}
 
 interface Items {
   icon?: string;
@@ -21,66 +19,74 @@ interface Items {
   value: string;
 }
 
+interface Food {
+  name: string;
+  type: string;
+}
+
 @Component({
   selector: 'app-diet',
   imports: [
     FormsModule,
+    CommonModule,
 
-    FoodtableComponent,
+    FoodTableComponent,
 
+    FloatLabelModule,
+    InputTextModule,
     SelectButtonModule,
     ButtonModule,
-    Chip,
-    FloatLabelModule,
-    InputTextModule
+    TableModule
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'
 })
 export class DietComponent implements OnInit {
-  foodInfo!: any;
-  user!: string;
-  // 使用者吃哪些食物的表單(包含email、mealsName、mealsName)
-  dietForm!: Dietfrom;
-  mealName: string = '';
+  // 用來呼叫子組件方法或變數
+  @ViewChild(FoodTableComponent)
+  foodTableComponent!: FoodTableComponent;
+
   // 查詢的食物名稱
   searchedName: string = '';
   searchedType: string = '';
   searchedMethod: string = '';
-  response = '';
+  // 和ai說明的細節
+  inputDetail: string = '';
+
 
   methods: Items[] = [
-    { label: '煮', value: 'cook' },
-    { label: '炸', value: 'fry' },
-    { label: '烤', value: 'roast' },
-    { label: '蒸', value: 'Steam' },
-    { label: '原型食物', value: 'other' }
+    { label: '煮', value: '煮' },
+    { label: '炸', value: '炸' },
+    { label: '烤', value: '烤' },
+    { label: '蒸', value: '蒸' },
+    { label: '原型食物', value: '原型食物' }
   ];
 
   types: Items[] = [
-    { label: '五穀根莖', value: 'grains' },
-    { label: '蛋豆魚肉', value: 'meat' },
-    { label: '乳品', value: 'milk' },
-    { label: '蔬菜', value: 'vegetables' },
-    { label: '水果', value: 'fruits' },
-    { label: '油脂與堅果種子類', value: 'nuts' },
-    { label: '外食', value: 'other' },
+    { label: '五穀根莖', value: '五穀根莖' },
+    { label: '蛋豆魚肉', value: '蛋豆魚肉' },
+    { label: '乳品', value: '乳品' },
+    { label: '蔬菜', value: '蔬菜' },
+    { label: '水果', value: '水果' },
+    { label: '油脂與堅果種子類', value: '油脂與堅果種子類' },
+    { label: '外食', value: '外食' },
 
   ];
 
+  foods!: Food[];
+  searchedFood = [];
+
   constructor(
-    private gptService: GptService,
     private http: HttpService
   ) { }
-  ngOnInit(): void {
 
-    this.user = localStorage.getItem('userEmail') ?? '';
-
-    this.dietForm = {
-      email: this.user,
-      mealsName: []
-    }
+  ngOnInit() {
+    this.http.getFoodInfoApi().subscribe((res: any) => {
+      this.foods = res.foodList;
+      console.log(this.foods);
+    })
   }
+
 
   searchFood() {
     const req = {
@@ -91,34 +97,18 @@ export class DietComponent implements OnInit {
     console.log(req);
 
 
-    this.http.saerchedFoodApi(req).subscribe({
+    this.http.saerchFoodApi(req).subscribe({
       next: (res: any) => {
-        console.log(res);
+        this.foods = res.foodList;
+        console.log('API回應', res);
       },
       error: (err) => {
-        console.log('API回應', err);
+        console.log('API錯誤', err);
       }
-    })
-  }
-
-  addMeal() {
-    this.dietForm.mealsName.push(this.mealName);
-    this.mealName = '';
-    console.log(this.dietForm);
-  }
-
-  delMeal(index: number) {
-    this.dietForm.mealsName.splice(index, 1);
-  }
-
-  sendMessage() {
-    const userInput = `你是一位健康營養師，我的BMI是20、性別男性和工作型態輕度、今天中午吃了一個雞腿便當和一杯紅茶
-    ，和我說明今天吃的是否達標，並給我一點建議或鼓勵，用繁體中文回答，自述在70字以內`;
-    if (!userInput.trim()) return;
-    this.response = 'Loading...';
-    this.gptService.sendMessage(userInput).subscribe({
-      next: res => this.response = res,
-      error: err => this.response = 'Error: ' + err.message,
     });
+  }
+
+  add(food: any) {
+    this.foodTableComponent.addFood(food);
   }
 }

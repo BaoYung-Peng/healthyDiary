@@ -1,0 +1,28 @@
+
+  <div class="calulator">
+    <h2>{{totalCalorie}}</h2>
+  </div>
+  <div class="card">
+    <p-table [value]="selectedFoods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }">
+      <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
+
+      <ng-template #header>
+        <tr>
+          <th style="width:20%">圖片</th>
+          <th style="width:20%">名稱</th>
+          <th style="width:20%"></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-item>
+        <tr>
+          <td></td>
+          <td>{{item.foodName}}</td>
+          <td>{{item.calorie}}</td>
+          <td>
+            <!-- <p-button label="選擇" icon="pi pi-plus" (click)="add(item)" /> -->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+

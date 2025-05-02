@@ -22,4 +22,10 @@ export class LayoutComponent {
     return !noHeaderRoutes.includes(this.router.url);
   }
 
+  get showFooter(): boolean {
+    // 當路徑是 home 顯示 Footer
+    const noHeaderRoutes = ['/home'];
+    return noHeaderRoutes.includes(this.router.url);
+  }
+
 }
