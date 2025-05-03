@@ -1,10 +1,12 @@
-@if(food){
-  <ng-template #header>
-  </ng-template>
-  <div class="container">
-    <div class="info-box">
-      <div class="input-box">
-        <p-inputnumber [(ngModel)]="food.serve" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal"
+@if(type){
+@switch (type) {
+@case ('food') {
+<ng-template #header>
+</ng-template>
+<div class="container">
+  <div class="info-box">
+    <div class="input-box">
+      <p-inputnumber [(ngModel)]="food.serve" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal"
         spinnerMode="horizontal" [min]="1" [max]="500" [step]="1">
         <ng-template #incrementbuttonicon>
           <span class="pi pi-plus"></span>
@@ -14,11 +16,28 @@
         </ng-template>
       </p-inputnumber>
       <span class="unit">份</span>
-      </div>
-      <div class="btn-box" style="display: flex; justify-content: center;">
-        <p-button label="取消" severity="danger" (click)="cancel()" />
-        <p-button label="儲存" severity="success" (click)="confirm()" />
-      </div>
+    </div>
+    <div class="btn-box" style="display: flex; justify-content: center;">
+      <p-button label="取消" severity="danger" (click)="cancel()" />
+      <p-button label="儲存" severity="success" (click)="confirm()" />
     </div>
   </div>
+</div>
+}
+@case ('save') {
+<ng-template #header>
+</ng-template>
+<div class="container">
+  <div class="info-box">
+    <div class="input-box">
+      <p>{{response}}</p>
+    </div>
+    <div class="btn-box" style="display: flex; justify-content: center;">
+      <p-button label="取消" severity="danger" (click)="cancel()" />
+      <p-button label="儲存" severity="success" (click)="confirm()" />
+    </div>
+  </div>
+</div>
+}
+}
 }

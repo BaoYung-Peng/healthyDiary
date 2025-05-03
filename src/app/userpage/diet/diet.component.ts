@@ -86,6 +86,9 @@ export class DietComponent implements OnInit {
 
 
   searchFood() {
+    this.searchedType = (this.searchedType == null) ? "" : this.searchedType;
+    this.searchedMethod = (this.searchedMethod == null) ? "" : this.searchedMethod;
+
     const req = {
       foodName: this.searchedName,
       type: this.searchedType,

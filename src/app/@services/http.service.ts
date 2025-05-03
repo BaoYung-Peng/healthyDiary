@@ -83,7 +83,7 @@ export class HttpService {
   }
 
   fillinMealsApi(postData: any) {
-    const url = `http://${this.IP}:8080/meals/fillin_meals`;
+    const url = `http://${this.IP}:8080/meals/fill_in_meals`;
     return this.httpClient.post(url, postData);
   }
 
