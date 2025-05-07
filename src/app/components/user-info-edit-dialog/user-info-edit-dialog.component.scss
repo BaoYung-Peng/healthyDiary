@@ -1,0 +1,22 @@
+.info-box {
+  margin: 20px auto;
+}
+
+p-button {
+  margin: 0 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.gender-btn {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  margin: 10px;
+  border-radius: 10px;
+}

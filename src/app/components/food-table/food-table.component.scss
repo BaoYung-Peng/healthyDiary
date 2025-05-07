@@ -15,7 +15,6 @@ td {
 }
 
 .result-table {
-  height: 30vh;
   width: 100%;
   background-color: rgb(209, 245, 168);
   padding: 2rem;
@@ -33,13 +32,14 @@ td {
   }
 }
 
-.data-table{
+.data-table {
   grid-area: data-table;
 }
 
-.input-box{
+.input-box {
   grid-area: input-box;
 }
+
 .btn-box {
   grid-area: btn-box;
   display: flex;
@@ -47,3 +47,7 @@ td {
   align-items: end;
 }
 
+.card {
+  height: 250px;
+  overflow-y: auto;
+}

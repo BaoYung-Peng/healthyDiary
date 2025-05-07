@@ -1,0 +1,49 @@
+@if(changeData){
+@switch (changeData) {
+@case ('pwd') {
+  <div class="container">
+    <p>修改密碼:</p>
+    <div class="info-box">
+      <p-floatlabel variant="in">
+        <input pInputText id="newPwd" pSize="small" [(ngModel)]="newPassword" autocomplete="off" />
+        <label for="newPwd">輸入新密碼</label>
+      </p-floatlabel>
+    </div>
+    <div class="info-box">
+      <p-floatlabel variant="in">
+        <input pInputText id="checkedPwd" pSize="small" [(ngModel)]="confirmPassword" autocomplete="off" />
+        <label for="checkedPwd">再次輸入新密碼</label>
+      </p-floatlabel>
+    </div>
+    <div class="btn-box" style="display: flex;">
+      <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
+      <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+    </div>
+  </div>
+}
+@case ('name') {
+  <div class="container">
+    <p>修改暱稱:</p>
+    <div class="info-box">
+      <p-floatlabel variant="in">
+        <input pInputText id="newPwd" pSize="small" [(ngModel)]="person.name" autocomplete="off" />
+        <label for="newPwd">輸入新暱稱</label>
+      </p-floatlabel>
+    </div>
+    <div class="btn-box" style="display: flex;">
+      <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
+      <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+    </div>
+  </div>
+}
+@case ('gender') {
+  <div class="container">
+    <p>修改性別:</p>
+    <div class="info-box">
+      <!-- <button class="gender-btn" (click)="confirm()">男</button>
+      <button class="gender-btn" (click)="confirm()">女</button> -->
+    </div>
+  </div>
+}
+}
+}

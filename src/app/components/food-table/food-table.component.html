@@ -1,10 +1,13 @@
 <div class="result-table">
   <div class="data-table">
     <p>總卡路里: {{totalCalorie}}</p>
-    <p>總膽固醇: {{totalCholesterol}}</p>
     <p>總蛋白質: {{totalProtein}}</p>
     <p>總脂肪: {{totalFat}}</p>
+    <p>總飽和脂肪: {{totalSaturatedFat}}</p>
+    <p>總反式脂肪: {{totalTransFat}}</p>
     <p>總碳水化合物: {{totalCarbohydrate}}</p>
+    <p>總糖: {{totalSugar}} </p>
+    <p>膳食纖維: {{totalDietaryFiber}}</p>
   </div>
   <div class="input-box">
     <textarea rows="5" cols="30" pTextarea [(ngModel)]="detail" placeholder="對這次飲食的補充說明"></textarea>
@@ -16,7 +19,7 @@
 <div class="calulator">
 </div>
 <div class="card">
-  <p-table [value]="selectedFoods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '100%' }">
+  <p-table [value]="selectedFoods" [paginator]="false" [rows]="5" [tableStyle]="{ 'min-width': '100%' }">
     <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
     <ng-template #header>
       <tr>

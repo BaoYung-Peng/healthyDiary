@@ -9,17 +9,17 @@
 
     <div class="right-pane">
       <div class="input-box">
-        <p-selectbutton [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value"
-          (click)="searchFood()" />
+        <p-selectbutton class="method-btn" size="small" [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value"
+          (click)="searchFood()"/>
       </div>
       <div class="input-box">
-        <p-selectbutton [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value"
+        <p-selectbutton class="type-btn" size="small" [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value"
           (click)="searchFood()" />
       </div>
 
       <div style="display: flex; align-items: center;">
         <p-floatlabel variant="in">
-          <input pInputText id="foodName" [(ngModel)]="searchedName" autocomplete="off" />
+          <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off"/>
           <label for="foodName">食物名稱</label>
         </p-floatlabel>
         <p-button (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />

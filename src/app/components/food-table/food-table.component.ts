@@ -41,10 +41,13 @@ export class FoodTableComponent {
   userEmail!: string;
 
   totalCalorie: number = 0;
-  totalCholesterol: number = 0;
   totalFat: number = 0;
+  totalSaturatedFat: number = 0;
+  totalTransFat: number = 0;
   totalProtein: number = 0;
   totalCarbohydrate: number = 0;
+  totalSugar: number = 0;
+  totalDietaryFiber: number = 0;
 
   // 傳給後端的資料，使用者吃哪些食物的表單(包含email、mealsName、mealsName)
   dietForm!: Dietfrom;
@@ -90,26 +93,30 @@ export class FoodTableComponent {
   }
 
   calculateNutri() {
-    this.totalCalorie = this.selectedFoods.reduce((sum, food) => {
-      return sum + ((food.calorie || 0) * (food.serve || 1));
-    }, 0);
-    this.totalCarbohydrate = this.selectedFoods.reduce((sum, food) => {
-      return sum + ((food.carbohydrate || 0) * (food.serve || 1));
-    }, 0);
-    this.totalFat = this.selectedFoods.reduce((sum, food) => {
-      return sum + ((food.totalFat || 0) * (food.serve || 1));
-    }, 0);
-    this.totalProtein = this.selectedFoods.reduce((sum, food) => {
-      return sum + ((food.protein || 0) * (food.serve || 1));
-    }, 0);
-    this.totalCholesterol = this.selectedFoods.reduce((sum, food) => {
-      return sum + ((food.cholesterol || 0) * (food.serve || 1));
-    }, 0);
+    this.totalCalorie = 0;
+    this.totalFat = 0;
+    this.totalSaturatedFat = 0;
+    this.totalTransFat = 0;
+    this.totalProtein = 0;
+    this.totalCarbohydrate = 0;
+    this.totalSugar = 0;
+
+    this.selectedFoods.forEach(food => {
+      this.totalCalorie += (food.calorie || 0) * (food.serve || 1);
+      this.totalFat += (food.totalFat || 0) * (food.serve || 1);
+      this.totalSaturatedFat += (food.saturatedFat || 0) * (food.serve || 1);
+      this.totalTransFat += (food.transFat || 0) * (food.serve || 1);
+      this.totalProtein += (food.protein || 0) * (food.serve || 1);
+      this.totalCarbohydrate += (food.carbohydrate || 0) * (food.serve || 1);
+      this.totalSugar += (food.sugar || 0) * (food.serve || 1);
+      this.totalDietaryFiber += (food.dietaryFiber || 0) * (food.serve || 1);
+    });
   }
 
   delFood(index: any) {
     this.selectedFoods.splice(index, 1);
     this.myDiet.splice(index, 1);
+    this.calculateNutri();
   }
 
   editFood(food: any) {

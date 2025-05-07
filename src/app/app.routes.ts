@@ -14,6 +14,8 @@ import { SleepComponent } from './userpage/sleep/sleep.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { EditpasswordComponent } from './editpassword/editpassword.component';
 import { EditVerifyComponent } from './edit-verify/edit-verify.component';
+import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -30,10 +32,12 @@ export const routes: Routes = [
     path: 'forgotpassword',
     component: ForgotpasswordComponent
   },
-  { path: 'editpassword',
+  {
+    path: 'editpassword',
     component: EditpasswordComponent
   },
-  { path: 'editconfirm',
+  {
+    path: 'editconfirm',
     component: EditVerifyComponent
   },
   {
@@ -49,6 +53,13 @@ export const routes: Routes = [
       { path: 'sleep', component: SleepComponent }
     ],
     canActivate: [authGuard]
+  },
+  {
+    path: 'admin', component: AdminComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profile', component: ProfileComponent
   },
   {
     path: 'confirm',
