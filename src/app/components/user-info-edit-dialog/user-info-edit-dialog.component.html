@@ -1,49 +1,123 @@
 @if(changeData){
 @switch (changeData) {
 @case ('pwd') {
-  <div class="container">
-    <p>修改密碼:</p>
-    <div class="info-box">
-      <p-floatlabel variant="in">
-        <input pInputText id="newPwd" pSize="small" [(ngModel)]="newPassword" autocomplete="off" />
-        <label for="newPwd">輸入新密碼</label>
-      </p-floatlabel>
-    </div>
-    <div class="info-box">
-      <p-floatlabel variant="in">
-        <input pInputText id="checkedPwd" pSize="small" [(ngModel)]="confirmPassword" autocomplete="off" />
-        <label for="checkedPwd">再次輸入新密碼</label>
-      </p-floatlabel>
-    </div>
-    <div class="btn-box" style="display: flex;">
-      <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
-      <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
-    </div>
+<div class="container" style="width: 50vw; height: 50vh;">
+  <p>修改密碼:</p>
+  <div class="info-box">
+    <p-floatLabel class="floatlabel" variant="on">
+      <p-password [style.font-size]="'20px'" [(ngModel)]="newPassword" name="newPassword" inputId="newPassword"
+        [toggleMask]="true" [feedback]="true" promptLabel="請輸入密碼" weakLabel="簡單" mediumLabel="適中" strongLabel="嚴謹"
+        minlength="8" #passwordInput="ngModel">
+
+        <ng-template pTemplate="header">
+          <div class="pwdstong">密碼強度</div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <ul class="pl-2 ml-2 mt-2 mb-0 text-sm leading-normal">
+            <li>至少一個小寫字母 (a-z)</li>
+            <li>至少一個大寫字母 (A-Z)</li>
+            <li>至少一個數字 (0-9)</li>
+            <li>至少 8~16 個字元</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <label for="newPassword">輸入新密碼</label>
+    </p-floatLabel>
   </div>
+  <div class="info-box">
+    <p-floatlabel variant="on">
+      <p-password [(ngModel)]="confirmPassword" inputId="confirmPassword" [feedback]="false" [toggleMask]="true"/>
+      <label for="confirmPassword">確認新密碼</label>
+    </p-floatlabel>
+
+  </div>
+  <div class="btn-box" style="display: flex;">
+    <p-button (click)="editPwd()" label="確認變更" icon="pi pi-check" iconPos="right" />
+    <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+  </div>
+</div>
 }
 @case ('name') {
-  <div class="container">
-    <p>修改暱稱:</p>
-    <div class="info-box">
-      <p-floatlabel variant="in">
-        <input pInputText id="newPwd" pSize="small" [(ngModel)]="person.name" autocomplete="off" />
-        <label for="newPwd">輸入新暱稱</label>
-      </p-floatlabel>
-    </div>
-    <div class="btn-box" style="display: flex;">
-      <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
-      <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
-    </div>
+<div class="container" style="width: 50vw; height: 50vh;">
+  <p>修改暱稱:</p>
+  <div class="info-box">
+    <p-floatlabel variant="on">
+      <input pInputText id="newPwd" pSize="small" [(ngModel)]="person.name" autocomplete="off" />
+      <label for="newPwd">輸入新暱稱</label>
+    </p-floatlabel>
   </div>
+  <div class="btn-box" style="display: flex;">
+    <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
+    <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+  </div>
+</div>
 }
-@case ('gender') {
-  <div class="container">
-    <p>修改性別:</p>
-    <div class="info-box">
-      <!-- <button class="gender-btn" (click)="confirm()">男</button>
-      <button class="gender-btn" (click)="confirm()">女</button> -->
-    </div>
+
+@case ('height') {
+<div class="container" style="width: 50vw; height: 50vh;">
+  <p>修改身高:</p>
+  <div class="info-box">
+    <p-floatlabel variant="on">
+      <p-inputnumber [(ngModel)]="person.height" inputId="height" mode="decimal" [minFractionDigits]="1"
+        [maxFractionDigits]="1" [showButtons]="true" suffix=" 公分" />
+      <label for="height">輸入身高</label>
+    </p-floatlabel>
   </div>
+  <div class="btn-box" style="display: flex;">
+    <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
+    <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+  </div>
+</div>
+}
+
+@case ('weight') {
+<div class="container" style="width: 50vw; height: 50vh;">
+  <p>修改體重:</p>
+  <div class="info-box">
+    <p-floatlabel variant="on">
+      <p-inputnumber [(ngModel)]="person.weight" inputId="weight" mode="decimal" [minFractionDigits]="1"
+        [maxFractionDigits]="1" [showButtons]="true" suffix=" 公斤" />
+      <label for="weight">輸入體重</label>
+    </p-floatlabel>
+  </div>
+  <div class="btn-box" style="display: flex;">
+    <p-button (click)="confirm()" label="確認變更" icon="pi pi-check" iconPos="right" />
+    <p-button (click)="cancel()" label="取消" icon="pi pi-times" iconPos="right" severity="danger" />
+  </div>
+</div>
+}
+
+@case ('wt') {
+<div class="container" style="width: 50vw;">
+  <p>修改工作型態:</p>
+  <div class="info-box">
+    @for(wt of wtList; track $index){
+    <button class="wt-btn" (click)="editWt(wt.value)">{{wt.label}}</button>
+    }
+  </div>
+</div>
+}
+
+@case ('bt') {
+<div class="container" style="width: 50vw;">
+  <p>修改理想身材:</p>
+  <div class="info-box"
+    style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);">
+    @for(bt of btList; track $index){
+    <button class="wt-btn" (click)="editBt(bt.value)">{{bt.label}}</button>
+    }
+  </div>
+</div>
+}
+
+@case ('gender') {
+<div class="container" style="width: 50vw; height: 50vh;">
+  <p>修改性別:</p>
+  <div class="info-box">
+    <button class="gender-btn" (click)="editGender('男')">男</button>
+    <button class="gender-btn" (click)="editGender('女')">女</button>
+  </div>
+</div>
 }
 }
 }

@@ -51,3 +51,11 @@ td {
   height: 250px;
   overflow-y: auto;
 }
+
+p-message {
+  width: 40vw;
+  position: fixed;
+  top: 15vh;
+  left: 30vw;
+  z-index: 100;
+}

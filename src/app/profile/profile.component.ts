@@ -8,13 +8,16 @@ import { UserInfoEditDialogComponent } from '../components/user-info-edit-dialog
 import { AvatarModule } from 'primeng/avatar';
 import { FormsModule } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-profile',
   imports: [
     FormsModule,
     CommonModule,
+
     AvatarModule,
+    ButtonModule,
   ],
   providers: [DialogService],
   templateUrl: './profile.component.html',
@@ -92,7 +95,6 @@ export class ProfileComponent {
       });
     }
   }
-
 
   // 更新照片
   changeAvatar(event: Event): void {

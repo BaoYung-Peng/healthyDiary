@@ -1,57 +1,66 @@
 <div class="profile-box">
   <h1>會員中心</h1>
   @if(person){
-    <div class="container">
-      <!-- 個人資訊 -->
-      <div class="personInfo-box">
-        <p class="info-box" (click)="edit('name')">暱稱:
-          <span>{{person.name}}</span>
-        </p>
-        <p class="info-box" (click)="edit('birthdate')">年齡:
-          <span>{{person.birthdate}}</span>
-        </p>
-        <p class="info-box" (click)="edit('height')">身高:
-          <span>{{person.height}}</span>
-        </p>
-        <p class="info-box" (click)="edit('weight')">體重:
-          <span>{{person.weight}}</span>
-        </p>
-        <p class="info-box" (click)="edit('gender')">性別:
-          <span>{{person.gender}}</span>
-        </p>
-        <p class="info-box" (click)="edit('wt')">工作型態:
-          <span>{{person.workType}}</span>
-        </p>
-        <p class="info-box" (click)="edit('bt')">理想身材:
-          <span>{{person.bodyType}}</span>
-        </p>
-      </div>
-
-      <!-- 頭像 -->
-      <div class="avatar-box">
-        <p>放一張你想保持的笑容吧</p>
-        <label for="avatar">
-          <div class="frame">
-            <img class="my-avatar" src="{{person.photo}}" alt="圖片" />
-          </div>
-        </label>
-        <input type="file" id="avatar" style="display: none;" (change)="changeAvatar($event)">
-      </div>
-
-      <!-- 許願 -->
-      <div class="note-box">
-        <img class="note" src="imgs/note.png">
-        <textarea rows="10" cols="40" placeholder="給自己設定一個期許吧" [(ngModel)]="person.note"
-          (keyup.enter)="update()"></textarea>
-      </div>
-
-      <!-- 個人資訊 -->
-      <div class="acctInfo-box">
-        <img class="chat" src="imgs/chat.svg"/>
-        <span>時不時就回來留一些給自己的話吧</span>
-        <img class="cat" src="imgs/playful-cat.svg" />
-        <button (click)="edit('pwd')">修改密碼</button>
-      </div>
+  <div class="container">
+    <!-- 個人資訊 -->
+    <div class="personInfo-box">
+      <p class="info-box" (click)="edit('name')">暱稱:
+        @if(person.name){
+        <span>{{person.name}}</span>
+        }
+      </p>
+      <p class="info-box" style="cursor:auto">年齡:
+        <span>{{person.birthdate}}</span>
+      </p>
+      <p class="info-box" style="cursor:auto">性別:
+        <span>{{person.gender}}</span>
+      </p>
+      <p class="info-box" (click)="edit('height')">身高:
+        <span>{{person.height}} 公分</span>
+      </p>
+      <p class="info-box" (click)="edit('weight')">體重:
+        <span>{{person.weight}} 公斤</span>
+      </p>
+      <p class="info-box" (click)="edit('wt')">工作型態:
+        @if(person.workType){
+        <span>{{person.workType}}</span>
+        }
+      </p>
+      <p class="info-box" (click)="edit('bt')">理想身材:
+        @if(person.bodyType){
+        <span>{{person.bodyType}}</span>
+        }
+      </p>
     </div>
+
+    <!-- 頭像 -->
+    <div class="avatar-box">
+      <p>放一張你想保持的笑容吧</p>
+      <label for="avatar">
+        <div class="frame">
+          @if(person.photo){
+          <img class="my-avatar" src="{{person.photo}}" alt="圖片" />
+
+          }
+        </div>
+      </label>
+      <input type="file" id="avatar" style="display: none;" (change)="changeAvatar($event)">
+    </div>
+
+    <!-- 許願 -->
+    <div class="note-box">
+      <img class="note" src="imgs/note.png">
+      <textarea rows="10" cols="40" placeholder="給自己設定一個期許吧" [(ngModel)]="person.note"
+        (keyup.enter)="update()"></textarea>
+    </div>
+
+    <!-- 個人資訊 -->
+    <div class="acctInfo-box">
+      <img class="chat" src="imgs/chat.svg" />
+      <span>時不時就回來留一些給自己的話吧</span>
+      <img class="cat" src="imgs/playful-cat.svg" />
+      <p-button (click)="edit('pwd')" label="修改密碼" icon="pi pi-key" iconPos="right" />
+    </div>
+  </div>
   }
 </div>

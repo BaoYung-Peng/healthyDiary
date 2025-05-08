@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FoodEditDialogComponent } from '../food-edit-dialog/food-edit-dialog.component';
 import { TextareaModule } from 'primeng/textarea';
+import { Message } from 'primeng/message';
 
 
 interface Dietfrom {
@@ -22,13 +23,16 @@ interface Dietfrom {
 
     TableModule,
     ButtonModule,
-    TextareaModule
+    TextareaModule,
+    Message
   ],
   providers: [DialogService],
   templateUrl: './food-table.component.html',
   styleUrl: './food-table.component.scss'
 })
 export class FoodTableComponent {
+  showMessage: boolean = false;
+
   // 和 ai 補充說明的文字
   detail: string = '';
 
@@ -147,21 +151,21 @@ export class FoodTableComponent {
   }
 
   showAIDialog() {
-      this.visible = true;
-      this.ref = this.dialogService.open(FoodEditDialogComponent, {
-        data: {
-          //
-          user: this.user,
-          detail: this.detail,
-          dietForm: this.dietForm,
-          type: 'save'
-        },
-        width: '30rem',
-        height: '20rem',
-        modal: true,
-        dismissableMask: true,
-        // header: `選擇食物: ${food.foodName}`
-      });
+    this.visible = true;
+    this.ref = this.dialogService.open(FoodEditDialogComponent, {
+      data: {
+        //
+        user: this.user,
+        detail: this.detail,
+        dietForm: this.dietForm,
+        type: 'save'
+      },
+      width: '30rem',
+      height: '20rem',
+      modal: true,
+      dismissableMask: true,
+      // header: `選擇食物: ${food.foodName}`
+    });
   }
 
   save() {
@@ -175,6 +179,12 @@ export class FoodTableComponent {
     this.http.fillinMealsApi(req).subscribe({
       next: (res: any) => {
         console.log('API回應', res);
+        if (res.code == 200) {
+          this.showMessage = true;
+          setTimeout(() => {
+            this.showMessage = false
+          }, 2000);
+        }
       },
       error: (err: any) => {
         console.log('API錯誤', err);

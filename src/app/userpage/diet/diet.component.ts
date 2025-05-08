@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { Message } from 'primeng/message';
 
 
 interface Items {
@@ -36,7 +37,8 @@ interface Food {
     InputTextModule,
     SelectButtonModule,
     ButtonModule,
-    TableModule
+    TableModule,
+    Message
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'
@@ -83,7 +85,6 @@ export class DietComponent implements OnInit {
       console.log(this.foods);
     })
   }
-
 
   searchFood() {
     this.searchedType = (this.searchedType == null) ? "" : this.searchedType;

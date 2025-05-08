@@ -13,10 +13,23 @@ p-button {
   flex-direction: column;
 }
 
+.wt-btn {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .gender-btn {
   width: 200px;
   height: 200px;
   background-color: red;
   margin: 10px;
   border-radius: 10px;
+}
+
+.date-picker {
+  margin-bottom: 200px;
 }
