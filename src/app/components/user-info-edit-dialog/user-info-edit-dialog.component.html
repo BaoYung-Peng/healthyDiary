@@ -26,7 +26,7 @@
   </div>
   <div class="info-box">
     <p-floatlabel variant="on">
-      <p-password [(ngModel)]="confirmPassword" inputId="confirmPassword" [feedback]="false" [toggleMask]="true"/>
+      <p-password [(ngModel)]="confirmPassword" inputId="confirmPassword" [feedback]="false" [toggleMask]="true" />
       <label for="confirmPassword">確認新密碼</label>
     </p-floatlabel>
 
@@ -58,8 +58,8 @@
   <p>修改身高:</p>
   <div class="info-box">
     <p-floatlabel variant="on">
-      <p-inputnumber [(ngModel)]="person.height" inputId="height" mode="decimal" [minFractionDigits]="1"
-        [maxFractionDigits]="1" [showButtons]="true" suffix=" 公分" />
+      <p-inputnumber [(ngModel)]="person.height" inputId="height" mode="decimal" [min]="40" [max]="300"
+        [minFractionDigits]="1" [maxFractionDigits]="1" [showButtons]="true" suffix=" 公分" />
       <label for="height">輸入身高</label>
     </p-floatlabel>
   </div>
@@ -75,8 +75,8 @@
   <p>修改體重:</p>
   <div class="info-box">
     <p-floatlabel variant="on">
-      <p-inputnumber [(ngModel)]="person.weight" inputId="weight" mode="decimal" [minFractionDigits]="1"
-        [maxFractionDigits]="1" [showButtons]="true" suffix=" 公斤" />
+      <p-inputnumber [(ngModel)]="person.weight" inputId="weight" mode="decimal" [min]="1" [max]="500"
+        [minFractionDigits]="1" [maxFractionDigits]="1" [showButtons]="true" suffix=" 公斤" />
       <label for="weight">輸入體重</label>
     </p-floatlabel>
   </div>

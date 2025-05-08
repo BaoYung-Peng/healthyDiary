@@ -82,8 +82,15 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 紀錄飲食
   fillinMealsApi(postData: any) {
     const url = `http://${this.IP}:8080/meals/fill_in_meals`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 紀錄睡眠
+  fillinSleepApi(postData: any) {
+    const url = `http://${this.IP}:8080/sleep/fill_in_sleep`;
     return this.httpClient.post(url, postData);
   }
 
