@@ -3,7 +3,7 @@ $person-box-bg-color: rgb(251, 255, 0);
 ///////////////////////////////////
 h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .profile-box {
@@ -41,6 +41,23 @@ h1 {
   p {
     margin-bottom: 10px;
   }
+
+  .frame {
+    width: 180px;
+    height: 200px;
+    overflow: hidden;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .my-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background-color: #f0f0f0;
+  }
 }
 
 .note-box {
@@ -48,27 +65,31 @@ h1 {
 }
 
 .acctInfo-box {
-  grid-area: acctInfo-box;
   position: relative;
+  display: inline-block;
+
+  .cat {
+    position: static;
+    width: auto;
+    max-width: 80%;
+    margin: 0 auto;
+  }
 
   .chat {
     position: relative;
-    margin-left: 200px;
-    width: 200px;
-  }
-  .cat {
-    position: relative;
-    right: 10%;
-    width: 300px;
-    margin-bottom: 10px;
-  }
+    max-width: 220px;
+    margin-left: 45%;
 
+  }
   span {
-    position: absolute;
-    width: 150px;
-    top: 20%;
-    left: 60%;
+    padding: 10px;
+      position: absolute;
+      top: 10%;
+      left: 54%;
+      font-size: 15px;
     }
+
+
 }
 
 .personInfo-box {
@@ -83,28 +104,15 @@ h1 {
 
   background-color: $person-box-bg-color;
   border-radius: 10px;
+
+  .editable:hover {
+    color: red;
+  }
 }
 
 .info-box {
   cursor: pointer;
 
-}
-
-.frame {
-  width: 200px;
-  height: 250px;
-  overflow: hidden;
-  background-color: lightgray;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.my-avatar {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  background-color: #f0f0f0;
 }
 
 label {
@@ -115,12 +123,12 @@ label {
   width: 250px;
 
   position: relative;
-  margin-top: 50px;
+  margin-top: 10px;
   background-color: transparent;
 }
 
 textarea {
-  margin-top: 50px;
+  margin-top: 10px;
 
   width: 200px;
   height: 150px;

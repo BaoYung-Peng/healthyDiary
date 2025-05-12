@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LocalstorageService {
-  private _isLogin$ = new BehaviorSubject<boolean>(!!localStorage.getItem('userEmail'));
+  private _isLogin$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   isLogin$ = this._isLogin$.asObservable();
 
   constructor() { }
@@ -13,7 +13,7 @@ export class LocalstorageService {
   // 在localstorage存email，並將狀態更新為登入狀態
   setItem(key: string, value: string): void {
     localStorage.setItem(key, value);
-    if (key == 'userEmail') {
+    if (key == 'token') {
       this._isLogin$.next(true); // 更新為登入狀態
     }
   }

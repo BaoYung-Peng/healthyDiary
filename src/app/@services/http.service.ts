@@ -53,7 +53,7 @@ export class HttpService {
   }
 
   // 取得使用者資料
-  getUserByEmailApi(postData: any) {
+  getUserByTokenApi(postData: any) {
     const url = `http://${this.IP}:8080/daily/get_user_info`;
     return this.httpClient.post(url, postData);
   }

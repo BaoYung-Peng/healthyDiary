@@ -3,9 +3,9 @@ import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const userEmail = localStorage.getItem('userEmail');
+  const token = localStorage.getItem('token');
 
-  if (!userEmail) {
+  if (!token) {
     alert('請先登入');
     return router.createUrlTree(['/login']);
   }

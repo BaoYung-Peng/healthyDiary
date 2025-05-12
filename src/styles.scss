@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
 
+@font-face {
+  font-family: Seto;
+  src: url("./assets/fonts/濑户字体SETOFONT.TTF");
+}
+
+h1,h2,h3, h4, p {
+  font-family: Seto;
+  font-weight: normal;
+}
+
 * {
   margin: 0;
   padding: 0;

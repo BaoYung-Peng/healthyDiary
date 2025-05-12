@@ -4,33 +4,34 @@
   <div class="container">
     <!-- 個人資訊 -->
     <div class="personInfo-box">
-      <p class="info-box" (click)="edit('name')">暱稱:
+      <p class="info-box editable" (click)="edit('name')">暱稱:
         @if(person.name){
         <span>{{person.name}}</span>
         }
       </p>
       <p class="info-box" style="cursor:auto">年齡:
-        <span>{{person.birthdate}}</span>
+        <span>{{age}}歲</span>
       </p>
       <p class="info-box" style="cursor:auto">性別:
         <span>{{person.gender}}</span>
       </p>
-      <p class="info-box" (click)="edit('height')">身高:
+      <p class="info-box editable" (click)="edit('height')">身高:
         <span>{{person.height}} 公分</span>
       </p>
-      <p class="info-box" (click)="edit('weight')">體重:
+      <p class="info-box editable" (click)="edit('weight')">體重:
         <span>{{person.weight}} 公斤</span>
       </p>
-      <p class="info-box" (click)="edit('wt')">工作型態:
+      <p class="info-box editable" (click)="edit('wt')">工作型態:
         @if(person.workType){
         <span>{{person.workType}}</span>
         }
       </p>
-      <p class="info-box" (click)="edit('bt')">理想身材:
+      <p class="info-box editable" (click)="edit('bt')">理想身材:
         @if(person.bodyType){
         <span>{{person.bodyType}}</span>
         }
       </p>
+      <p style="color: red;"><em>點選資料欄位即可修改</em></p>
     </div>
 
     <!-- 頭像 -->
@@ -44,7 +45,7 @@
           }
         </div>
       </label>
-      <input type="file" id="avatar" style="display: none;" (change)="changeAvatar($event)">
+      <input type="file" accept=".jpg,.jpeg,.png" id="avatar" style="display: none;" (change)="changeAvatar($event)">
     </div>
 
     <!-- 許願 -->

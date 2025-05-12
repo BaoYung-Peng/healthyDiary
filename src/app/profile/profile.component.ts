@@ -28,28 +28,15 @@ export class ProfileComponent {
   is_edit: boolean = false;
 
   // 後端使用者資料
-  emailReq = {
-    email: ''
+  tokenReq = {
+    token: ''
   }
   // 使用者資料
   resData!: any;
   photo: string = '';
   age: number = 0;
 
-  person: any = {
-    email: '',
-    name: '',
-    birthdate: '',
-    gender: '',
-    height: 0,
-    weight: 0,
-    workType: '',
-    bodyType: '',
-    active: false,
-    admin: false,
-    password: '',
-    note: ''
-  };
+  person!: any;
   prePassword!: string;
   passwordCheck!: string;
 
@@ -64,14 +51,36 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     // 撈使用者資料
-    this.emailReq.email = localStorage.getItem('userEmail') ?? '';
-    this.httpService.getUserByEmailApi(this.emailReq).subscribe((res: any) => {
+    this.tokenReq.token = localStorage.getItem('token') ?? '';
+    this.httpService.getUserByTokenApi(this.tokenReq).subscribe((res: any) => {
       // res.user 賦值給 resData
       this.resData = res.user;
       // 讓person 和 res.user 記憶體位置不同
       this.person = JSON.parse(JSON.stringify(res.user));
+      this.person.token = localStorage.getItem('token') ?? '';
+      delete this.person.email;
+
+      this.age = this.calculateAge(this.person.birthdate);
+
       console.log(this.person);
     })
+  }
+
+  calculateAge(birthdate: string): number {
+    const birthDate = new Date(birthdate);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // 判斷當年的生日是否已經過
+    const hasBirthdayPassed =
+      today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasBirthdayPassed) {
+      age -= 1; // 如果生日還沒到，則減去 1 歲
+    }
+
+    return age;
   }
 
   // dialog
@@ -97,7 +106,7 @@ export class ProfileComponent {
   }
 
   // 更新照片
-  changeAvatar(event: Event): void {
+  changeAvatar(event: any): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       this.userService.convertToBase64(input.files[0])
@@ -105,7 +114,6 @@ export class ProfileComponent {
           this.person.photo = base64;
           input.value = '';
           this.update();
-
         })
         .catch(err => {
           alert(err); // 顯示錯誤訊息

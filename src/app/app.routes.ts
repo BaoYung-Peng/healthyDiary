@@ -16,6 +16,7 @@ import { EditpasswordComponent } from './editpassword/editpassword.component';
 import { EditVerifyComponent } from './edit-verify/edit-verify.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReportComponent } from './userpage/report/report.component';
 
 
 
@@ -50,7 +51,8 @@ export const routes: Routes = [
     children: [
       { path: 'diet', component: DietComponent },
       { path: 'exercise', component: ExerciseComponent },
-      { path: 'sleep', component: SleepComponent }
+      { path: 'sleep', component: SleepComponent },
+      { path: 'report', component: ReportComponent }
     ],
     canActivate: [authGuard]
   },

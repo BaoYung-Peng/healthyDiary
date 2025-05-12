@@ -11,7 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { Message } from 'primeng/message';
 
 
 interface Items {
@@ -38,7 +37,6 @@ interface Food {
     SelectButtonModule,
     ButtonModule,
     TableModule,
-    Message
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'
@@ -54,22 +52,19 @@ export class DietComponent implements OnInit {
   searchedMethod: string = '';
 
   methods: Items[] = [
-    { label: '煮', value: '煮' },
+    { label: '水煮', value: '水煮' },
     { label: '炸', value: '炸' },
     { label: '烤', value: '烤' },
-    { label: '蒸', value: '蒸' },
-    { label: '原型食物', value: '原型食物' }
+    { label: '清蒸', value: '清蒸' },
+    { label: '原型食物', value: '無' }
   ];
 
   types: Items[] = [
-    { label: '五穀根莖', value: '五穀根莖' },
-    { label: '蛋豆魚肉', value: '蛋豆魚肉' },
-    { label: '乳品', value: '乳品' },
-    { label: '蔬菜', value: '蔬菜' },
+    { label: '主食', value: '主食' },
+    { label: '甜點', value: '甜點' },
+    { label: '蔬食', value: '蔬食' },
     { label: '水果', value: '水果' },
-    { label: '油脂與堅果種子類', value: '油脂與堅果種子類' },
-    { label: '外食', value: '外食' },
-
+    { label: '飲品', value: '飲品' },
   ];
 
   foods!: Food[];

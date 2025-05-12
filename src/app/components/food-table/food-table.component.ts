@@ -12,7 +12,7 @@ import { Message } from 'primeng/message';
 
 
 interface Dietfrom {
-  email: string;
+  token: string;
   mealsName: string[];
 }
 
@@ -42,7 +42,7 @@ export class FoodTableComponent {
   // 選擇的食物(傳到後端)
   myDiet: any[] = [];
   user!: any;
-  userEmail!: string;
+  token!: string;
 
   totalCalorie: number = 0;
   totalFat: number = 0;
@@ -67,17 +67,17 @@ export class FoodTableComponent {
   ref: DynamicDialogRef | undefined;
 
   ngOnInit(): void {
-    this.userEmail = localStorage.getItem('userEmail') ?? '';
+    this.token = localStorage.getItem('token') ?? '';
 
     const req = {
-      email: this.userEmail
+      token: this.token
     }
-    this.http.getUserByEmailApi(req).subscribe((res: any) => {
+    this.http.getUserByTokenApi(req).subscribe((res: any) => {
       this.user = res.user;
     });
 
     this.dietForm = {
-      email: this.userEmail,
+      token: this.token,
       mealsName: []
     }
   }
@@ -170,7 +170,7 @@ export class FoodTableComponent {
 
   save() {
     const req = {
-      email: this.user.email,
+      token: this.token,
       mealsName: JSON.stringify(this.myDiet),
       eatTime: new Date().toISOString().slice(0, 19)
     }

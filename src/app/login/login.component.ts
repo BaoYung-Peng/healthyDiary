@@ -194,18 +194,18 @@ export class LoginComponent implements AfterViewInit {
 
     const submitData = {
       email: this.email,
-      password:this.password,}
+      password:this.password,
+    }
     //   password: trimmedPassword,
     // }
     console.log(submitData);
     this.httpservice.loginApi(submitData).subscribe((res: any) => {
 
       if(res.code == 200){
-        this.localstorageService.setItem('userEmail',submitData.email);
-        this.router.navigateByUrl('/userpage')
+        this.localstorageService.setItem('token', res.token);
+        this.router.navigateByUrl('/userpage');
       }
       console.log(res);
     });
-
   }
 }

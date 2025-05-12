@@ -87,7 +87,7 @@ export class HeaderComponent {
     {
       label: '健康報告',
       icon: '/imgs/report.svg',
-      path: 'profile'
+      path: 'userpage/report'
     },
     {
       label: '會員資料',
