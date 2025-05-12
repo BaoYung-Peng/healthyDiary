@@ -30,7 +30,7 @@
 
 .card:hover {
   transform: scale(1.05);
-  z-index: 20; /* 這裡保留沒問題 ✅ */
+  z-index: 20;
 }
 
 .card-image {
@@ -79,19 +79,15 @@
 }
 
 
-//==========================
-// .main {
-//   display: flex;
-//   flex: 1;
-// }
-
+//=========================
 .content {
   flex: 3;
   display: flex;
   flex-direction: column;
-  border: 2px solid #000;
+  // border: 2px solid #000;
   background-color: #ffffff;
   padding: 10px;
+  text-align: center;
 }
 
 .carousel {
@@ -100,6 +96,7 @@
   justify-content: center;
   height: 30vh;
   gap: 10px;
+  font-size:25px;
 }
 
 // 照片框架
@@ -113,8 +110,8 @@
 .bottom-section {
   display: flex;
   flex: 1;
-  border-top: 2px solid #000;
-  padding-top: 10px;
+  // border-top: 2px solid #000;
+  padding-top: 100px;
   justify-content: center;
   /* 新增！水平置中 */
   align-items: center;
@@ -153,8 +150,10 @@
 }
 
 .btn {
-  width: 50%
+  width: 50%;
 }
+
+//================================================================================================
 
 .clock-container {
   display: flex;
@@ -253,4 +252,308 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #333;
+}
+
+/* ================= 任務外層區塊 ================= */
+.daily-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  font-family: "Segoe UI", sans-serif;
+  background: #f9fafc;
+}
+
+/* === 七日任務橫向滑動卡片 === */
+.task-cards-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem;
+  padding-inline: 1rem;
+  -webkit-overflow-scrolling: touch;
+  padding-inline: 1rem; /* 左右內距防止貼邊 */
+}
+
+.task-cards-container::-webkit-scrollbar {
+  display: none; /* 隱藏滾動條 */
+}
+
+/* 每張卡片平均分配寬度，7 張剛好滿一行 */
+.task-card {
+  flex: 0 0 calc((100% - 6rem) / 7);
+  background: linear-gradient(135deg, #e6f2ff, #ffffff);
+  border-radius: 16px;
+  padding: 1rem;
+  scroll-snap-align: start;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* === 響應式：螢幕變小時，卡片改成滑動顯示 === */
+@media (max-width: 1024px) {
+  .task-card {
+    flex: 0 0 80%; /* 讓使用者可橫向滑動單張卡片 */
+  }
+}
+
+@media (max-width: 768px) {
+  .task-card {
+    flex: 0 0 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-card {
+    flex: 0 0 100%;
+  }
+}
+
+.task-date {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: #2b6cb0;
+  text-align: center;
+}
+
+/* 任務項目容器 */
+.task-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* 單一任務卡 */
+.task-item {
+  background: #f0faff;
+  border-left: 6px solid #4ca6ff;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease;
+}
+
+.task-item div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item .completed {
+  background-color: #d6fbe2;
+  border-left-color: #34c38f;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === XP 系統區塊 === */
+.xp-panel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.xp-panel {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.xp-panel h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.xp-panel div {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #444;
+}
+
+.progress-bars div {
+  margin-bottom: 1rem;
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  background: #e0e0e0;
+  appearance: none;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+  background-color: #4ca6ff;
+  border-radius: 6px;
+}
+
+progress::-moz-progress-bar {
+  background-color: #4ca6ff;
+}
+
+
+/* Calendar Container */
+.calendar-container {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 月份導航 */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-header button:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* 星期標題 */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.weekdays div {
+  font-size: 16px;
+  color: #333;
+}
+
+/* 日期格子 */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.days-grid .date-number {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.days-grid .exercise-badge {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #ff6f61;
+  background-color: #fff3f1;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+.days-grid div {
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.days-grid div:hover {
+  background-color: #f0f0f0;
+}
+
+.days-grid .today {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+.days-grid .selected {
+  background-color: #ffeb3b;
+}
+
+/* 運動紀錄表單 */
+.exercise-form {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.exercise-form h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.exercise-form .form-group {
+  margin-bottom: 15px;
+}
+
+.exercise-form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.exercise-form input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* 當日運動紀錄列表 */
+.exercise-list {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.exercise-list .record {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.exercise-list .record span {
+  font-size: 16px;
+  color: #333;
+}
+
+.exercise-list .record:last-child {
+  border-bottom: none;
 }

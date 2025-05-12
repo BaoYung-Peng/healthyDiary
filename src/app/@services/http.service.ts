@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP:string = 'localhost';
+  IP:string = '172.16.1.30';
 
   // 登入
   loginApi(postData: any) {
@@ -95,11 +95,15 @@ export class HttpService {
   }
 
   // 紀錄運動
-  fillInExerciseApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/insert_sports`;
+  fillInExercise(postData: any) {
+    const url = `http://${this.IP}:8080/daily/fill_in_exercise`;
     return this.httpClient.post(url, postData);
   }
 
+  getCalendarExercise(postData: any) {
+    const url = `http://${this.IP}:8080/daily/get_calendar_exercise`;
+    return this.httpClient.post(url, postData);
+  }
 
 
 }
