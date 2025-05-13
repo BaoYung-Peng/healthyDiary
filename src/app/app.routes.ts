@@ -73,10 +73,6 @@ export const routes: Routes = [
     path: 'bookcase',
     component: BookcaseComponent
   },
-    {
-    path: 'mooddiary',
-    component: MoodDiaryComponent
-  },
   {
     path: '',
     redirectTo: '/home',

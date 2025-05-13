@@ -94,6 +94,11 @@ export class HeaderComponent {
       icon: '/imgs/person.svg',
       path: 'profile'
     },
+       {
+      label: '心情日誌',
+      icon: '/imgs/report.svg',
+      path: 'bookcase'
+    },
   ];
 
   constructor(

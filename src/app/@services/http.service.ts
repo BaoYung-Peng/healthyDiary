@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP:string = '172.16.1.24';
+  IP: string = '172.16.1.24';
 
   // 登入
   loginApi(postData: any) {
@@ -96,12 +96,12 @@ export class HttpService {
 
   // 紀錄運動
   fillInExercise(postData: any) {
-    const url = `http://${this.IP}:8080/daily/fill_in_exercise`;
+    const url = `http://${this.IP}:8080/exercise/fill_in_exercise`;
     return this.httpClient.post(url, postData);
   }
 
   getCalendarExercise(postData: any) {
-    const url = `http://${this.IP}:8080/daily/get_calendar_exercise`;
+    const url = `http://${this.IP}:8080/exercise/get_calendar_exercise`;
     return this.httpClient.post(url, postData);
   }
 
@@ -116,6 +116,5 @@ export class HttpService {
     const url = `http://${this.IP}:8080/mood/get_month_mood`;
     return this.httpClient.post(url, postData);
   }
-  // 獲取一週報告資料
 
 }
