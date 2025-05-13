@@ -17,6 +17,8 @@ import { EditVerifyComponent } from './edit-verify/edit-verify.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReportComponent } from './userpage/report/report.component';
+import { BookcaseComponent } from './bookcase/bookcase.component';
+import { MoodDiaryComponent } from './mood-diary/mood-diary.component';
 
 
 
@@ -66,6 +68,14 @@ export const routes: Routes = [
   {
     path: 'confirm',
     component: VerifyComponent
+  },
+    {
+    path: 'bookcase',
+    component: BookcaseComponent
+  },
+    {
+    path: 'mooddiary',
+    component: MoodDiaryComponent
   },
   {
     path: '',

@@ -1,0 +1,33 @@
+<div class="bookshelf-container">
+  <h1>我的心情日記書櫃</h1>
+
+  <!-- 上層書櫃 (1-6月) -->
+  <div class="shelf upper-shelf">
+    <div class="books-row">
+      @for (book of months.slice(0, 6); track book.id) {
+        <div class="book" (click)="onBookClick(book.id)">
+          <div class="book-spine" [style.backgroundColor]="book.color">
+            <span class="month-name">{{ book.name }}</span>
+          </div>
+          <div class="book-cover"></div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- 下層書櫃 (7-12月) -->
+  <div class="shelf-divider"></div>
+
+  <div class="shelf lower-shelf">
+    <div class="books-row">
+      @for (book of months.slice(6); track book.id) {
+        <div class="book" (click)="onBookClick(book.id)">
+          <div class="book-spine" [style.backgroundColor]="book.color">
+            <span class="month-name">{{ book.name }}</span>
+          </div>
+          <div class="book-cover"></div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

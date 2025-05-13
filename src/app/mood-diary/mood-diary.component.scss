@@ -1,0 +1,77 @@
+/* mooddiary.component.css */
+.mood-diary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #5a3921;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 50px;
+}
+
+.diary-content {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.diary-entry {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.diary-entry:last-child {
+  border-bottom: none;
+}
+
+.mood-rating {
+  margin: 10px 0;
+}
+
+.star {
+  color: #ccc;
+  font-size: 20px;
+}
+
+.star.filled {
+  color: #f39c12;
+}
+
+.diary-note {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 1.6;
+}
+
+.no-entries {
+  text-align: center;
+  color: #666;
+  padding: 30px;
+}
+
+.back-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 10px 20px;
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #5a3921;
+}

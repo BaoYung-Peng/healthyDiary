@@ -1,0 +1,84 @@
+/* bookcase.component.css */
+.bookshelf-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #5a3921;
+  margin-bottom: 30px;
+}
+
+.shelf {
+  background-color: #8b4513; /* 木頭色 */
+  padding: 20px 10px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.upper-shelf {
+  margin-bottom: 5px;
+}
+
+.lower-shelf {
+  margin-top: 5px;
+}
+
+.shelf-divider {
+  height: 10px;
+  background-color: #5a3921;
+  margin: 10px 0;
+}
+
+.books-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.book {
+  position: relative;
+  width: 50px;
+  height: 180px;
+  background-color: var(--book-color); /* 使用預設顏色 */
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.book:hover {
+  transform: translateY(-5px);
+}
+
+.book-spine {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #4a6ea9;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl; /* 垂直從右到左 */
+  text-orientation: mixed;   /* 保持文字自然方向 */
+  border-radius: 2px 0 0 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.book-cover {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #f5f5f5;
+  left: 50px;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.month-name {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px;
+}

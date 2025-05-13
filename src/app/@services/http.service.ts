@@ -105,7 +105,17 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 取得心情日誌
+  getMood(postData: any) {
+    const url = `http://${this.IP}:8080/mood/get_mood`;
+    return this.httpClient.post(url, postData);
+  }
 
+  // 取得對應書櫃月份日誌
+  getMonthMood(postData: any) {
+    const url = `http://${this.IP}:8080/mood/get_month_mood`;
+    return this.httpClient.post(url, postData);
+  }
   // 獲取一週報告資料
 
 }
