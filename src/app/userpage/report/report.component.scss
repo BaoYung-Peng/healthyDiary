@@ -3,18 +3,55 @@ h1 {
   margin: 10px auto;
 }
 
-.container {
-  display: grid;
-  grid-template-areas:
-  "diet-report sleep-report"
-  "exercise-report daily-report";
+h2 {
+  text-align: center;
+
+  margin: 20px;
 }
 
-.date {
-  width: 70%;
+.week-buttons {
+  display: flex;
+  justify-content: center;
+
+  gap: 20px;
+}
+
+.today-button {
+  background-color: red;
+  color: white;
+}
+
+button {
+  background-color: greenyellow;
+  padding: 20px;
+
+  border-radius: 20px;
+}
+
+
+.card {
+  width: 50vw;
+  height: 60vh;
 
   margin: 0 auto;
+  background-color: gray;
+
+  border-radius: 1rem;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.report-btn {
+  margin: 20px;
+}
+
+.btn-area {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }

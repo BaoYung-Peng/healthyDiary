@@ -85,24 +85,21 @@ export class ProfileComponent {
 
   // dialog
   edit(t: string) {
-    this.is_edit = true;
-    if (this.is_edit) {
-      this.ref = this.dialogService.open(UserInfoEditDialogComponent, {
-        data: {
-          oldData: this.person,
-          changeData: t
-        },
-        modal: true,
-        dismissableMask: true
-      });
+    this.ref = this.dialogService.open(UserInfoEditDialogComponent, {
+      data: {
+        oldData: this.person,
+        changeData: t
+      },
+      modal: true,
+      dismissableMask: true
+    });
 
-      this.ref.onClose.subscribe((result) => {
-        if (result) {
-          this.person = result;
-          console.log('對話框返回的資料:', result);
-        }
-      });
-    }
+    this.ref.onClose.subscribe((result) => {
+      if (result) {
+        this.person = result;
+        console.log('對話框返回的資料:', result);
+      }
+    });
   }
 
   // 更新照片

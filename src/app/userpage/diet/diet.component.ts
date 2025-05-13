@@ -52,19 +52,19 @@ export class DietComponent implements OnInit {
   searchedMethod: string = '';
 
   methods: Items[] = [
-    { label: '水煮', value: '水煮' },
+    { label: '煮', value: '煮' },
     { label: '炸', value: '炸' },
     { label: '烤', value: '烤' },
-    { label: '清蒸', value: '清蒸' },
-    { label: '原型食物', value: '無' }
+    { label: '蒸', value: '蒸' },
+    { label: '其他', value: '其他' }
   ];
 
   types: Items[] = [
-    { label: '主食', value: '主食' },
-    { label: '甜點', value: '甜點' },
-    { label: '蔬食', value: '蔬食' },
-    { label: '水果', value: '水果' },
-    { label: '飲品', value: '飲品' },
+    { label: '五穀根莖', value: '五穀根莖' },
+    { label: '蛋豆魚肉', value: '蛋豆魚肉' },
+    { label: '蔬菜水果', value: '蔬菜水果' },
+    { label: '飲料甜點零食', value: '飲料甜點零食' },
+    { label: '外食', value: '外食' },
   ];
 
   foods!: Food[];

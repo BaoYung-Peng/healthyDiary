@@ -115,9 +115,9 @@ export class HeaderComponent {
   }
 
   gotoPage(url: string) {
-    if(url == '/home'){
-      this.localstorageService.removeItem();
-    }
+    // if(url == '/home'){
+    //   this.localstorageService.removeItem();
+    // }
     this.router.navigate([url]);
 
   }

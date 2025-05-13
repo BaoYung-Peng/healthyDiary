@@ -49,8 +49,8 @@ export class LoginComponent implements AfterViewInit {
     private renderer: Renderer2,
     private router: Router,
     private httpservice: HttpService,
-    private localstorageService:LocalstorageService
-    ) { }
+    private localstorageService: LocalstorageService
+  ) { }
 
   ngOnInit() {
     // gsap.registerPlugin(ScrollTrigger);
@@ -194,15 +194,20 @@ export class LoginComponent implements AfterViewInit {
 
     const submitData = {
       email: this.email,
-      password:this.password,
+      password: this.password,
     }
     //   password: trimmedPassword,
     // }
     console.log(submitData);
     this.httpservice.loginApi(submitData).subscribe((res: any) => {
 
-      if(res.code == 200){
+      if (res.code == 200) {
         this.localstorageService.setItem('token', res.token);
+
+        if (res.admin == true) {
+          this.router.navigateByUrl('/admin');
+          return;
+        }
         this.router.navigateByUrl('/userpage');
       }
       console.log(res);

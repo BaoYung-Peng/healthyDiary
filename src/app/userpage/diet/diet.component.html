@@ -10,7 +10,7 @@
     <div class="right-pane">
       <div class="input-box">
         <p-selectbutton class="method-btn" size="small" [options]="methods" [(ngModel)]="searchedMethod" optionLabel="label" optionValue="value"
-          (click)="searchFood()"/>
+          (click)="searchFood()" [disabled]="searchedType == '飲料甜點零食' || searchedType == '外食'"/>
       </div>
       <div class="input-box">
         <p-selectbutton class="type-btn" size="small" [options]="types" [(ngModel)]="searchedType" optionLabel="label" optionValue="value"

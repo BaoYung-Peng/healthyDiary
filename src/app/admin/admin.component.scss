@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+}
+
+.info-box {
+  margin: 20px auto;
+}
+
+p-select {
+  width: 219px;
+}
+
+.nutrition-form {
+  margin: 10px auto;
+  padding: 20px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 20px;
+}

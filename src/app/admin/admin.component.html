@@ -1,1 +1,107 @@
-<p>admin works!</p>
+<div class="container">
+  <form class="nutrition-form" [formGroup]="foodForm" (ngSubmit)="save()">
+    <div style="display: flex; gap: 20px;">
+      <div class="left">
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <input pInputText id="foodName" formControlName="foodName" autocomplete="off" />
+            <label for="newPwd">食物名稱</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="in">
+            <p-select formControlName="type" inputId="types" [options]="types" optionLabel="label" optionValue="value" />
+            <label for="in_label">選擇食物類型</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="in">
+            <p-select formControlName="cookingMethod" inputId="cookingMethod" [options]="cookingMethods"
+              optionLabel="name" optionValue="value" />
+            <label for="in_label">選擇烹調方式</label>
+          </p-floatlabel>
+        </div>
+      </div>
+      <div class="right">
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="calorie" formControlName="calorie" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="calorie">卡路里</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="totalFat" formControlName="totalFat" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="totalFat">總脂肪</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="transFat" formControlName="transFat" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="transFat">反式脂肪</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="saturatedFat" formControlName="saturatedFat" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="saturatedFat">飽和脂肪</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="totalCarbohydrate" formControlName="totalCarbohydrate" mode="decimal"
+              [minFractionDigits]="1" [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="totalCarbohydrate">碳水化合物</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="sugar" formControlName="sugar" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="sugar">糖</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="dietaryFiber" formControlName="dietaryFiber" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="dietaryFiber">膳食纖維</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="protein" formControlName="protein" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="protein">蛋白質</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="sodium" formControlName="sodium" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="sodium">鈉</label>
+          </p-floatlabel>
+        </div>
+        <div class="info-box">
+          <p-floatlabel variant="on">
+            <p-inputnumber inputId="cholesterol" formControlName="cholesterol" mode="decimal" [minFractionDigits]="1"
+              [maxFractionDigits]="1" [showButtons]="true" />
+            <label for="cholesterol">膽固醇</label>
+          </p-floatlabel>
+        </div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <p-button (click)="save()" severity="info" label="編輯" icon="pi pi-pencil" iconPos="right" />
+      <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" />
+      <p-button (click)="resetForm()" severity="danger" label="重製" icon="pi pi-refresh" iconPos="right" />
+    </div>
+  </form>
+  <div class="train-ai">
+  </div>
+</div>

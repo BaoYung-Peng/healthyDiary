@@ -48,6 +48,13 @@
       @for (tab of tabs; track $index; let i = $index;) {
       <p-accordion-panel [value]="tab.value">
         <p-accordion-header>
+          <ng-template #toggleicon let-active="active">
+            @if (active) {
+            <i class="pi pi-chevron-up"></i> <!-- 收起時的箭頭 -->
+            } @else {
+            <i class="pi pi-chevron-down"></i> <!-- 展開時的箭頭 -->
+            }
+          </ng-template>
           <h2>問題{{i+1}}:{{ tab.title }}</h2>
         </p-accordion-header>
         <p-accordion-content>

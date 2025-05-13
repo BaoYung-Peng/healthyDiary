@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP:string = '172.16.1.30';
+  IP:string = '172.16.1.24';
 
   // 登入
   loginApi(postData: any) {
@@ -105,5 +105,7 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+
+  // 獲取一週報告資料
 
 }
