@@ -88,8 +88,6 @@ h1 {
       left: 54%;
       font-size: 15px;
     }
-
-
 }
 
 .personInfo-box {
@@ -142,4 +140,12 @@ textarea {
 
 textarea:focus {
   outline: none;
+}
+
+p-message {
+  width: 40vw;
+  position: fixed;
+  top: 15vh;
+  left: 30vw;
+  z-index: 100;
 }

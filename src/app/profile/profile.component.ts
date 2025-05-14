@@ -9,6 +9,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { FormsModule } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
+import { Message } from 'primeng/message';
+
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +20,15 @@ import { ButtonModule } from 'primeng/button';
 
     AvatarModule,
     ButtonModule,
+    Message
   ],
   providers: [DialogService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  today: string = new Date().toISOString().slice(0, 10);
+  showMessage: boolean = false;
+
   is_edit: boolean = false;
 
   // 後端使用者資料
@@ -97,6 +101,10 @@ export class ProfileComponent {
     this.ref.onClose.subscribe((result) => {
       if (result) {
         this.person = result;
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false
+        }, 2000);
         console.log('對話框返回的資料:', result);
       }
     });
@@ -124,8 +132,19 @@ export class ProfileComponent {
     const req = this.person;
     console.log(req);
 
-    this.httpService.updateUserInfoApi(req).subscribe((res: any) => {
-      console.log(res);
-    });
+    this.httpService.updateUserInfoApi(req).subscribe({
+      next: (res: any) => {
+        console.log('API回應', res);
+        if (res.code == 200) {
+          this.showMessage = true;
+          setTimeout(() => {
+            this.showMessage = false
+          }, 2000);
+        }
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    })
   }
 }

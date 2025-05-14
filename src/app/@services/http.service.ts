@@ -66,7 +66,7 @@ export class HttpService {
 
   //新增食物營養資訊
   addFoodInfoApi(postData: any) {
-    const url = `http://${this.IP}:8080/food/foodInsert`;
+    const url = `http://${this.IP}:8080/food/insert_food`;
     return this.httpClient.post(url, postData);
   }
 

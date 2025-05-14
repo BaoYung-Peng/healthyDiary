@@ -25,6 +25,7 @@ import { Select } from 'primeng/select';
 })
 export class AdminComponent {
   foodForm!: FormGroup;
+
   cookingMethods = [
     { label: '煮', value: '煮' },
     { label: '炸', value: '炸' },
