@@ -403,157 +403,49 @@ progress::-moz-progress-bar {
   background-color: #4ca6ff;
 }
 
-
-/* Calendar Container */
-.calendar-container {
-  font-family: Arial, sans-serif;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+//====================================
+.week-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 一行7欄，每欄等寬 */
+  gap: 16px; /* 卡片之間的間距 */
   padding: 20px;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
-/* 月份導航 */
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.calendar-header button {
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.calendar-header button:hover {
-  background-color: #f0f0f0;
-}
-
-.calendar-header h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* 星期標題 */
-.weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.weekdays div {
-  font-size: 16px;
-  color: #333;
-}
-
-/* 日期格子 */
-.days-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  text-align: center;
-}
-
-.days-grid .date-number {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.days-grid .exercise-badge {
-  margin-top: 5px;
-  font-size: 12px;
-  color: #ff6f61;
-  background-color: #fff3f1;
-  padding: 2px 8px;
-  border-radius: 5px;
-}
-
-.days-grid div {
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.days-grid div:hover {
-  background-color: #f0f0f0;
-}
-
-.days-grid .today {
-  background-color: #e0f7fa;
-  font-weight: bold;
-}
-
-.days-grid .selected {
-  background-color: #ffeb3b;
-}
-
-/* 運動紀錄表單 */
-.exercise-form {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-.exercise-form h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.exercise-form .form-group {
-  margin-bottom: 15px;
-}
-
-.exercise-form label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.exercise-form input {
-  width: 100%;
-  padding: 8px;
-  font-size: 14px;
+.day-card {
+  background-color: #f8f9fa;
   border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-/* 當日運動紀錄列表 */
-.exercise-list {
-  background-color: #fff;
-  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-.exercise-list .record {
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+  min-height: 150px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
 }
 
-.exercise-list .record span {
+/* 標題美化 */
+.day-card h4 {
+  margin-top: 0;
   font-size: 16px;
   color: #333;
 }
 
-.exercise-list .record:last-child {
-  border-bottom: none;
+/* 無資料文字樣式 */
+.day-card p {
+  color: #999;
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .week-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .week-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

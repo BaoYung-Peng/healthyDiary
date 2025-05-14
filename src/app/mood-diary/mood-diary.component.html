@@ -1,0 +1,18 @@
+<h2>{{ monthName }} 心情日記</h2>
+
+<div *ngIf="isLoading">載入中...</div>
+
+<div *ngIf="!isLoading && moodData.length === 0">
+  本月尚無心情日記。
+</div>
+
+<div *ngIf="!isLoading && moodData.length > 0">
+  <div *ngFor="let item of moodData" class="diary-entry">
+    <p>📅 日期：{{ item.date }}</p>
+    <p>😊 心情指數：{{ item.mood }}</p>
+    <p>📖 日記內容：{{ item.diary }}</p>
+    <hr />
+  </div>
+</div>
+
+<button (click)="goBack()">返回書櫃</button>

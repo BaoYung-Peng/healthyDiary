@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpService } from '../../@services/http.service';
 import { signal } from '@angular/core';
+import { CalendarModule } from 'primeng/calendar';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // 定義時鐘數字結構
 interface ClockNumber {
@@ -21,24 +23,22 @@ interface ExerciseRecord {
   exerciseName: string;
   sports_name?: string;
   duration: number;
-  date: string; // 格式: YYYY-MM-DD
-  completed: boolean; // 新增完成狀態
-  xpEarned: boolean; // 是否已獲得經驗值
+  date: string;
 }
 
-interface XpSystem {
-  totalXp: number;
-  currentLevel: number;
-  expToNextLevel: number;
-  dailyProgress: number;
-  weeklyProgress: number;
+interface ExerciseResponse {
+  code: number;
+  message: string;
+  exerciselist: any[];
 }
 
 @Component({
   selector: 'app-exercise',
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    CalendarModule,
+    ReactiveFormsModule
   ],
   templateUrl: './exercise.component.html',
   styleUrl: './exercise.component.scss'
@@ -48,11 +48,10 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   activeType: string = '';               // 對應卡片的運動類型（light/aerobic/training）
   selectedImageName: string = '';        // 被選中的圖片名稱
   count = signal(0);  // 建立一個 Signal
-  // 新增這部分定義
-  lastSevenDaysWithRecords: {
-    date: Date;
-    records: ExerciseRecord[];
-  }[] = [];
+
+  token: string | null = null;
+  weekDays: Date[] = [];
+  groupedRecords: { [date: string]: ExerciseRecord[] } = {};
 
   increment() {
     this.count.set(this.count() + 1);  // 更新值
@@ -62,7 +61,10 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     private router: Router,
     private httpservice: HttpService,
     private zone: NgZone,
-  ) { }
+    private localStorageService: LocalstorageService
+  ) {
+    this.token = localStorage.getItem('token');
+  }
 
   // 運動強度卡片資料
   cards = [
@@ -262,13 +264,26 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   // 初始化元件：設定日期限制與初始化時鐘
   ngOnInit() {
     const today = new Date();
+    this.token = localStorage.getItem('token');
+    this.fetchExerciseRecords(); // 載入資料
 
-    // 計算前7天的日期
-    const sevenDaysAgo = new Date(today);
-    sevenDaysAgo.setDate(today.getDate() - 7);
+    // 計算本週的週一日期
+    const dayOfWeek = today.getDay(); // 0 是星期天, 1 是星期一, ... 6 是星期六
+    const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 若今天是星期天，要往前推6天
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diffToMonday);
 
-    this.minDate = this.formatDate(sevenDaysAgo);
-    this.maxDate = this.formatDate(today);
+    // 計算本週的週日日期
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+
+    // 計算從週一到週日的日期
+    this.weekDays = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + i);
+      this.weekDays.push(date);
+    }
 
     // 2. 初始化時鐘
     this.numbers = Array.from({ length: 12 }, (_, i) => ({
@@ -278,12 +293,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     this.updateClock();
     setInterval(() => this.updateClock(), 1000);
 
-    // 3. 載入數據
-    this.loadXpData(); // 從本地儲存載入經驗值
-    this.loadExerciseData(); // 現在這個方法已正確定義
-
     // 格式化成 input type="date" 需要的字串 'yyyy-MM-dd'
-    this.minDate = this.formatDate(sevenDaysAgo);
     this.maxDate = this.formatDate(today);
 
     // 初始化時鐘數字 (12在頂部)
@@ -330,228 +340,80 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   //============================================================
   // 提交運動紀錄資料至後端 API
   confirm() {
+    if (!this.token) {
+      console.error('未找到 token，請重新登入');
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const exerciseData = {
-      email: "Baoyungpeng1999@gmail.com",
-      exerciseName: this.selectedImageName, // 使用選中的圖片名稱
+      token: this.token, // 加入 token
+      // email: "Baoyungpeng1999@gmail.com",
+      exerciseName: this.selectedImageName,
       duration: this.duration,
       date: this.date
     }
     console.log(exerciseData);
 
-    this.httpservice.fillInExercise(exerciseData).subscribe((res: any) => {
-      console.log(res);
-      // 新增記錄後重新獲取數據
-      this.fetchExerciseRecords();
-      // this.router.navigate(['/userpage']); // 明確指定路徑
-    });
-  }
-
-  // 儲存從後端獲取的運動記錄
-  exerciseRecords: ExerciseRecord[] = [];
-
-  // 按日期分組的運動記錄
-  groupedRecords: { [date: string]: ExerciseRecord[] } = {};
-
-  // 從後端獲取運動記錄
-  fetchExerciseRecords() {
-    const calendarexercise = {
-      email: "Baoyungpeng1999@gmail.com", // 使用與提交相同的email
-    }
-    console.log(calendarexercise);
-    this.httpservice.getCalendarExercise(calendarexercise).subscribe((res: any) => {
-      console.log(res);
-
-      // 檢查回傳是否是陣列，不是就包成陣列
-      if (Array.isArray(res)) {
-        this.exerciseRecords = res;
-      } else {
-        this.exerciseRecords = [res]; // <-- 包成陣列以便 forEach 不報錯
-      }
-
-      this.groupRecordsByDate();
-    });
-  }
-
-  // 按日期分組運動記錄
-  groupRecordsByDate() {
-    this.groupedRecords = {};
-
-    this.exerciseRecords.forEach(record => {
-      // Try to parse the date string into a Date object
-      const dateObj = new Date(record.date);
-
-      // Check if the date is valid
-      if (!isNaN(dateObj.getTime())) {
-        // Format the date as 'YYYY-MM-DD'
-        const dateStr = dateObj.toISOString().split('T')[0];
-
-        if (!this.groupedRecords[dateStr]) {
-          this.groupedRecords[dateStr] = [];
-        }
-
-        this.groupedRecords[dateStr].push(record);
-      } else {
-        console.warn('Invalid date in record:', record);
-      }
-    });
-  }
-
-  // 獲取指定日期的運動記錄
-  getRecordsForDate(date: Date): ExerciseRecord[] {
-    const dateStr = this.formatDate(date);
-    return this.groupedRecords[dateStr] || [];
-  }
-
-  // 獲取最近7天的日期數組
-  getLastSevenDays(): Date[] {
-    const days: Date[] = [];
-    const today = new Date();
-
-    for (let i = 6; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(today.getDate() - i);
-      days.push(date);
-    }
-
-    return days;
-  }
-
-  //===============================================================
-  // 經驗值系統狀態
-  xpSystem: XpSystem = {
-    totalXp: 0,
-    currentLevel: 1,
-    expToNextLevel: 100, // 第一級需要100XP
-    dailyProgress: 0,
-    weeklyProgress: 0
-  };
-
-  // 完成運動任務
-  completeExercise(record: ExerciseRecord) {
-    record.completed = !record.completed;
-
-    if (record.completed && !record.xpEarned) {
-      this.addXp(10); // 完成任務獲得10XP
-      record.xpEarned = true;
-    } else if (!record.completed && record.xpEarned) {
-      this.addXp(-10); // 取消完成扣除10XP
-      record.xpEarned = false;
-    }
-
-    this.updateProgress();
-    this.saveXpData();
-  }
-
-  // 新增經驗值
-  private addXp(amount: number) {
-    this.xpSystem.totalXp += amount;
-
-    // 升級邏輯
-    while (this.xpSystem.totalXp >= this.xpSystem.expToNextLevel && this.xpSystem.totalXp > 0) {
-      this.xpSystem.currentLevel++;
-      this.xpSystem.totalXp -= this.xpSystem.expToNextLevel;
-      this.xpSystem.expToNextLevel = Math.floor(this.xpSystem.expToNextLevel * 1.2);
-    }
-
-    // 防止降級到0級以下
-    if (this.xpSystem.totalXp < 0) {
-      this.xpSystem.totalXp = 0;
-    }
-  }
-
-  // 更新進度
-  private updateProgress() {
-    const today = new Date().toISOString().split('T')[0];
-    const weekStart = this.getWeekStartDate();
-
-    const dailyRecords = this.exerciseRecords.filter(r =>
-      r.date === today
-    );
-
-    const weeklyRecords = this.exerciseRecords.filter(r =>
-      new Date(r.date) >= weekStart
-    );
-
-    this.xpSystem.dailyProgress = dailyRecords.length > 0
-      ? (dailyRecords.filter(r => r.completed).length / dailyRecords.length) * 100
-      : 0;
-
-    this.xpSystem.weeklyProgress = weeklyRecords.length > 0
-      ? (weeklyRecords.filter(r => r.completed).length / weeklyRecords.length) * 100
-      : 0;
-  }
-
-  // 獲取本週開始日期 (週日)
-  private getWeekStartDate(): Date {
-    const today = new Date();
-    const day = today.getDay();
-    const diff = today.getDate() - day;
-    return new Date(today.setDate(diff));
-  }
-
-  // 本地儲存經驗值
-  private saveXpData() {
-    localStorage.setItem('xpSystem', JSON.stringify(this.xpSystem));
-  }
-
-  // 載入經驗值
-  private loadXpData() {
-    const data = localStorage.getItem('xpSystem');
-    if (data) {
-      this.xpSystem = JSON.parse(data);
-    }
-  }
-
-  private loadExerciseData() {
-    const email = "Baoyungpeng1999@gmail.com"; // 從登入用戶獲取實際email
-    const calendarexercise = { email };
-
-    this.httpservice.getCalendarExercise(calendarexercise).subscribe({
-      next: (response: any) => {
-        // 檢查回傳資料格式
-        if (response && Array.isArray(response.exerciselist)) {
-          // 提取 'exerciselist' 陣列
-          const typedRecords = response.exerciselist as ExerciseRecord[];
-          this.exerciseRecords = typedRecords;
-          this.prepareLastSevenDays();
-          this.updateProgress();
-          console.log('運動記錄載入完成', typedRecords);
-        } else {
-          console.error('返回資料格式錯誤，預期包含 exerciselist 陣列:', response);
-        }
+    this.httpservice.fillInExercise(exerciseData).subscribe({
+      next: (res) => {
+        console.log('運動記錄成功', res);
+        this.fetchExerciseRecords();
       },
       error: (err) => {
-        console.error('載入運動記錄失敗:', err);
-        alert('載入運動記錄失敗，請稍後再試');
+        console.error('提交失敗:', err);
+        if (err.status === 401) { // token 無效
+          this.localStorageService.removeItem(); // 清除 token
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
-  private prepareLastSevenDays() {
-    const today = new Date();
 
-    this.lastSevenDaysWithRecords = [];
-
-    for (let i = 6; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(today.getDate() - i);
-      const dateStr = this.formatDate(date);
-
-      const recordsForDate = this.exerciseRecords.filter(record =>
-        record.date.startsWith(dateStr)
-      );
-
-      // 這裡修改為使用 exerciseId 來檢查是否有重複
-      const ids = recordsForDate.map(r => r.exerciseId);
-      const idSet = new Set(ids);
-      if (ids.length !== idSet.size) {
-        console.warn(`⚠️ Duplicate record.exerciseId found for ${dateStr}`, ids);
-      }
-
-      this.lastSevenDaysWithRecords.push({
-        date: date,
-        records: recordsForDate
-      });
+  fetchExerciseRecords() {
+    if (!this.token) {
+      console.error('未登入');
+      return;
     }
+
+    const postData = {
+      token: this.token,
+    };
+
+    this.httpservice.getCalendarExercise(postData).subscribe({
+      next: (res: any) => {
+        this.exerciseRecords = res.exerciselist; // ← 加上這行
+        console.log(res);
+      },
+      error: (err) => {
+        console.error('獲取記錄失敗:', err);
+        if (err.status === 401) {
+          this.localStorageService.removeItem();
+          this.router.navigate(['/login']);
+        }
+      }
+    });
   }
 
+  // 取得本週一到週日的日期
+  getCurrentWeekDays(): Date[] {
+    const today = new Date();
+    const day = today.getDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + diffToMonday);
+
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      return d;
+    });
+  }
+  exerciseRecords: any[] = [];
+
+  // 根據單一天的 Date 物件取出該天所有紀錄
+  getRecordsForDate(date: Date) {
+    const formattedDate = date.toISOString().split('T')[0];
+    return this.exerciseRecords.filter(record => record.date === formattedDate);
+  }
 }
