@@ -1,22 +1,22 @@
 @if(showMessage){
-  <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
-  }
+<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
+}
 <div class="result-table">
-  <div class="data-table">
-    <p>總卡路里: {{totalCalorie}}</p>
-    <p>總蛋白質: {{totalProtein}}</p>
-    <p>總脂肪: {{totalFat}}</p>
-    <p>總飽和脂肪: {{totalSaturatedFat}}</p>
-    <p>總反式脂肪: {{totalTransFat}}</p>
-    <p>總碳水化合物: {{totalCarbohydrate}}</p>
-    <p>總糖: {{totalSugar}} </p>
-    <p>膳食纖維: {{totalDietaryFiber}}</p>
-  </div>
-  <div class="input-box">
-    <textarea rows="5" cols="30" pTextarea [(ngModel)]="detail" placeholder="對這次飲食的補充說明"></textarea>
-  </div>
+  <ul class="data-table">
+    <li>總卡路里: {{totalCalorie.toFixed(1)}}</li>
+    <li>總蛋白質: {{totalProtein.toFixed(1)}}</li>
+    <li>總脂肪: {{totalFat.toFixed(1)}}</li>
+    <li>總飽和脂肪: {{totalSaturatedFat.toFixed(1)}}</li>
+    <li>總反式脂肪: {{totalTransFat.toFixed(1)}}</li>
+    <li>總碳水化合物: {{totalCarbohydrate.toFixed(1)}}</li>
+    <li>總糖: {{totalSugar.toFixed(1)}} </li>
+    <li>膳食纖維: {{totalDietaryFiber.toFixed(1)}}</li>
+  </ul>
+  <!-- <div class="input-box">
+    <textarea rows="5" cols="25" pTextarea [(ngModel)]="detail" placeholder="對這次飲食的補充說明"></textarea>
+  </div> -->
   <div class="btn-box">
-    <p-button class="save-btn" icon="pi pi-save" (click)="save()" />
+    <p-button class="save-btn" icon="pi pi-save" label="儲存" iconPos="right" (click)="save()" />
   </div>
 </div>
 <div class="calulator">
@@ -26,13 +26,13 @@
     <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
     <ng-template #header>
       <tr>
-        <th>名稱</th>
-        <th>卡路里</th>
-        <th>蛋白質</th>
-        <th>總脂肪</th>
-        <th>碳水化合物</th>
-        <th>份數</th>
-        <th style="width: 30%;"></th>
+        <th style="width:10%">名稱</th>
+        <th style="width:10%">卡路里</th>
+        <th style="width:10%">蛋白質</th>
+        <th style="width:10%">總脂肪</th>
+        <th style="width:14%">碳水化合物</th>
+        <th style="width:14%">份數</th>
+        <th style="width: 18%;"></th>
       </tr>
     </ng-template>
     <ng-template #body let-item let-i="rowIndex">

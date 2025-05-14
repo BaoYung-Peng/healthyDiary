@@ -21,23 +21,24 @@
   <div class="input-box">
     <p-floatlabel variant="in">
       <p-datepicker inputId="sleepTime" [(ngModel)]="sleepTime" [showTime]="true" [hourFormat]="'12'"
-        [minDate]="theDayBeforeYesterDay" [maxDate]="today" />
+        [minDate]="yesterDay" [maxDate]="today" />
       <label for="sleepTime"> 就寢時間 </label>
     </p-floatlabel>
   </div>
   <div class="input-box">
     <p-floatlabel variant="in">
       <p-datepicker inputId="awakeTime" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
-        [minDate]="sleepTime" [maxDate]="tomorrow"  (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
+        [minDate]="sleepTime" [maxDate]="today"  (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
       <label for="awakeTime"> 起床時間 </label>
     </p-floatlabel>
   </div>
   <div class="input-box">
-    <p-floatlabel variant="in">
+    <!-- <p-floatlabel variant="in">
       <p-inputnumber [(ngModel)]="sleepHours" inputId="sleepHours" mode="decimal" [min]="0" [max]="20"
         [minFractionDigits]="1" [maxFractionDigits]="1" [showButtons]="true" suffix="小時" />
       <label for="sleepHours">輸入睡眠時數</label>
-    </p-floatlabel>
+    </p-floatlabel> -->
+    <p>睡眠時數: {{sleepHours}} 小時</p>
   </div>
-  <p-button (click)="save()" label="儲存" icon="pi pi-save" iconPos="right" />
+  <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" />
 </div>

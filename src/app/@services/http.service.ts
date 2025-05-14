@@ -8,7 +8,8 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP: string = '172.16.1.24';
+  IP: string = '172.16.1.188';
+  // IP: string = 'localhost';
 
   // 登入
   loginApi(postData: any) {
@@ -94,6 +95,13 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+    // 紀錄睡眠
+  getTodaySleepApi(postData: any) {
+    const url = `http://${this.IP}:8080/sleep/select_sleep`;
+    return this.httpClient.post(url, postData);
+  }
+
+
   // 紀錄運動
   fillInExercise(postData: any) {
     const url = `http://${this.IP}:8080/exercise/fill_in_exercise`;
@@ -114,6 +122,30 @@ export class HttpService {
   // 取得對應書櫃月份日誌
   getMonthMood(postData: any) {
     const url = `http://${this.IP}:8080/mood/get_month_mood`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 取得使用者吃了什麼
+  getMealApi(postData: any) {
+    const url = `http://${this.IP}:8080/meals/get_meals`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 取得每週報告
+  getWeeklyReportApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_weekly`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 取得每日報告
+  getTodayReportApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_daily`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 填入每日報告
+  fillInTodayReportApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/fill_in_daily`;
     return this.httpClient.post(url, postData);
   }
 

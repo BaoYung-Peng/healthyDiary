@@ -53,7 +53,7 @@ export class FoodTableComponent {
   totalSugar: number = 0;
   totalDietaryFiber: number = 0;
 
-  // 傳給後端的資料，使用者吃哪些食物的表單(包含email、mealsName、mealsName)
+  // 傳給後端的資料，使用者吃哪些食物的表單(包含token、mealsName)
   dietForm!: Dietfrom;
   serve: number = 1;
 

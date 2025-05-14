@@ -13,12 +13,18 @@ p-message {
 }
 
 .main-box {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
 }
 
 .left-pane, .right-pane {
   padding: 0 50px;
+}
+.left-pane {
+  width: 55%;
+}
+
+.right-pane {
+  width: 45%;
 }
 
 p-selectbutton, p-floatlabel {

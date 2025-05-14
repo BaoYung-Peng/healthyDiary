@@ -10,7 +10,8 @@
         </div>
         <div class="info-box">
           <p-floatlabel variant="in">
-            <p-select formControlName="type" inputId="types" [options]="types" optionLabel="label" optionValue="value" />
+            <p-select formControlName="type" inputId="types" [options]="types" optionLabel="label"
+              optionValue="value" />
             <label for="in_label">選擇食物類型</label>
           </p-floatlabel>
         </div>
@@ -97,9 +98,9 @@
       </div>
     </div>
     <div class="btn-area">
-      <p-button (click)="save()" severity="info" label="編輯" icon="pi pi-pencil" iconPos="right" />
-      <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" />
+      <!-- <p-button (click)="save()" severity="info" label="編輯" icon="pi pi-pencil" iconPos="right" /> -->
       <p-button (click)="resetForm()" severity="danger" label="重製" icon="pi pi-refresh" iconPos="right" />
+      <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" />
     </div>
   </form>
   <div class="train-ai">

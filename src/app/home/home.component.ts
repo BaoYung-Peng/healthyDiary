@@ -1,17 +1,20 @@
+import { LocalstorageService } from './../@services/localstorage.service';
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { AccordionModule } from 'primeng/accordion';
 
 import Lenis from '@studio-freight/lenis';
+import { BackgroundComponent } from "../background/background/background.component";
 
 
 @Component({
   selector: 'app-home',
   imports: [
     AccordionModule,
-    RouterLink
-  ],
+    RouterLink,
+    BackgroundComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -31,6 +34,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     { title: '你們的網站會不會突然消失，讓我的心血都消失了？', content: '不會，如果真的有倒閉的一天，我們一定也會把所有資訊打包好寄到您的電子信箱裡。', value: '1' },
     { title: '我每天的健康分數都好差，我不想用了？', content: '我們希望能陪你一起面對所有困難，但如果想要休息一下也沒關係，我們隨時都在', value: '2' },
   ];
+
+
 
   register() {
     this.router.navigateByUrl('/register');

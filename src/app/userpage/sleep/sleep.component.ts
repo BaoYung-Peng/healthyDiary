@@ -26,17 +26,14 @@ import { Message } from 'primeng/message';
   styleUrl: './sleep.component.scss'
 })
 export class SleepComponent {
-  userEmail!: string;
-
   today!: Date;
-  tomorrow!: Date;
-  theDayBeforeYesterDay!: Date;
+  yesterDay!: Date;
 
   sleepTime!: Date;
   awakeTime!: Date;
-  sleepHours: number = 8;
+  sleepHours: number = 0;
 
-  usePhone: boolean = false;
+  usePhone: boolean = true;
   insomnia: boolean = false;
   sleepLatency: boolean = false;
 
@@ -51,8 +48,8 @@ export class SleepComponent {
   ];
 
   sleepLatencyOpts: any[] = [
-    { label: '睡得好', value: true },
-    { label: '睡不好', value: false },
+    { label: '睡得好', value: false },
+    { label: '睡不好', value: true },
   ]
 
   showMessage: boolean = false;
@@ -62,18 +59,21 @@ export class SleepComponent {
   ) { }
 
   ngOnInit(): void {
-
-    this.userEmail = localStorage.getItem('userEmail') || '';
-
     this.today = new Date();
 
-    this.tomorrow = new Date();
-    this.tomorrow.setDate(this.today.getDate() + 1);
-    this.tomorrow.setHours(23, 59, 59, 999);
+    this.yesterDay = new Date();
+    this.yesterDay.setDate(this.today.getDate() - 1);
+    this.yesterDay.setHours(0, 0, 0, 0);
 
-    this.theDayBeforeYesterDay = new Date();
-    this.theDayBeforeYesterDay.setDate(this.today.getDate() - 1);
-    this.theDayBeforeYesterDay.setHours(0, 0, 0, 0);
+    const defaultSleepTime = new Date();
+    defaultSleepTime.setDate(defaultSleepTime.getDate() - 1); // 設定為昨天
+    defaultSleepTime.setHours(21, 0, 0, 0); // 設定時間為 21:00 (9 PM)
+    this.sleepTime = defaultSleepTime; // 指定預設值
+
+    console.log('睡覺', this.sleepTime);
+    console.log('起床', this.awakeTime);
+
+
   }
 
   calculateSleepHours() {
@@ -81,15 +81,16 @@ export class SleepComponent {
       if (this.awakeTime <= this.sleepTime) {
         this.awakeTime.setDate(this.awakeTime.getDate() + 1);
       }
-      this.sleepHours = (this.awakeTime.getTime() - this.sleepTime.getTime()) / (1000 * 60 * 60); // 轉換為小時
+      this.sleepHours = Number(((this.awakeTime.getTime() - this.sleepTime.getTime()) / (1000 * 60 * 60)).toFixed(1)); // 轉換為小時
     }
   }
 
   save() {
     const req = {
-      email: this.userEmail,
+      token: localStorage.getItem('token'),
       sleepTime: this.sleepTime,
       awakeTime: this.awakeTime,
+      hours: this.sleepHours,
       phone: this.usePhone,
       insomnia: this.insomnia,
       sleepLatency: this.sleepLatency
@@ -113,6 +114,4 @@ export class SleepComponent {
     })
 
   }
-
-
 }

@@ -15,17 +15,13 @@ td {
 }
 
 .result-table {
-  width: 100%;
+  width: 60%;
+
+  margin: 0 auto;
   background-color: rgb(209, 245, 168);
   padding: 2rem;
   border-radius: 1rem;
-  display: grid;
-  grid-template-areas:
-    "data-table input-box"
-    "data-table btn-box";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr 1fr;
-
+  display: flex;
 
   p {
     margin: 10px 0;
@@ -33,15 +29,20 @@ td {
 }
 
 .data-table {
-  grid-area: data-table;
+  width: 50%;
+  padding: 10px;
 }
 
-.input-box {
-  grid-area: input-box;
+li {
+  margin: 10px 0;
+}
+
+li:hover {
+  color: red;
 }
 
 .btn-box {
-  grid-area: btn-box;
+  padding: 20px;
   display: flex;
   justify-content: end;
   align-items: end;

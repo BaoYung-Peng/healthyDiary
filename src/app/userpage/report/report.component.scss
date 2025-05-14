@@ -33,10 +33,10 @@ button {
   width: 50vw;
   height: 60vh;
 
-  margin: 0 auto;
-  background-color: gray;
-
-  border-radius: 1rem;
+  margin: 10px auto;
+  background-color: rgb(209, 245, 168);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 
   display: flex;
   justify-content: center;
@@ -44,6 +44,16 @@ button {
   flex-direction: column;
 
   gap: 20px;
+}
+
+.daily-report {
+  width: 30%;
+
+  padding: 20px;
+
+  background-color: rgb(209, 245, 168);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
 }
 
 .report-btn {

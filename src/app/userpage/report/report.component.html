@@ -1,27 +1,30 @@
 <h1>當週報告</h1>
 <div class="week-buttons">
   @for(day of weekDays; track $index){
-  <!-- <p-button [label]="day.label" (click)="selectDay($index)" [ngClass]="{'today-button': isToday($index)}" /> -->
   <button (click)="selectDay($index)" [ngClass]="{'today-button': isToday($index)}">{{day.label}}</button>
   }
 </div>
 <p>{{selectedDate}}</p>
-@if(!report){
+@if(!todayMeals){
 <div class="card">
   <h2>今天還沒有報告產生</h2>
   <p-button class="report-btn" (click)="showDialog()" label="產生報告" icon="pi pi-check" iconPos="right" />
 </div>
 }
-@if(report){
+@if(todayMeals && yesterdaySleepData){
 <div class="date">
 </div>
 <div class="container">
   <div class="daily-report">
-    <p>不錯，這週吃得很好，繼續保持</p>
+    <p>你吃了
+      @for(meal of todayMeals; track $index){
+      <span>{{meal}}、</span>
+      }
+    </p>
+    <p>睡了{{yesterdaySleepHours}}小時</p>
   </div>
 </div>
 }
-
 
 <p-dialog header="是否要產生報告" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
   <div class="btn-area">

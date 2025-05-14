@@ -32,9 +32,24 @@ export class ReportComponent implements OnInit {
 
   ref: DynamicDialogRef | undefined;
 
+  // 一周吃了什麼? ...
+  mealList!: any;
+  sleepList!: any;
+  // 今天吃了什麼? ...
+  todayMeals!: any;
+
+  yesterdaySleepData!: any;
+  yesterdaySleepHours!: number;
+  // 報告
   report!: any;
+
+  // dialog 顯示
   visible: boolean = false;
 
+  // 報告回應
+  reportDetail!: string;
+
+  req!: any;
 
   constructor(
     private http: HttpService,
@@ -43,21 +58,25 @@ export class ReportComponent implements OnInit {
   ) { }
 
   weekDays = [
-    { label: '星期日', value: 1 },
-    { label: '星期一', value: 2 },
-    { label: '星期二', value: 3 },
-    { label: '星期三', value: 4 },
-    { label: '星期四', value: 5 },
-    { label: '星期五', value: 6 },
-    { label: '星期六', value: 0 }
+    { label: '星期日', value: 0 },
+    { label: '星期一', value: 1 },
+    { label: '星期二', value: 2 },
+    { label: '星期三', value: 3 },
+    { label: '星期四', value: 4 },
+    { label: '星期五', value: 5 },
+    { label: '星期六', value: 6 },
   ];
+
 
   selectedDate!: Date;
   todayIndex = new Date().getDay(); // 取得今天是星期幾
 
 
+  res!: any;
   ngOnInit(): void {
-
+    this.req = {
+      token: localStorage.getItem('token')
+    }
   }
 
   isToday(dayIndex: number): boolean {
@@ -65,19 +84,57 @@ export class ReportComponent implements OnInit {
   }
 
   selectDay(dayIndex: number) {
-  const today = new Date();
-  const difference = dayIndex - (today.getDay() === 0 ? 7 : today.getDay());
-  this.selectedDate = new Date(today.setDate(today.getDate() + difference));
-  console.log("選擇的日期:", this.selectedDate);
-}
-
+    const today = new Date();
+    const difference = dayIndex - (today.getDay() === 0 ? 7 : today.getDay());
+    this.selectedDate = new Date(today.setDate(today.getDate() + difference));
+    console.log("選擇的日期:", this.selectedDate);
+  }
 
   showDialog() {
     this.visible = true;
   }
   confirm() {
     this.visible = false;
+    this.getTodayMeals();
+    this.getTodaySleep();
   }
+
+  getTodayMeals() {
+    this.http.getMealApi(this.req).subscribe({
+      next: (res: any) => {
+        this.mealList = res.meals;
+        const today = new Date().toISOString().split('T')[0];
+        // 篩選當天的餐點
+        this.todayMeals = this.mealList.filter((meal: any) => meal.eatTime.startsWith(today))
+          .map((meal: any) => JSON.parse(meal.mealsName)).flat();
+      },
+      error: (err: any) => {
+        console.log('API回應', err);
+      }
+    });
+  }
+
+  getTodaySleep() {
+    this.http.getTodaySleepApi(this.req).subscribe({
+      next: (res: any) => {
+        this.sleepList = res.sleeplist || []; // 確保不是 undefined
+
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+        this.yesterdaySleepData = this.sleepList.filter((item: any) => {
+          console.log("檢查時間:", item.sleepTime); // 先檢查時間格式
+          return item.sleepTime?.startsWith(yesterdayStr);
+        });
+        this.yesterdaySleepHours = this.yesterdaySleepData.reduce((sum: any, sleep: any) => sum + sleep.hours, 0);
+        console.log("昨天的睡眠資料:", this.yesterdaySleepData);
+        console.log(this.yesterdaySleepHours);
+
+      }
+    });
+  }
+
 
   generateReport() {
     const req = "";

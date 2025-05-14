@@ -72,6 +72,7 @@ export class AdminComponent {
       protein: [0, [Validators.required, Validators.min(0)]],
       sodium: [0, [Validators.required, Validators.min(0)]],
       cholesterol: [0, [Validators.required, Validators.min(0)]],
+      unit: ['', Validators.required],
       photo: [],
     });
 
@@ -112,6 +113,7 @@ export class AdminComponent {
       protein: 0,
       sodium: 0,
       cholesterol: 0,
+      unit: '',
       photo: '',
     });
   }
