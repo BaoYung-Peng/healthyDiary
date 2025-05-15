@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { HttpService } from '../@services/http.service';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-forgotpassword',
   imports: [
@@ -65,7 +64,6 @@ export class ForgotpasswordComponent {
   });
   }
 }
-
 
 //     this.httpservice
 //       .postApi('http://172.16.1.106:8080/daily/send_reset_password', submitData)
