@@ -382,7 +382,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
 
     this.httpservice.getCalendarExercise(postData).subscribe({
       next: (res: any) => {
-        this.exerciseRecords = res.exerciselist; // ← 加上這行
+        this.exerciseRecords = res.exerciseList || []; // 如果 res.exerciselist 是 undefined，就設為 []
         console.log(res);
       },
       error: (err) => {

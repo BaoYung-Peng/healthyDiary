@@ -9,7 +9,6 @@ export class HttpService {
   constructor(private httpClient: HttpClient) { }
 
   IP: string = '172.16.1.188';
-  // IP: string = 'localhost';
 
   // 登入
   loginApi(postData: any) {
@@ -95,7 +94,7 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
-    // 紀錄睡眠
+  // 取得睡眠
   getTodaySleepApi(postData: any) {
     const url = `http://${this.IP}:8080/sleep/select_sleep`;
     return this.httpClient.post(url, postData);

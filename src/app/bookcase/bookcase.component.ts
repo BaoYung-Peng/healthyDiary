@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpService } from '../@services/http.service';
 
 @Component({
@@ -12,7 +12,8 @@ import { HttpService } from '../@services/http.service';
     CommonModule,
   ],
   templateUrl: './bookcase.component.html',
-  styleUrl: './bookcase.component.scss'
+  styleUrl: './bookcase.component.scss',
+  providers: [DatePipe]  // 👈 加這行
 })
 export class BookcaseComponent implements OnInit {
   // 請求狀態
@@ -36,7 +37,8 @@ export class BookcaseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private datepipe: DatePipe
   ) { }
 
   ngOnInit(): void {
