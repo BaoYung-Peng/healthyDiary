@@ -1,19 +1,53 @@
+<div class="snow-animation"></div>
 <div class="book-container">
-  <h2 class="month-title">月份：{{ monthName }}</h2> <!-- 新增這行 -->
+  <h2 class="month-title">月份：{{ monthName }}</h2>
   <div class="book">
     <!-- 左頁 -->
     <div class="page left-page" #leftPageRef>
       <div class="content">
-        <div class="front">{{ leftPageFront }}</div>
-        <div class="back">{{ leftPageBack }}</div>
+        <!-- 初始時空白 -->
+        <ng-container *ngIf="currentPageIndex !== 0">
+          <!-- 日期頁內容 -->
+          <div class="front day-page" *ngIf="currentPageIndex > 0 && currentPageIndex <= daysInMonth">
+            <h2 class="day-number">{{ currentPageIndex }} 號</h2>
+          </div>
+
+          <!-- 封底頁內容 -->
+          <div class="front back-cover" *ngIf="currentPageIndex === daysInMonth + 1">
+            <h1 class="back-title">封底</h1>
+          </div>
+        </ng-container>
+
+        <!-- 背面內容 -->
+        <div class="back">
+          {{ leftPageBack }}
+        </div>
       </div>
     </div>
 
     <!-- 右頁 -->
     <div class="page right-page" #rightPageRef>
       <div class="content">
-        <div class="front">{{ rightPageFront }}</div>
-        <div class="back">{{ rightPageBack }}</div>
+        <!-- 封面頁內容，只有當currentPageIndex === 0 -->
+        <div class="front cover-page" *ngIf="currentPageIndex === 0">
+          <div class="cover-content">
+            <h1 class="cover-title">心情日記本</h1>
+            <p class="cover-subtitle">月份：{{ monthName }}</p>
+          </div>
+        </div>
+
+        <!-- 日記內容頁 -->
+        <div class="front diary-page" *ngIf="currentPageIndex > 0 && currentPageIndex <= daysInMonth">
+          <p class="diary-content">{{ getDiaryContent(currentPageIndex) }}</p>
+          <p class="mood-score" *ngIf="getMoodScore(currentPageIndex) !== null">
+            心情指數：{{ getMoodScore(currentPageIndex) }}
+          </p>
+        </div>
+
+        <!-- 背面內容 -->
+        <div class="back">
+          {{ rightPageBack }}
+        </div>
       </div>
     </div>
   </div>
@@ -21,6 +55,6 @@
   <div class="controls">
     <button (click)="goBack()">返回書櫃</button>
     <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">上一頁</button>
-    <button (click)="goToNextPage()" [disabled]="currentPageIndex >= pagesData.length - 1 || isAnimating">下一頁</button>
+    <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">下一頁</button>
   </div>
 </div>
