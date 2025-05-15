@@ -1,18 +1,26 @@
-<h2>{{ monthName }} 心情日記</h2>
+<div class="book-container">
+  <h2 class="month-title">月份：{{ monthName }}</h2> <!-- 新增這行 -->
+  <div class="book">
+    <!-- 左頁 -->
+    <div class="page left-page" #leftPageRef>
+      <div class="content">
+        <div class="front">{{ leftPageFront }}</div>
+        <div class="back">{{ leftPageBack }}</div>
+      </div>
+    </div>
 
-<div *ngIf="isLoading">載入中...</div>
+    <!-- 右頁 -->
+    <div class="page right-page" #rightPageRef>
+      <div class="content">
+        <div class="front">{{ rightPageFront }}</div>
+        <div class="back">{{ rightPageBack }}</div>
+      </div>
+    </div>
+  </div>
 
-<div *ngIf="!isLoading && moodData.length === 0">
-  本月尚無心情日記。
-</div>
-
-<div *ngIf="!isLoading && moodData.length > 0">
-  <div *ngFor="let item of moodData" class="diary-entry">
-    <p>📅 日期：{{ item.date }}</p>
-    <p>😊 心情指數：{{ item.mood }}</p>
-    <p>📖 日記內容：{{ item.diary }}</p>
-    <hr />
+  <div class="controls">
+    <button (click)="goBack()">返回書櫃</button>
+    <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">上一頁</button>
+    <button (click)="goToNextPage()" [disabled]="currentPageIndex >= pagesData.length - 1 || isAnimating">下一頁</button>
   </div>
 </div>
-
-<button (click)="goBack()">返回書櫃</button>

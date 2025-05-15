@@ -69,9 +69,13 @@ export const routes: Routes = [
     path: 'confirm',
     component: VerifyComponent
   },
-    {
+  {
     path: 'bookcase',
     component: BookcaseComponent
+  },
+   {
+    path: 'mood-diary/:month',  // 使用動態路徑參數
+    component: MoodDiaryComponent
   },
   {
     path: '',

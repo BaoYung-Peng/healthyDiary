@@ -1,77 +1,103 @@
-/* mooddiary.component.css */
-.mood-diary-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* Main container */
+.book-container {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f4ef;
+  position: relative;
+  margin: 10vh auto;
 }
 
-h2 {
-  color: #5a3921;
-  text-align: center;
-  margin-bottom: 30px;
+/* Book wrapper */
+.book {
+  width: 80vw;
+  height: 100%;
+  position: relative;
+  perspective: 2500px;
+  display: flex;
 }
 
-.loading-spinner {
-  text-align: center;
-  padding: 50px;
+/* Page styles */
+.page {
+  width: 40vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.01s; /* small transition for z-index changes */
 }
 
-.diary-content {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.left-page {
+  left: 0;
+  background: #fff9e6;
+  border-right: 1px solid #e0c097;
+  transform-origin: right center;
+  z-index: 1;
 }
 
-.diary-entry {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
+.right-page {
+  left: 40vw;
+  background: #fffefc;
+  border-left: 1px solid #e0c097;
+  transform-origin: left center;
+  z-index: 2;
 }
 
-.diary-entry:last-child {
-  border-bottom: none;
+/* Page content */
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-.mood-rating {
-  margin: 10px 0;
+/* Front/back faces */
+.front {
+  transform: rotateY(0deg);
+  z-index: 2;
 }
 
-.star {
-  color: #ccc;
-  font-size: 20px;
+.back {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.star.filled {
-  color: #f39c12;
+/* Active flipping page */
+.flipping-page {
+  position: absolute;
+  width: 40vw;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: 100;
 }
 
-.diary-note {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 5px;
-  line-height: 1.6;
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: -4rem;
+  display: flex;
+  gap: 1rem;
+  width: 80vw;
+  justify-content: center;
 }
 
-.no-entries {
-  text-align: center;
-  color: #666;
-  padding: 30px;
-}
-
-.back-button {
-  display: block;
-  margin: 30px auto 0;
-  padding: 10px 20px;
-  background-color: #8b4513;
+button {
+  padding: 0.8rem 1.5rem;
+  background-color: #8d6e63;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.back-button:hover {
-  background-color: #5a3921;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
