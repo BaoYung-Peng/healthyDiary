@@ -10,6 +10,32 @@
   margin: 10vh auto;
 }
 
+// 封面
+.cover-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 水平置中 */
+  justify-content: flex-start;
+  /* 靠上 */
+  height: 100%;
+  padding-top: 50px;
+  /* 往下推一點距離 */
+  gap: 20px;
+  text-align: center;
+}
+
+.cover-title {
+  font-size: 3rem;
+  /* 放大標題 */
+  font-weight: bold;
+}
+
+.cover-subtitle {
+  font-size: 1.5rem;
+  color: #666;
+}
+
 /* Book wrapper */
 .book {
   width: 80vw;
@@ -26,7 +52,8 @@
   position: absolute;
   top: 0;
   transform-style: preserve-3d;
-  transition: transform 0.01s; /* small transition for z-index changes */
+  transition: transform 0.01s;
+  /* small transition for z-index changes */
 }
 
 .left-page {

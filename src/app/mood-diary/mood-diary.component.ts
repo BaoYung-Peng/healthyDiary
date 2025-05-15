@@ -5,6 +5,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import gsap from 'gsap';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
+import { MoodThermometerComponent } from '../mood-thermometer/mood-thermometer.component';
 
 interface MoodEntry {
   date: string;
@@ -33,7 +34,10 @@ function createPage(front: string, back: string, disabled: boolean, type: PageTy
 @Component({
   selector: 'app-mood-diary',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './mood-diary.component.html',
   styleUrls: ['./mood-diary.component.scss'],
   providers: [DatePipe]
@@ -41,6 +45,7 @@ function createPage(front: string, back: string, disabled: boolean, type: PageTy
 export class MoodDiaryComponent implements AfterViewInit {
   @ViewChild('leftPageRef', { static: false }) leftPageRef!: ElementRef;
   @ViewChild('rightPageRef', { static: false }) rightPageRef!: ElementRef;
+  @ViewChild('thermometer') thermometerComponent!: MoodThermometerComponent;
 
   leftPageFront: string = '';
   leftPageBack: string = '';
@@ -111,11 +116,28 @@ export class MoodDiaryComponent implements AfterViewInit {
       token: this.token,
       month: month
     }).subscribe((res: any) => {
-      const moodlist = Array.isArray(res.moodlist) ? res.moodlist : [];
-      console.log('✅ moodlist from server:', res.moodlist);
+      console.log('✅ 完整回應:', res); // 先確認完整回應結構
+
+      // 確保 moodlist 是陣列
+      const moodlist = Array.isArray(res?.moodlist) ? res.moodlist : [];
+      console.log('✅ moodlist:', moodlist);
+
+      // 清空現有資料
+      this.moodData = [];
 
       moodlist.forEach((entry: any) => {
+        // 將資料存入 moodData
+        const moodEntry: MoodEntry = {
+          date: entry.date,
+          userId: entry.userId,
+          mood: entry.mood,
+          diary: entry.diary
+        };
+        this.moodData.push(moodEntry);
+
+        // 更新 pagesData
         const day = new Date(entry.date).getDate();
+        console.log(`處理 ${entry.date}，日期: ${day}`);
 
         const leftPageIndex = 1 + (day - 1);
         const rightPageIndex = 1 + this.daysInMonth + (day - 1);
@@ -131,20 +153,23 @@ export class MoodDiaryComponent implements AfterViewInit {
 
       this.isLoading = false;
       this.updatePages();
-      this.cdr.detectChanges();
+      this.cdr.detectChanges(); // 手動觸發變更檢測
+    }, (error) => {
+      console.error('❌ 獲取資料失敗:', error);
+      this.isLoading = false;
     });
   }
 
   private initializePagesData() {
     this.pagesData = [
-      createPage('心情日記本', `月份：${this.monthName}`, false, PageType.Cover),
+      createPage('', '', false, PageType.Cover), // 封面內容現在在HTML中
       ...Array.from({ length: this.daysInMonth }, (_, i) =>
-        createPage(`${i + 1} 號`, '', true, PageType.Day)
+        createPage('', '', true, PageType.Day) // 日期內容現在在HTML中
       ),
       ...Array.from({ length: this.daysInMonth }, () =>
-        createPage('尚未填寫', '', true, PageType.Day)
+        createPage('', '', true, PageType.Day) // 日記內容現在在HTML中
       ),
-      createPage('封底', '', true, PageType.BackCover)
+      createPage('', '', true, PageType.BackCover) // 封底內容現在在HTML中
     ];
   }
 
@@ -154,54 +179,42 @@ export class MoodDiaryComponent implements AfterViewInit {
     });
   }
 
+  // 新增這個方法來取得日記內容
+  getDiaryContent(day: number): string {
+    if (!this.moodData || this.moodData.length === 0) {
+      return '尚未填寫';
+    }
+
+    // 確保日期格式一致
+    const formattedDate = `${this.today.getFullYear()}-${this.monthId.padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+    const entry = this.moodData.find(item => {
+      // 比對完整日期或僅比對日
+      return item.date === formattedDate ||
+        new Date(item.date).getDate() === day;
+    });
+
+    return entry?.diary || '尚未填寫';
+  }
+
+  // 修改 updatePages 方法，主要處理背面內容
   updatePages() {
-    // 用class控制右頁尺寸
     const rightPageEl = this.rightPageRef?.nativeElement;
     const leftPageEl = this.leftPageRef?.nativeElement;
 
     if (!rightPageEl || !leftPageEl) return;
 
-    // 清除所有封面封底class
+    // 清除所有樣式類
     rightPageEl.classList.remove('cover', 'backCover');
     leftPageEl.classList.remove('cover', 'backCover');
 
-    if (this.currentPageIndex === 0) {
-      // 封面頁
-      this.leftPageFront = '';
-      this.leftPageBack = '';
-      this.rightPageFront = this.pagesData[0].front;
-      this.rightPageBack = this.pagesData[0].back;
-
-      rightPageEl.classList.add('cover');
-    } else if (this.currentPageIndex >= 1 && this.currentPageIndex <= this.daysInMonth) {
-      // 日期頁
-      const leftPage = this.pagesData[this.currentPageIndex];
+    // 只需要處理背面內容
+    if (this.currentPageIndex > 0 && this.currentPageIndex <= this.daysInMonth) {
       const rightPage = this.pagesData[this.currentPageIndex + this.daysInMonth];
-
-      this.leftPageFront = leftPage.front;
-      this.leftPageBack = leftPage.back;
-
-      this.rightPageFront = rightPage.front;
       this.rightPageBack = rightPage.back;
-    } else if (this.currentPageIndex === this.daysInMonth + 1) {
-      // 封底
-      const leftPage = this.pagesData[this.daysInMonth];
-      const rightPage = this.pagesData[this.pagesData.length - 1];
-
-      this.leftPageFront = leftPage.front;
-      this.leftPageBack = leftPage.back;
-
-      this.rightPageFront = rightPage.front;
-      this.rightPageBack = rightPage.back;
-
-      rightPageEl.classList.add('backCover');
-      leftPageEl.classList.add('backCover');
-    } else {
-      this.leftPageFront = '';
-      this.leftPageBack = '';
-      this.rightPageFront = '';
-      this.rightPageBack = '';
     }
+
+    this.cdr.detectChanges();
   }
 
   async goToNextPage() {
@@ -257,4 +270,7 @@ export class MoodDiaryComponent implements AfterViewInit {
       '七月', '八月', '九月', '十月', '十一月', '十二月'];
     return months[month - 1] || '';
   }
+
+
+
 }
