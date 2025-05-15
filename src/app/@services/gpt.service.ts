@@ -15,7 +15,7 @@ export class GptService {
     'Content-Type': 'application/json',
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   sendMessage(message: string): Observable<string> {
     const body = {
@@ -24,6 +24,8 @@ export class GptService {
         {
           role: 'user',
           content: message,
+          temperature: 0.5, // 較低的值可能加快回應
+          stream: false // 確保stream設為false除非你需要串流
         },
       ],
     };

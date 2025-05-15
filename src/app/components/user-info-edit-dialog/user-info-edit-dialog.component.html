@@ -1,7 +1,7 @@
 @if(changeData){
 @switch (changeData) {
 @case ('pwd') {
-<div class="container" style="width: 50vw; height: 50vh;">
+<div class="container" style="width: 30vw; height: 50vh;">
   <p>修改密碼:</p>
   <div class="info-box">
     <p-floatLabel class="floatlabel" variant="on">
@@ -38,7 +38,7 @@
 </div>
 }
 @case ('name') {
-<div class="container" style="width: 50vw; height: 50vh;">
+<div class="container" style="width: 30vw; height: 50vh;">
   <p>修改暱稱:</p>
   <div class="info-box">
     <p-floatlabel variant="on">
@@ -54,7 +54,7 @@
 }
 
 @case ('height') {
-<div class="container" style="width: 50vw; height: 50vh;">
+<div class="container" style="width: 30vw; height: 50vh;">
   <p>修改身高:</p>
   <div class="info-box">
     <p-floatlabel variant="on">
@@ -71,7 +71,7 @@
 }
 
 @case ('weight') {
-<div class="container" style="width: 50vw; height: 50vh;">
+<div class="container" style="width: 30vw; height: 50vh;">
   <p>修改體重:</p>
   <div class="info-box">
     <p-floatlabel variant="on">
@@ -92,7 +92,7 @@
   <p>修改工作型態:</p>
   <div class="info-box">
     @for(wt of wtList; track $index){
-    <button class="wt-btn" (click)="editWt(wt.value)">{{wt.label}}</button>
+    <button class="select-btn" (click)="editWt(wt.value)">{{wt.label}}</button>
     }
   </div>
 </div>
@@ -104,7 +104,7 @@
   <div class="info-box"
     style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);">
     @for(bt of btList; track $index){
-    <button class="wt-btn" (click)="editBt(bt.value)">{{bt.label}}</button>
+    <button class="select-btn" (click)="editBt(bt.value)">{{bt.label}}</button>
     }
   </div>
 </div>

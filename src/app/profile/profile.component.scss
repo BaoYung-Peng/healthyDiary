@@ -9,11 +9,13 @@ h1 {
 .profile-box {
   width: 50%;
 
-  margin: 0 auto;
-  background-color: gray;
+  margin: 10px auto;
+  background-color: rgb(209, 245, 168);
   padding: 20px;
 
   border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
 }
 
 .container {
@@ -56,7 +58,7 @@ h1 {
     height: 100%;
     object-fit: contain;
     object-position: center;
-    background-color: #f0f0f0;
+    background-color: transparent;
   }
 }
 
@@ -81,13 +83,14 @@ h1 {
     margin-left: 45%;
 
   }
+
   span {
     padding: 10px;
-      position: absolute;
-      top: 10%;
-      left: 54%;
-      font-size: 15px;
-    }
+    position: absolute;
+    top: 10%;
+    left: 54%;
+    font-size: 15px;
+  }
 }
 
 .personInfo-box {
