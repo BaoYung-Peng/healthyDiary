@@ -1,27 +1,60 @@
+@if(loading$ | async){
+<div class="overlay"></div>
+<p class="loading-text">
+  報告產生中
+  <p-progress-spinner strokeWidth="5" fill="transparent" animationDuration="1s"
+    [style]="{ width: '70px', height: '70px' }" />
+</p>
+}
+@if(showMessage){
+<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
+}
+
 <h1>當週報告</h1>
 <div class="week-buttons">
   @for(day of weekDays; track $index){
-  <button (click)="selectDay($index)" [ngClass]="{'today-button': isToday($index)}">{{day.label}}</button>
+  <button (click)="selectDay($index)"
+    [ngClass]="{'today-button': isToday($index), 'selected-button': selectedDateIndex === day.value}"
+    [disabled]="isFutureDate(day.value)">
+    {{day.label}}
+  </button>
   }
 </div>
-<p>{{selectedDate}}</p>
-@if(!todayMeals){
+
+@if(selectedDayReport && !(aiRes)){
+<div class="report-container">
+  <div class="daily-report">
+    <p class="summary">{{summary}}</p>
+  </div>
+  <div class="ai-report">
+    <p class="summary">{{selectedDayReport.feedback}}</p>
+  </div>
+  <div class="score-report">
+    <img class="chat" src="imgs/chat.svg" />
+    <span>持續讓自己變得更好!!</span>
+    <img class="cat" src="imgs/playful-cat.svg" />
+  </div>
+</div>
+}
+
+@if(!(aiRes) && !(selectedDayReport)){
 <div class="card">
-  <h2>今天還沒有報告產生</h2>
+  <h2>還沒有產生報告</h2>
   <p-button class="report-btn" (click)="showDialog()" label="產生報告" icon="pi pi-check" iconPos="right" />
 </div>
 }
-@if(todayMeals && yesterdaySleepData){
-<div class="date">
-</div>
-<div class="container">
+@if(aiRes){
+<div class="report-container">
   <div class="daily-report">
-    <p>你吃了
-      @for(meal of todayMeals; track $index){
-      <span>{{meal}}、</span>
-      }
-    </p>
-    <p>睡了{{yesterdaySleepHours}}小時</p>
+    <p class="summary">{{summary}}</p>
+  </div>
+  <div class="ai-report">
+    <p class="summary">{{aiRes}}</p>
+  </div>
+  <div class="score-report">
+    <img class="chat" src="imgs/chat.svg" />
+    <span>今天的紀錄已完成，明天再來吧</span>
+    <img class="cat" src="imgs/playful-cat.svg" />
   </div>
 </div>
 }

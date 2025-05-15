@@ -36,11 +36,10 @@ export class FoodTableComponent {
   // 和 ai 補充說明的文字
   detail: string = '';
 
-  // 選擇的食物
-  selectedFoods: any[] = [];
 
-  // 選擇的食物(傳到後端)
-  myDiet: any[] = [];
+  selectedFoods: any[] = []; // 選擇的食物
+
+  myDiet: any[] = [];  // 選擇的食物(傳到後端)
   user!: any;
   token!: string;
 
@@ -181,6 +180,8 @@ export class FoodTableComponent {
         console.log('API回應', res);
         if (res.code == 200) {
           this.showMessage = true;
+          this.myDiet = [];
+          this.selectedFoods = [];
           setTimeout(() => {
             this.showMessage = false
           }, 2000);

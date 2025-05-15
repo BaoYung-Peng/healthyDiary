@@ -1,5 +1,6 @@
 .info-box {
   margin: 20px auto;
+  display: flex;
 }
 
 p-button {
@@ -13,13 +14,22 @@ p-button {
   flex-direction: column;
 }
 
-.wt-btn {
+.select-btn {
   width: 200px;
   height: 200px;
-  background-color: red;
+
+  background-color: rgb(253, 253, 253);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
   margin: 10px;
   border-radius: 10px;
   padding: 20px;
+
+  transition: background-color 0.3s ease;
+}
+
+.select-btn:hover {
+  background-color: red;
 }
 
 .gender-btn {

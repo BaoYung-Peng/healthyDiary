@@ -96,10 +96,9 @@ export class HttpService {
 
   // 取得睡眠
   getTodaySleepApi(postData: any) {
-    const url = `http://${this.IP}:8080/sleep/select_sleep`;
+    const url = `http://${this.IP}:8080/sleep/get_sleep`;
     return this.httpClient.post(url, postData);
   }
-
 
   // 紀錄運動
   fillInExercise(postData: any) {
@@ -124,9 +123,21 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
-  // 取得使用者吃了什麼
+  // 取得飲食紀錄
   getMealApi(postData: any) {
     const url = `http://${this.IP}:8080/meals/get_meals`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 取得睡眠紀錄
+  getSleepApi(postData: any) {
+    const url = `http://${this.IP}:8080/sleep/get_sleep`;
+    return this.httpClient.post(url, postData);
+  }
+
+  // 取得運動紀錄
+  getExerciseApi(postData: any) {
+    const url = `http://${this.IP}:8080/exercise/get_exercise`;
     return this.httpClient.post(url, postData);
   }
 
@@ -137,7 +148,7 @@ export class HttpService {
   }
 
   // 取得每日報告
-  getTodayReportApi(postData: any) {
+  getDailyReportApi(postData: any) {
     const url = `http://${this.IP}:8080/feedback/get_daily`;
     return this.httpClient.post(url, postData);
   }
@@ -147,5 +158,4 @@ export class HttpService {
     const url = `http://${this.IP}:8080/feedback/fill_in_daily`;
     return this.httpClient.post(url, postData);
   }
-
 }

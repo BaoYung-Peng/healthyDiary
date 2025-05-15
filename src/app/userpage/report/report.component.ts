@@ -2,13 +2,14 @@ import { HttpService } from './../../@services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { DatePicker } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ReportDialogComponent } from '../../components/report-dialog/report-dialog.component';
 import { Dialog } from 'primeng/dialog';
 import { GptService } from '../../@services/gpt.service';
 import { CommonModule } from '@angular/common';
+import { ProgressSpinner } from 'primeng/progressspinner';
+import { LoadingService } from '../../@services/loading.service';
+import { Message } from 'primeng/message';
 
 
 @Component({
@@ -17,11 +18,11 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
 
-    DatePicker,
     ButtonModule,
-    Dialog
+    Dialog,
+    ProgressSpinner,
+    Message
   ],
-  providers: [DialogService],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss'
 })
@@ -31,30 +32,31 @@ export class ReportComponent implements OnInit {
   ];
 
   ref: DynamicDialogRef | undefined;
+  loading$!: any;
+  showMessage: boolean = false;
+  user!: any;
+  mealList!: any; // 所有飲食資料
+  sleepList!: any; // 所有睡眠資料
+  exerciseList!: any;  // 所有運動資料
+  reportList!: any; // 所有報告資料
 
-  // 一周吃了什麼? ...
-  mealList!: any;
-  sleepList!: any;
-  // 今天吃了什麼? ...
-  todayMeals!: any;
+  selectedDayMeals!: any; // 該天飲食資料
+  selectedDayExercise!: any; // 該天運動資料
+  previousDaySleepData!: any; // 昨晚睡眠資料
+  previousDaySleepHours!: number; //昨晚睡眠時數
+  selectedDayReport!: any;  // 該天報告
+  exerciseSummary!: string;  // 該天運動紀錄概述(給AI用)
 
-  yesterdaySleepData!: any;
-  yesterdaySleepHours!: number;
-  // 報告
-  report!: any;
+  aiRes!: any; // AI回應內容
 
-  // dialog 顯示
-  visible: boolean = false;
+  visible: boolean = false;   // dialog 顯示
 
-  // 報告回應
-  reportDetail!: string;
-
-  req!: any;
+  summary!: string;   // 當天所有紀錄概述
 
   constructor(
     private http: HttpService,
-    private dialogService: DialogService,
-    private gptService: GptService
+    private gptService: GptService,
+    private loadingService: LoadingService
   ) { }
 
   weekDays = [
@@ -67,77 +69,196 @@ export class ReportComponent implements OnInit {
     { label: '星期六', value: 6 },
   ];
 
+  // 預設為當天
+  selectedDate: Date = new Date();
+  selectedDateIndex = new Date().getDay(); // 取得今天是星期幾
 
-  selectedDate!: Date;
-  todayIndex = new Date().getDay(); // 取得今天是星期幾
-
-
-  res!: any;
   ngOnInit(): void {
-    this.req = {
+    this.loading$ = this.loadingService.loading$;
+    this.fetchAllData();
+  }
+
+  // 取得所有資料
+  fetchAllData() {
+    const req = {
       token: localStorage.getItem('token')
     }
+    // 取得使用者資料
+    this.http.getUserByTokenApi(req).subscribe({
+      next: (res: any) => {
+        this.user = res.user;
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    });
+    // 取得所有飲食資料
+    this.http.getMealApi(req).subscribe({
+      next: (res: any) => {
+        this.mealList = res.meals || [];
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    });
+    // 取得所有睡眠資料
+    this.http.getSleepApi(req).subscribe({
+      next: (res: any) => {
+        this.sleepList = res.sleeplist || [];
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    });
+    // 取得所有運動資料
+    this.http.getExerciseApi(req).subscribe({
+      next: (res: any) => {
+        this.exerciseList = res.exerciseList || [];
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    });
   }
 
+  // ngClass用，當天是日期按鈕顏色會和其他不同
   isToday(dayIndex: number): boolean {
-    return dayIndex === this.todayIndex; // 如果索引與今天匹配，返回 true
+    return dayIndex === this.selectedDateIndex; // 如果索引與今天匹配，返回 true
   }
 
+  // 選擇日期
   selectDay(dayIndex: number) {
     const today = new Date();
     const difference = dayIndex - (today.getDay() === 0 ? 7 : today.getDay());
     this.selectedDate = new Date(today.setDate(today.getDate() + difference));
+    this.selectedDateIndex = dayIndex;
     console.log("選擇的日期:", this.selectedDate);
+
+    this.getMealDataForSelectedDay();
+    this.getSleepDataForSelectedDay();
+    this.getExerciseDataForSelectedDay();
+
+    const exerciseSummary = this.selectedDayExercise.map((exercise: any) => `${exercise.exerciseName} ${exercise.duration}分鐘`).join('、');
+    this.summary = `我這天吃了${this.selectedDayMeals.join(', ')}， 做了${exerciseSummary}，昨天睡了${this.previousDaySleepHours}小時。`
+
+    const req = {
+      token: localStorage.getItem('token'),
+      date: this.selectedDate.toISOString().split('T')[0]
+    }
+    console.log(req);
+    this.http.getDailyReportApi(req).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.selectedDayReport = res.dailyFeedback
+      }
+    })
   }
 
+  // 判斷是否大於今天，若大於disable按鈕
+  isFutureDate(dayIndex: number): boolean {
+    const todayIndex = new Date().getDay(); // 取得今天是星期幾
+    return dayIndex > todayIndex; // 如果選擇的日期比今天晚，則禁用按鈕
+  }
   showDialog() {
     this.visible = true;
   }
+
+  // 確認產生報告
   confirm() {
+    this.loadingService.showLoading();
     this.visible = false;
-    this.getTodayMeals();
-    this.getTodaySleep();
+
+    this.selectedDate = new Date();
+
+    this.selectedDayReport = null; // 選擇日期的 AI 回應
+    this.aiRes = null; // 當日 AI 回應
+
+    this.getMealDataForSelectedDay();
+    this.getSleepDataForSelectedDay();
+    this.getExerciseDataForSelectedDay();
+    this.sendMgsToAi();
   }
 
-  getTodayMeals() {
-    this.http.getMealApi(this.req).subscribe({
+  // 篩出所選日期的飲食資料
+  getMealDataForSelectedDay() {
+    this.selectedDayMeals = this.mealList.filter((meal: any) => meal.eatTime?.startsWith(this.selectedDate.toISOString().split('T')[0]))
+      .map((meal: any) => JSON.parse(meal.mealsName)).flat();
+  }
+
+  // 篩出所選日期的睡眠資料
+  getSleepDataForSelectedDay() {
+    const previousDay = new Date(this.selectedDate);
+    previousDay.setDate(previousDay.getDate() - 1);
+    const previousDayStr = previousDay.toISOString().split('T')[0];
+
+    this.previousDaySleepData = this.sleepList.filter((item: any) => item.sleepTime?.startsWith(previousDayStr));
+    this.previousDaySleepHours = this.previousDaySleepData.reduce((sum: any, sleep: any) => sum + sleep.hours, 0);
+  }
+
+  // 篩出所選日期的運動資料
+  getExerciseDataForSelectedDay() {
+    this.selectedDayExercise = this.exerciseList.filter((exercise: any) => exercise.date?.startsWith(this.selectedDate.toISOString().split('T')[0]));
+    console.log(this.selectedDayExercise);
+  }
+
+  // 傳資料給AI
+  sendMgsToAi() {
+    const exerciseSummary = this.selectedDayExercise.map((exercise: any) => `${exercise.exerciseName} ${exercise.duration}分鐘`).join('、');
+
+    this.summary = `我這天吃了${this.selectedDayMeals.join(', ')}， 做了${exerciseSummary}，昨天睡了${this.previousDaySleepHours}小時。`
+
+    const req = `我的身高${this.user.height}公分，
+    體重${this.user.weight}公斤，
+    性別為${this.user.gender}，
+    工作型態為${this.user.workType}。
+    我這天吃了${this.selectedDayMeals.join(', ')}，
+    做了${exerciseSummary}，
+    昨天睡了${this.previousDaySleepHours}小時。
+    用淺顯易懂的方式產生一份約100字的當天健康建議。(不用複誦我的資料，只要給我建議建和評價就好)`.replace(/\s+/g, ' ').trim();
+
+    console.log(req);
+    this.gptService.sendMessage(req).subscribe({
+      next: (res) => {
+        this.aiRes = res;
+        if (this.aiRes) {
+          this.save();
+        }
+      },
+      error: err => {
+        console.log('API錯誤', err);
+      }
+    });
+  }
+
+  // 儲存
+  save() {
+    const req = {
+      token: localStorage.getItem('token'),
+      date: new Date().toISOString().split('T')[0],
+      feedback: this.aiRes
+    }
+    console.log(req);
+    this.http.fillInTodayReportApi(req).subscribe({
       next: (res: any) => {
-        this.mealList = res.meals;
-        const today = new Date().toISOString().split('T')[0];
-        // 篩選當天的餐點
-        this.todayMeals = this.mealList.filter((meal: any) => meal.eatTime.startsWith(today))
-          .map((meal: any) => JSON.parse(meal.mealsName)).flat();
+        console.log(res);
+        if (res.code == 200) {
+          this.loadingService.hideLoading();
+          this.showMessage = true;
+          setTimeout(() => {
+            this.showMessage = false
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            this.loadingService.hideLoading();
+          }, 2000);
+        }
       },
       error: (err: any) => {
         console.log('API回應', err);
+        setTimeout(() => {
+          this.loadingService.hideLoading();
+        }, 2000);
       }
     });
-  }
-
-  getTodaySleep() {
-    this.http.getTodaySleepApi(this.req).subscribe({
-      next: (res: any) => {
-        this.sleepList = res.sleeplist || []; // 確保不是 undefined
-
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayStr = yesterday.toISOString().split('T')[0];
-
-        this.yesterdaySleepData = this.sleepList.filter((item: any) => {
-          console.log("檢查時間:", item.sleepTime); // 先檢查時間格式
-          return item.sleepTime?.startsWith(yesterdayStr);
-        });
-        this.yesterdaySleepHours = this.yesterdaySleepData.reduce((sum: any, sleep: any) => sum + sleep.hours, 0);
-        console.log("昨天的睡眠資料:", this.yesterdaySleepData);
-        console.log(this.yesterdaySleepHours);
-
-      }
-    });
-  }
-
-
-  generateReport() {
-    const req = "";
-    this.gptService.sendMessage(req);
   }
 }
