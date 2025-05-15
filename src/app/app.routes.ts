@@ -20,8 +20,6 @@ import { ReportComponent } from './userpage/report/report.component';
 import { BookcaseComponent } from './bookcase/bookcase.component';
 import { MoodDiaryComponent } from './mood-diary/mood-diary.component';
 
-
-
 export const routes: Routes = [
   {
     path: 'home',
