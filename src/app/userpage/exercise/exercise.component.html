@@ -15,17 +15,19 @@
 <section class="content">
   <!-- 運動類型選擇區 -->
   <div class="carousel">
-    <!-- 顯示被選擇的類型對應的圖片 -->
     @for (category of imageList; track category.type) {
     @if (category.type === activeType) {
     <div>
       <h3>{{ category.type }} 類運動</h3>
-      <div style="display: flex; gap: 10px;">
+      <div class="image-grid">
         @for (item of category.data; track item.name) {
-        <div style="text-align: center; cursor: pointer;" [class.selected]="selectedImageName === item.name"
-          (click)="selectImage(item)">
-          <img [src]="item.src" alt="{{ item.name }}" width="300px" height="300px" />
+        <div class="image-container" [class.selected]="selectedImageName === item.name" (click)="selectImage(item)">
+          <img [src]="item.src" alt="{{ item.name }}" width="300" height="300" />
           <p>{{ item.name }}</p>
+          <!-- 打勾標記 -->
+          @if (selectedImageName === item.name) {
+          <div class="checkmark">✓</div>
+          }
         </div>
         }
       </div>

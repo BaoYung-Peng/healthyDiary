@@ -99,7 +99,7 @@ export class HttpService {
     const url = `http://${this.IP}:8080/exercise/fill_in_exercise`;
     return this.httpClient.post(url, postData);
   }
-
+  // 取得運動紀錄
   getCalendarExercise(postData: any) {
     const url = `http://${this.IP}:8080/exercise/get_calendar_exercise`;
     return this.httpClient.post(url, postData);
@@ -117,6 +117,7 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 新增心情日誌
   fillInMood(postData: any) {
     const url = `http://${this.IP}:8080/mood/fill_in_mood`;
     return this.httpClient.post(url, postData);
