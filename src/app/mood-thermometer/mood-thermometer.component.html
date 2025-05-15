@@ -1,10 +1,13 @@
 <div class="thermometer-container">
   <div class="sun-bg" #sunBg></div>
-  <div class="sunray" #sunray *ngIf="showSun"></div>
+  <div class="sunray" #sunray [class.hidden]="!showSun"></div>
+
   <div class="thermometer">
     <div class="thermometer-fill" [ngStyle]="{ height: fillHeight, background: fillColor }"></div>
   </div>
-  <div class="snow-container" #snowContainer *ngIf="showSnow"></div>
+
+  <div class="snow-container" #snowContainer [class.hidden]="!showSnow"></div>
+
   <div class="score-labels">
     <div *ngFor="let level of [10,9,8,7,6,5,4,3,2,1]" class="score-tick">{{ level }}</div>
   </div>

@@ -128,3 +128,119 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+app-mood-thermometer {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 120px; // 根據實際情況調整
+}
+
+// snow
+.snow-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+
+  animation-name: fall, sway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: normal, alternate;
+
+  /* 時間與延遲可覆蓋於元素內 */
+  animation-duration: 15s, 3s;
+  animation-delay: 0s, 0s;
+}
+
+.snow-animation {
+  position: fixed; /* 確保覆蓋整個視窗 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0; /* 放最底層 */
+  background: transparent; /* 不蓋掉其他內容 */
+}
+
+@keyframes fall {
+  0% {
+    top: -10px;
+  }
+
+  100% {
+    top: 110%;
+  }
+}
+
+@keyframes sway {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+
+// rain
+.rain-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(45deg,
+      rgba(0, 0, 255, 0.2),
+      rgba(0, 0, 255, 0.2) 2px,
+      transparent 3px,
+      transparent 7px);
+  animation: rain-fall 0.5s linear infinite;
+}
+
+@keyframes rain-fall {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+// sun
+.sun-animation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, yellow, orange);
+  animation: sun-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes sun-glow {
+  from {
+    box-shadow: 0 0 10px 5px yellow;
+  }
+
+  to {
+    box-shadow: 0 0 30px 15px orange;
+  }
+}

@@ -19,6 +19,7 @@ export class BookcaseComponent implements OnInit {
   // 請求狀態
   isLoading: boolean = false;
 
+
   // 預設月份與顏色
   months = [
     { id: 1, name: '一月', color: '#4a6ea9' },
@@ -42,7 +43,23 @@ export class BookcaseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // 初始化可擴充
+    this.createPetals(30); // 可調整數量
+  }
+
+  createPetals(count: number) {
+    const container = document.getElementById('petalContainer');
+    if (!container) return;
+
+    for (let i = 0; i < count; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+
+      // 隨機位置與延遲
+      petal.style.left = `${Math.random() * 100}vw`;
+      petal.style.animationDelay = `${Math.random() * 10}s`;
+
+      container.appendChild(petal);
+    }
   }
 
   onBookClick(monthId: number): void {  // Change to number

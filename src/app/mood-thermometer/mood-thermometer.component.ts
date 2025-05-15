@@ -13,163 +13,78 @@ import gsap from 'gsap';
   templateUrl: './mood-thermometer.component.html',
   styleUrls: ['./mood-thermometer.component.scss']
 })
-export class MoodThermometerComponent implements AfterViewInit, OnChanges {
-  @Input() moodScore = 5;
+export class MoodThermometerComponent implements OnChanges, AfterViewInit {
+  @Input() moodScore: number = 5;
+  @Input() snowCount: number = 20;
+  @Input() sunColor: string = 'linear-gradient(to bottom, #fff9c4, #ffe082)';
+  @Input() hotColor: string = '#f00';
+  @Input() warmColor: string = '#fa0';
+  @Input() coldColor: string = '#00f';
 
-  fillHeight = '50%';
-  fillColor = 'orange';
+  @ViewChild('snowContainer') snowContainerRef!: ElementRef;
+  @ViewChild('sunray') sunrayRef!: ElementRef;
+  @ViewChild('sunBg') sunBgRef!: ElementRef;
 
-  showSnow = false;
-  snowflakes: HTMLElement[] = [];
-  snowInterval: any;
-
-  showSun = false;
-
-  @ViewChild('snowContainer', { static: false }) snowContainer!: ElementRef;
-  @ViewChild('sunray', { static: false }) sunray!: ElementRef;
-  @ViewChild('sunBg', { static: false }) sunBg!: ElementRef;
-
-  constructor(private renderer: Renderer2) { }
-
-  ngAfterViewInit(): void {
-    // 初次渲染後更新 UI
-    setTimeout(() => {
-      this.updateThermometer();
-      this.setBackgroundByScore(this.moodScore);
-    });
-  }
+  showSun: boolean = false;
+  showSnow: boolean = false;
+  fillHeight: string = '0%';
+  fillColor: string = '#888';
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['moodScore'] && !changes['moodScore'].firstChange) {
+    if (changes['moodScore'] && this.sunrayRef && this.sunBgRef && this.snowContainerRef) {
       this.updateThermometer();
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.updateThermometer();
   }
 
   updateThermometer(): void {
-    const percentage = (this.moodScore / 10) * 100;
-    this.fillColor = this.getColorByScore(this.moodScore);
+    this.showSun = this.moodScore > 3;
+    this.showSnow = this.moodScore <= 3;
 
-    gsap.to(this, {
-      duration: 0.5,
-      fillHeight: `${percentage}%`,
-      ease: 'power2.out',
-    });
+    const percent = Math.max(0, Math.min(10, this.moodScore)) / 10;
+    this.fillHeight = `${percent * 100}%`;
 
-    if (this.moodScore <= 3) {
+    // 顏色根據分數決定
+    if (this.moodScore > 6) this.fillColor = this.hotColor;
+    else if (this.moodScore > 3) this.fillColor = this.warmColor;
+    else this.fillColor = this.coldColor;
+
+    // 陽光動畫
+    if (this.showSun && this.sunrayRef && this.sunBgRef) {
+      gsap.fromTo(this.sunrayRef.nativeElement, { opacity: 0 }, { opacity: 1, duration: 1 });
+      gsap.to(this.sunBgRef.nativeElement, { background: this.sunColor, duration: 1 });
+    }
+
+    // 雪花動畫
+    if (this.showSnow && this.snowContainerRef) {
       this.startSnow();
-      this.stopSun();
-    } else if (this.moodScore >= 8) {
-      this.stopSnow();
-      this.startSun();
-    } else {
-      this.stopSnow();
-      this.stopSun();
     }
-
-    this.setBackgroundByScore(this.moodScore);
-  }
-
-  startSun(): void {
-    if (this.showSun) return;
-    this.showSun = true;
-
-    setTimeout(() => {
-      const sun = this.sunray?.nativeElement;
-      const bg = this.sunBg?.nativeElement;
-      if (!sun || !bg) return;
-
-      gsap.set(sun, {
-        scale: 0.2,
-        opacity: 0,
-      });
-
-      gsap.to(sun, {
-        scale: 6,
-        opacity: 1,
-        duration: 2,
-        ease: 'power2.out',
-      });
-    }, 0);
-  }
-
-  stopSun(): void {
-    this.showSun = false;
-  }
-
-  setBackgroundByScore(score: number): void {
-    const bg = this.sunBg?.nativeElement;
-    if (!bg) return;
-
-    let gradient = '';
-
-    if (score <= 3) {
-      gradient = `linear-gradient(135deg, #1e3c72, #2a5298)`; // 冷色調
-      bg.classList.remove('sun-animation');
-    } else if (score <= 6) {
-      gradient = `linear-gradient(135deg,rgb(231, 253, 235),rgba(186, 255, 182, 0.86))`; // 中性綠
-      bg.classList.remove('sun-animation');
-    } else if (score <= 8) {
-      gradient = `linear-gradient(135deg,rgb(255, 219, 176),rgb(255, 206, 137))`; // 橘黃暖
-      bg.classList.remove('sun-animation');
-    } else {
-      bg.classList.add('sun-animation'); // 陽光動畫 class
-    }
-
-    bg.style.background = gradient;
-  }
-
-  getColorByScore(score: number): string {
-    if (score <= 3) return '#4A90E2';     // 冷藍
-    if (score <= 6) return '#F5A623';     // 中橘
-    return '#39ff02';                     // 高分亮綠
   }
 
   startSnow(): void {
-    if (this.showSnow) return;
-    this.showSnow = true;
+    const snowContainer = this.snowContainerRef.nativeElement;
+    snowContainer.innerHTML = '';
 
-    this.snowInterval = setInterval(() => {
-      const snowflake = this.renderer.createElement('div');
-      this.renderer.addClass(snowflake, 'snowflake');
+    for (let i = 0; i < this.snowCount; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'snowflake';
+      const size = Math.random() * 5 + 2;
+      flake.style.width = flake.style.height = `${size}px`;
+      flake.style.left = `${Math.random() * 100}%`;
+      flake.style.top = `${-10 - Math.random() * 20}px`;
+      snowContainer.appendChild(flake);
 
-      const layer = Math.random() < 0.6 ? 'back' : 'front';
-      const startX = Math.random() * window.innerWidth;
-      const baseSize = (11 - this.moodScore) * 1.5;
-      const size = baseSize + Math.random() * 5;
-
-      const duration = layer === 'back'
-        ? 8 + Math.random() * 4
-        : 5 + Math.random() * 3;
-
-      const opacity = layer === 'back' ? 0.3 + Math.random() * 0.2 : 0.7 + Math.random() * 0.3;
-      const blur = layer === 'back' ? 2 : 0;
-
-      this.renderer.setStyle(snowflake, 'left', `${startX}px`);
-      this.renderer.setStyle(snowflake, 'width', `${size}px`);
-      this.renderer.setStyle(snowflake, 'height', `${size}px`);
-      this.renderer.setStyle(snowflake, 'opacity', `${opacity}`);
-      this.renderer.setStyle(snowflake, 'filter', `blur(${blur}px)`);
-
-      const container = this.snowContainer?.nativeElement;
-      if (container) container.appendChild(snowflake);
-      this.snowflakes.push(snowflake);
-
-      gsap.to(snowflake, {
-        y: window.innerHeight + 50,
-        x: startX + (Math.random() * 100 - 50),
-        duration,
-        ease: 'sine.inOut',
-        onComplete: () => {
-          snowflake.remove();
-        },
+      gsap.to(flake, {
+        y: 200 + Math.random() * 100,
+        x: `+=${Math.random() * 20 - 10}`,
+        duration: 3 + Math.random() * 2,
+        ease: 'linear',
+        repeat: -1,
+        delay: Math.random() * 3
       });
-    }, 150);
-  }
-
-  stopSnow(): void {
-    this.showSnow = false;
-    clearInterval(this.snowInterval);
-    this.snowflakes.forEach(flake => flake.remove());
-    this.snowflakes = [];
+    }
   }
 }

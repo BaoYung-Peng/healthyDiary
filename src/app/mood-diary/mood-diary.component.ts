@@ -5,7 +5,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import gsap from 'gsap';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { MoodThermometerComponent } from '../mood-thermometer/mood-thermometer.component';
 
 interface MoodEntry {
   date: string;
@@ -45,7 +44,6 @@ function createPage(front: string, back: string, disabled: boolean, type: PageTy
 export class MoodDiaryComponent implements AfterViewInit {
   @ViewChild('leftPageRef', { static: false }) leftPageRef!: ElementRef;
   @ViewChild('rightPageRef', { static: false }) rightPageRef!: ElementRef;
-  @ViewChild('thermometer') thermometerComponent!: MoodThermometerComponent;
 
   leftPageFront: string = '';
   leftPageBack: string = '';
@@ -82,6 +80,8 @@ export class MoodDiaryComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.updateMoodAnimation();
+
     this.activatedRoute.paramMap.subscribe(params => {
       const monthParam = params.get('month');
       if (monthParam) {
@@ -220,6 +220,8 @@ export class MoodDiaryComponent implements AfterViewInit {
   async goToNextPage() {
     if (this.isAnimating) return;
     if (this.currentPageIndex >= this.daysInMonth + 1) return;
+    this.currentPageIndex++;
+    this.updateMoodAnimation();
 
     this.isAnimating = true;
 
@@ -232,7 +234,7 @@ export class MoodDiaryComponent implements AfterViewInit {
       ease: 'power2.inOut'
     });
 
-    this.currentPageIndex++;
+    this.updateMoodAnimation();
     this.updatePages();
 
     // 立刻把右頁角度重置為0，下一頁顯示正常
@@ -244,6 +246,8 @@ export class MoodDiaryComponent implements AfterViewInit {
   async goToPrevPage() {
     if (this.isAnimating) return;
     if (this.currentPageIndex <= 0) return;
+    this.currentPageIndex--;
+    this.updateMoodAnimation();
 
     this.isAnimating = true;
 
@@ -255,11 +259,15 @@ export class MoodDiaryComponent implements AfterViewInit {
       { rotationY: 0, duration: 0.6, ease: 'power2.inOut' }
     );
 
+    // 翻頁指標減少一次
     this.currentPageIndex--;
+
+    this.updateMoodAnimation();
     this.updatePages();
 
     this.isAnimating = false;
   }
+
   goBack(): void {
     this.router.navigate(['/bookcase']);
   }
@@ -271,6 +279,67 @@ export class MoodDiaryComponent implements AfterViewInit {
     return months[month - 1] || '';
   }
 
+  getMoodAnimation(score: number | null): 'snow' | 'sun' | 'rain' | 'none' {
+    if (score === null) return 'none';
+
+    if (score === 1) return 'snow';
+    if (score >= 4) return 'sun';
+    if (score >= 2 && score <= 3) return 'rain';
+
+    return 'none';
+  }
+
+  getMoodScore(dayIndex: number): number | null {
+    if (dayIndex <= 0 || dayIndex > this.daysInMonth) return null;
+
+    // 先取得當天的日期字串 YYYY-MM-DD
+    const dayStr = dayIndex.toString().padStart(2, '0');
+    const targetDate = `${this.today.getFullYear()}-${this.monthId.padStart(2, '0')}-${dayStr}`;
+
+    // 從 moodData 找日期相符的項目
+    const entry = this.moodData.find(item => item.date === targetDate);
+
+    if (entry) {
+      return entry.mood;
+    }
+
+    return null; // 找不到
+  }
+
+  currentMoodAnimation: 'snow' | 'sun' | 'rain' | 'none' = 'none';
+
+  updateMoodAnimation() {
+    const score = this.getMoodScore(this.currentPageIndex);
+    this.currentMoodAnimation = this.getMoodAnimation(score);
+  }
 
 
+
+  // submitInputData() {
+  //   if (!this.inputData || !this.queryDate || !this.currentMoodScore) {
+  //     alert('請完整填寫心情分數、日期與日記內容');
+  //     return;
+  //   }
+  //   const token = localStorage.getItem('token');
+  //   const moodData = {
+  //     mood: this.currentMoodScore,
+  //     date: this.queryDate,
+  //     token: token,
+  //     diary: this.inputData
+  //   };
+
+  //   this.httpService.fillInMood(moodData).subscribe({
+  //     next: (res: any) => {
+  //       console.log('✅ 完整回應:', res);
+  //       this.submitSuccess = true;
+  //       this.submitError = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('❌ 發送失敗:', err);
+  //       this.submitSuccess = false;
+  //       this.submitError = true;
+  //     }
+  //   });
+  // }
 }
+

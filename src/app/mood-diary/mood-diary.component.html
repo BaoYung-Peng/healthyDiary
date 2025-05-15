@@ -1,3 +1,4 @@
+<div class="snow-animation"></div>
 <div class="book-container">
   <h2 class="month-title">月份：{{ monthName }}</h2>
   <div class="book">
@@ -38,6 +39,9 @@
         <!-- 日記內容頁 -->
         <div class="front diary-page" *ngIf="currentPageIndex > 0 && currentPageIndex <= daysInMonth">
           <p class="diary-content">{{ getDiaryContent(currentPageIndex) }}</p>
+          <p class="mood-score" *ngIf="getMoodScore(currentPageIndex) !== null">
+            心情指數：{{ getMoodScore(currentPageIndex) }}
+          </p>
         </div>
 
         <!-- 背面內容 -->

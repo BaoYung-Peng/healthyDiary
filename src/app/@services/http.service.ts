@@ -117,4 +117,9 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  fillInMood(postData: any) {
+    const url = `http://${this.IP}:8080/mood/fill_in_mood`;
+    return this.httpClient.post(url, postData);
+  }
+
 }
