@@ -1,55 +1,56 @@
 /* bookcase.component.css */
 .bookshelf-container {
-  max-width: 900px;
+  max-width: 1200px; /* 從900px增加到1200px */
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px; /* 從20px增加到30px */
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
 h1 {
   color: #5a3921;
-  margin-bottom: 30px;
+  margin-bottom: 40px; /* 從30px增加到40px */
+  font-size: 2.5rem; /* 增加標題大小 */
 }
 
 .shelf {
   background-color: #8b4513; /* 木頭色 */
-  padding: 20px 10px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 30px 15px; /* 從20px 10px增加到30px 15px */
+  border-radius: 8px; /* 從5px增加到8px */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 陰影加大 */
 }
 
 .upper-shelf {
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* 從5px增加到10px */
 }
 
 .lower-shelf {
-  margin-top: 5px;
+  margin-top: 10px; /* 從5px增加到10px */
 }
 
 .shelf-divider {
-  height: 10px;
+  height: 15px; /* 從10px增加到15px */
   background-color: #5a3921;
-  margin: 10px 0;
+  margin: 15px 0; /* 從10px 0增加到15px 0 */
 }
 
 .books-row {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  gap: 10px; /* 從5px增加到10px */
 }
 
 .book {
   position: relative;
-  width: 50px;
-  height: 180px;
-  background-color: var(--book-color); /* 使用預設顏色 */
+  width: 70px; /* 從50px增加到70px */
+  height: 250px; /* 從180px增加到250px */
+  background-color: var(--book-color);
   cursor: pointer;
   transition: transform 0.3s;
 }
 
 .book:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px); /* 從-5px增加到-8px */
 }
 
 .book-spine {
@@ -61,24 +62,25 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  writing-mode: vertical-rl; /* 垂直從右到左 */
-  text-orientation: mixed;   /* 保持文字自然方向 */
-  border-radius: 2px 0 0 2px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  border-radius: 3px 0 0 3px; /* 從2px增加到3px */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* 陰影加大 */
+  font-size: 16px; /* 增加書脊文字大小 */
 }
 
 .book-cover {
   position: absolute;
-  width: 10px;
+  width: 15px; /* 從10px增加到15px */
   height: 100%;
   background-color: #f5f5f5;
-  left: 50px;
-  border-radius: 0 2px 2px 0;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  left: 70px; /* 從50px調整為70px以匹配新寬度 */
+  border-radius: 0 3px 3px 0; /* 從2px增加到3px */
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* 陰影加大 */
 }
 
 .month-name {
-  font-size: 14px;
+  font-size: 16px; /* 從14px增加到16px */
   font-weight: bold;
-  padding: 5px;
+  padding: 8px; /* 從5px增加到8px */
 }
