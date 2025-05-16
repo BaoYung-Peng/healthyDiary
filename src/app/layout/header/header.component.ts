@@ -4,7 +4,7 @@ import { Toolbar } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { Drawer, DrawerModule } from 'primeng/drawer';
 import { Menu } from 'primeng/menu';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LocalstorageService } from '../../@services/localstorage.service';
 
 interface navItem {
@@ -30,11 +30,9 @@ interface navItem {
 export class HeaderComponent {
   @ViewChild('drawerRef') drawerRef!: Drawer;
 
-  // 顯示 toggle 按鈕
-  visible = false;
+  visible = false;  // 顯示 toggle 按鈕
 
-  // 是否登入，初始為false
-  is_login: boolean = false;
+  is_login: boolean = false;  // 是否登入，初始為false
 
   // 登出後選單欄位
   menuItemsLoggedOut: navItem[] = [
@@ -85,6 +83,11 @@ export class HeaderComponent {
       path: 'userpage/sleep'
     },
     {
+      label: '心情日誌',
+      icon: '/imgs/diary.svg',
+      path: 'bookcase'
+    },
+    {
       label: '健康報告',
       icon: '/imgs/report.svg',
       path: 'userpage/report'
@@ -93,11 +96,6 @@ export class HeaderComponent {
       label: '會員資料',
       icon: '/imgs/person.svg',
       path: 'profile'
-    },
-       {
-      label: '心情日誌',
-      icon: '/imgs/report.svg',
-      path: 'bookcase'
     },
   ];
 
@@ -114,6 +112,7 @@ export class HeaderComponent {
       this.is_login = status;
     });
   }
+
 
   closeCallback(e: Event): void {
     this.drawerRef.close(e);

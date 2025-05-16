@@ -25,7 +25,6 @@
   <p-drawer #drawerRef [(visible)]="visible">
     <ng-template #headless>
       <div class="headless">
-        <img class="logo" alt="logo" src="/imgs/report.svg" />
         <h2 class="main-text">Bueautiful Diary</h2>
         <i class="pi pi-times" (click)="closeCallback($event)"></i>
       </div>
@@ -34,7 +33,7 @@
         <li>
           <div class="nav-btn" [routerLink]="item.path">
             <!-- <i class="pi {{item.icon}}"></i> -->
-             <img src="{{item.icon}}" [style]="{'width': '20px'}"/>
+            <img src="{{item.icon}}" />
             <span class="nav-text">{{item.label}}</span>
           </div>
         </li>
