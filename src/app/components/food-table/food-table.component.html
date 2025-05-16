@@ -1,29 +1,27 @@
 @if(showMessage){
-<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
+<p-message severity="success" icon="pi pi-check-circle" styleClass="mb-2">儲存成功</p-message>
 }
 <div class="result-table">
-  <ul class="data-table">
-    <li>總卡路里: {{totalCalorie.toFixed(1)}}</li>
-    <li>總蛋白質: {{totalProtein.toFixed(1)}}</li>
-    <li>總脂肪: {{totalFat.toFixed(1)}}</li>
-    <li>總飽和脂肪: {{totalSaturatedFat.toFixed(1)}}</li>
-    <li>總反式脂肪: {{totalTransFat.toFixed(1)}}</li>
-    <li>總碳水化合物: {{totalCarbohydrate.toFixed(1)}}</li>
-    <li>總糖: {{totalSugar.toFixed(1)}} </li>
-    <li>膳食纖維: {{totalDietaryFiber.toFixed(1)}}</li>
-  </ul>
-  <!-- <div class="input-box">
-    <textarea rows="5" cols="25" pTextarea [(ngModel)]="detail" placeholder="對這次飲食的補充說明"></textarea>
-  </div> -->
-  <div class="btn-box">
-    <p-button class="save-btn" icon="pi pi-save" label="儲存" iconPos="right" (click)="save()" />
+  <div class="data-table">
+    <p>總卡路里: {{totalCalorie.toFixed(1)}}</p>
+    <p>總蛋白質: {{totalProtein.toFixed(1)}}</p>
+    <p>總脂肪: {{totalFat.toFixed(1)}}</p>
+    <p>總碳水化合物: {{totalCarbohydrate.toFixed(1)}}</p>
+    <p>總反式脂肪: {{totalTransFat.toFixed(1)}}</p>
+    <p>總糖: {{totalSugar.toFixed(1)}} </p>
+    <p>總飽和脂肪: {{totalSaturatedFat.toFixed(1)}}</p>
+    <p>膳食纖維: {{totalDietaryFiber.toFixed(1)}}</p>
   </div>
-</div>
-<div class="calulator">
+  <div class="btn-box">
+    <p>選擇用餐時段: </p>
+    <p-selectbutton class="time-btn" size="small" [options]="times" [(ngModel)]="mealsType" optionLabel="label"
+      optionValue="value" />
+    <p-button class="save-btn" icon="pi pi-save" label="儲存" iconPos="right" (click)="save()"
+      [disabled]="!this.mealsType || (this.myDiet.length == 0)" />
+  </div>
 </div>
 <div class="card">
   <p-table [value]="selectedFoods" [paginator]="false" [rows]="5" [tableStyle]="{ 'min-width': '100%' }">
-    <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
     <ng-template #header>
       <tr>
         <th style="width:10%">名稱</th>
@@ -31,8 +29,8 @@
         <th style="width:10%">蛋白質</th>
         <th style="width:10%">總脂肪</th>
         <th style="width:14%">碳水化合物</th>
-        <th style="width:14%">份數</th>
-        <th style="width: 18%;"></th>
+        <th style="width:10%">份數</th>
+        <th style="width:18%;"></th>
       </tr>
     </ng-template>
     <ng-template #body let-item let-i="rowIndex">

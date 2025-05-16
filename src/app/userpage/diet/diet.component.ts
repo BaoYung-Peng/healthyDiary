@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { Select } from 'primeng/select';
 
 
 interface Items {
@@ -37,6 +38,7 @@ interface Food {
     SelectButtonModule,
     ButtonModule,
     TableModule,
+    Select
   ],
   templateUrl: './diet.component.html',
   styleUrl: './diet.component.scss'

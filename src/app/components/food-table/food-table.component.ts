@@ -9,8 +9,13 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FoodEditDialogComponent } from '../food-edit-dialog/food-edit-dialog.component';
 import { TextareaModule } from 'primeng/textarea';
 import { Message } from 'primeng/message';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 
+interface Items {
+  label: string;
+  value: string;
+}
 interface Dietfrom {
   token: string;
   mealsName: string[];
@@ -24,7 +29,8 @@ interface Dietfrom {
     TableModule,
     ButtonModule,
     TextareaModule,
-    Message
+    Message,
+    SelectButtonModule
   ],
   providers: [DialogService],
   templateUrl: './food-table.component.html',
@@ -33,13 +39,16 @@ interface Dietfrom {
 export class FoodTableComponent {
   showMessage: boolean = false;
 
-  // 和 ai 補充說明的文字
-  detail: string = '';
-
-
   selectedFoods: any[] = []; // 選擇的食物
 
-  myDiet: any[] = [];  // 選擇的食物(傳到後端)
+  times: Items[] = [
+    { label: '早餐', value: '早餐' },
+    { label: '午餐', value: '午餐' },
+    { label: '晚餐', value: '晚餐' },
+  ];
+  mealsType!: any; // 用餐時段
+
+  myDiet: any[] = []; // 選擇的食物(傳到後端)
   user!: any;
   token!: string;
 
@@ -52,7 +61,7 @@ export class FoodTableComponent {
   totalSugar: number = 0;
   totalDietaryFiber: number = 0;
 
-  // 傳給後端的資料，使用者吃哪些食物的表單(包含token、mealsName)
+  // 傳給後端的資料，使用者吃哪些食物的表單(包含email、mealsName、mealsName)
   dietForm!: Dietfrom;
   serve: number = 1;
 
@@ -95,6 +104,7 @@ export class FoodTableComponent {
     }
   }
 
+  // 計算選取食物的營養資訊
   calculateNutri() {
     this.totalCalorie = 0;
     this.totalFat = 0;
@@ -103,6 +113,7 @@ export class FoodTableComponent {
     this.totalProtein = 0;
     this.totalCarbohydrate = 0;
     this.totalSugar = 0;
+    this.totalDietaryFiber = 0;
 
     this.selectedFoods.forEach(food => {
       this.totalCalorie += (food.calorie || 0) * (food.serve || 1);
@@ -149,39 +160,23 @@ export class FoodTableComponent {
     });
   }
 
-  showAIDialog() {
-    this.visible = true;
-    this.ref = this.dialogService.open(FoodEditDialogComponent, {
-      data: {
-        //
-        user: this.user,
-        detail: this.detail,
-        dietForm: this.dietForm,
-        type: 'save'
-      },
-      width: '30rem',
-      height: '20rem',
-      modal: true,
-      dismissableMask: true,
-      // header: `選擇食物: ${food.foodName}`
-    });
-  }
-
   save() {
     const req = {
       token: this.token,
       mealsName: JSON.stringify(this.myDiet),
-      eatTime: new Date().toISOString().slice(0, 19)
+      eatTime: new Date().toISOString().split('T')[0],
+      mealsType: this.mealsType
     }
-    console.log(req);
-
     this.http.fillinMealsApi(req).subscribe({
       next: (res: any) => {
         console.log('API回應', res);
         if (res.code == 200) {
+
           this.showMessage = true;
-          this.myDiet = [];
+          this.mealsType = 'null';
           this.selectedFoods = [];
+          this.myDiet = [];
+
           setTimeout(() => {
             this.showMessage = false
           }, 2000);
@@ -190,7 +185,6 @@ export class FoodTableComponent {
       error: (err: any) => {
         console.log('API錯誤', err);
       }
-    })
+    });
   }
-
 }

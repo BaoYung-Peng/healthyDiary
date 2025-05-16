@@ -12,21 +12,22 @@ p-message {
   margin: 5px auto;
 }
 
-.main-box {
+.container {
   display: flex;
+  margin: 20px;
 }
 
 .left-pane, .right-pane {
   padding: 0 50px;
 }
 .left-pane {
-  width: 55%;
+  width: 50%;
 }
 
 .right-pane {
-  width: 45%;
+  width: 50%;
 }
 
-p-selectbutton, p-floatlabel {
+p-selectbutton, p-floatlabel, p-select {
   margin: 15px 10px 0 0;
 }
