@@ -53,7 +53,7 @@ button {
 
 .report-container {
   width: 70vw;
-
+  height: 65vh;
   margin: 0 auto;
 
   display: grid;
@@ -76,6 +76,7 @@ button {
 
 .ai-report {
   grid-area: ai-report;
+  overflow-y: auto;
 }
 
 .score-report {
