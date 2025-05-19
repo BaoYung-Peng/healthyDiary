@@ -207,14 +207,15 @@ export class ReportComponent implements OnInit {
 
     this.summary = `我這天吃了${this.selectedDayMeals.join(', ')}， 做了${exerciseSummary}，昨天睡了${this.previousDaySleepHours}小時。`
 
-    const req = `我的身高${this.user.height}公分，
+    const req = `你是一位健康建議師，我給你使用者資訊和繼康資料，你給我建議和評價，字數約100字。
+    我的身高${this.user.height}公分，
     體重${this.user.weight}公斤，
     性別為${this.user.gender}，
     工作型態為${this.user.workType}。
     我這天吃了${this.selectedDayMeals.join(', ')}，
     做了${exerciseSummary}，
     昨天睡了${this.previousDaySleepHours}小時。
-    用淺顯易懂的方式產生一份約100字的當天健康建議。(不用複誦我的資料，只要給我建議建和評價就好)`.replace(/\s+/g, ' ').trim();
+    `.replace(/\s+/g, ' ').trim();
 
     console.log(req);
     this.gptService.sendMessage(req).subscribe({

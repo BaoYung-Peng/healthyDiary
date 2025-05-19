@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LocalstorageService {
-  private _isLogin$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+   private _isLogin$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   isLogin$ = this._isLogin$.asObservable();
 
   constructor() { }

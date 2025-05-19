@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
-import { InputNumber } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Message } from 'primeng/message';
 
@@ -18,7 +17,6 @@ import { Message } from 'primeng/message';
     DatePicker,
     FloatLabel,
     ButtonModule,
-    InputNumber,
     SelectButtonModule,
     Message,
   ],

@@ -60,6 +60,7 @@ export class FoodTableComponent {
   totalCarbohydrate: number = 0;
   totalSugar: number = 0;
   totalDietaryFiber: number = 0;
+  totalSodium: number = 0;
 
   // 傳給後端的資料，使用者吃哪些食物的表單(包含email、mealsName、mealsName)
   dietForm!: Dietfrom;
@@ -104,6 +105,14 @@ export class FoodTableComponent {
     }
   }
 
+  delFood(index: any) {
+    this.selectedFoods.splice(index, 1);
+    this.myDiet.splice(index, 1);
+    this.calculateNutri();
+    console.log(this.selectedFoods);
+
+  }
+
   // 計算選取食物的營養資訊
   calculateNutri() {
     this.totalCalorie = 0;
@@ -113,7 +122,7 @@ export class FoodTableComponent {
     this.totalProtein = 0;
     this.totalCarbohydrate = 0;
     this.totalSugar = 0;
-    this.totalDietaryFiber = 0;
+    this.totalSodium = 0;
 
     this.selectedFoods.forEach(food => {
       this.totalCalorie += (food.calorie || 0) * (food.serve || 1);
@@ -123,14 +132,8 @@ export class FoodTableComponent {
       this.totalProtein += (food.protein || 0) * (food.serve || 1);
       this.totalCarbohydrate += (food.carbohydrate || 0) * (food.serve || 1);
       this.totalSugar += (food.sugar || 0) * (food.serve || 1);
-      this.totalDietaryFiber += (food.dietaryFiber || 0) * (food.serve || 1);
+      this.totalSodium += (food.sodium || 0) * (food.serve || 1);
     });
-  }
-
-  delFood(index: any) {
-    this.selectedFoods.splice(index, 1);
-    this.myDiet.splice(index, 1);
-    this.calculateNutri();
   }
 
   editFood(food: any) {
@@ -141,8 +144,6 @@ export class FoodTableComponent {
         food: food,
         type: 'food'
       },
-      // width: '30rem',
-      // height: '20rem',
       modal: true,
       dismissableMask: true,
       header: `選擇食物: ${food.foodName}`
@@ -167,6 +168,8 @@ export class FoodTableComponent {
       eatTime: new Date().toISOString().split('T')[0],
       mealsType: this.mealsType
     }
+    console.log(req);
+
     this.http.fillinMealsApi(req).subscribe({
       next: (res: any) => {
         console.log('API回應', res);

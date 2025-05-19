@@ -29,14 +29,15 @@ p-selectbutton {
 
 .data-table {
   width: 70%;
-}
-
-.data-table {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   /* 每行 4 個 */
   gap: 10px;
   /* 設定間距 */
+
+  p {
+    font-size: 1.1rem;
+  }
 }
 
 li {

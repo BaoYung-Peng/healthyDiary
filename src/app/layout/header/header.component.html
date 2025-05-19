@@ -3,7 +3,7 @@
     <ng-template #start>
       <div class="start">
         <img class="logo" (click)="gotoPage('/home')" src="/imgs/report.svg" alt="logo" />
-        @if(is_login){
+        @if(islogin$ | async){
         <button (click)="visible = true">
           <i class="pi pi-bars"></i>
         </button>
@@ -12,7 +12,7 @@
     </ng-template>
     <ng-template #end>
       <div class="end">
-        <p-menu #menu [model]="is_login ? menuItemsLoggedIn : menuItemsLoggedOut" [popup]="true" [appendTo]="'body'">
+        <p-menu #menu [model]="(islogin$ | async) ? menuItemsLoggedIn : menuItemsLoggedOut" [popup]="true" [appendTo]="'body'">
         </p-menu>
         <i class="pi pi-user" (click)="menu.toggle($event)"></i>
       </div>

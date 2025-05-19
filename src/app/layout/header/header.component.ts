@@ -6,6 +6,7 @@ import { Drawer, DrawerModule } from 'primeng/drawer';
 import { Menu } from 'primeng/menu';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LocalstorageService } from '../../@services/localstorage.service';
+import { CommonModule } from '@angular/common';
 
 interface navItem {
   label: string;
@@ -18,6 +19,8 @@ interface navItem {
 @Component({
   selector: 'app-header',
   imports: [
+    CommonModule,
+
     Toolbar,
     AvatarModule,
     Menu,
@@ -32,7 +35,8 @@ export class HeaderComponent {
 
   visible = false;  // 顯示 toggle 按鈕
 
-  is_login: boolean = false;  // 是否登入，初始為false
+  islogin$!: any;  // 是否登入，初始為false
+
 
   // 登出後選單欄位
   menuItemsLoggedOut: navItem[] = [
@@ -106,11 +110,8 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     // 訂閱登入狀態
-    this.localstorageService.isLogin$.subscribe((status) => {
-      console.log(status);
-
-      this.is_login = status;
-    });
+    this.islogin$ = this.localstorageService.isLogin$;
+    console.log(this.islogin$);
   }
 
 
