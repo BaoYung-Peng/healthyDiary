@@ -65,6 +65,12 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
   daysInMonth: number = 0; // 新增，用來記錄當月天數
 
+  // 在組件類中添加這些屬性和方法
+  queryResults: any[] = [];
+
+  queriedDates: number[] = [];
+  currentMonth: number = new Date().getMonth() + 1;
+
   private ctx!: CanvasRenderingContext2D;
   private width!: number;
   private height!: number;
@@ -87,9 +93,6 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     this.activatedRoute.paramMap.subscribe(params => {
       const monthParam = params.get('month');
       if (monthParam) {
@@ -218,14 +221,24 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
     if (!rightPageEl || !leftPageEl) return;
 
-    // 清除所有樣式類
     rightPageEl.classList.remove('cover', 'backCover');
     leftPageEl.classList.remove('cover', 'backCover');
 
-    // 只需要處理背面內容
-    if (this.currentPageIndex > 0 && this.currentPageIndex <= this.daysInMonth) {
-      const rightPage = this.pagesData[this.currentPageIndex + this.daysInMonth];
+    if (this.currentPageIndex === 0) {
+      // 封面
+      this.leftPageFront = '';
+      this.rightPageBack = '';
+    } else if (this.currentPageIndex <= this.daysInMonth) {
+      const day = this.currentPageIndex;
+      const leftPage = this.pagesData[day];
+      const rightPage = this.pagesData[day + this.daysInMonth];
+
+      this.leftPageFront = `${day} 日`;
       this.rightPageBack = rightPage.back;
+    } else {
+      // 封底
+      this.leftPageFront = '';
+      this.rightPageBack = '';
     }
 
     this.cdr.detectChanges();
@@ -275,12 +288,7 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       { rotationY: 0, duration: 0.6, ease: 'power2.inOut' }
     );
 
-    // 翻頁指標減少一次
-    this.currentPageIndex--;
-
-
     this.updatePages();
-
     this.isAnimating = false;
   }
 
@@ -351,6 +359,7 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
   // 雪花動畫
   snowAnimation() {
+    this.particles = [];
     // 初始化雪花粒子
     for (let i = 0; i < 150; i++) {
       this.particles.push({
@@ -385,12 +394,12 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       this.ctx.globalAlpha = 1;
       this.animationFrameId = requestAnimationFrame(drawSnow);
     };
-
     drawSnow();
   }
 
   // 下雨動畫
   rainAnimation() {
+    this.particles = [];
     for (let i = 0; i < 200; i++) {
       this.particles.push({
         x: Math.random() * this.width,
@@ -404,7 +413,6 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       // 背景色
       this.ctx.fillStyle = '#2c3e50';
       this.ctx.fillRect(0, 0, this.width, this.height);
-
 
       // 雨滴
       this.ctx.strokeStyle = 'rgba(174,194,224,0.5)';
@@ -421,11 +429,8 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       });
       this.ctx.globalAlpha = 1;
 
-
-
       this.animationFrameId = requestAnimationFrame(drawRain);
-    };
-
+    }
     drawRain();
   }
 
@@ -434,8 +439,8 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
   sunAnimation() {
     gsap.killTweensOf(this);
     this.clearCanvas();
-
     const pulse = { alpha: 0.7 };
+
     gsap.to(pulse, {
       alpha: 1,
       duration: 1,
@@ -443,23 +448,34 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       repeat: -1,
       ease: 'sine.inOut',
       onUpdate: () => {
-        // 先畫青藍色背景
-        this.ctx.fillStyle = '#CDFCF6';  // 你想要的青藍色，可改
+        // 背景
+        this.ctx.fillStyle = '#CDFCF6'; // 淡青藍背景
         this.ctx.fillRect(0, 0, this.width, this.height);
 
-        // 從右上往左下放射光線
+        // 放射光線效果（右上到中心）
         const gradient = this.ctx.createRadialGradient(
-          this.width, 0, 80,   // 起點圓心(右上角), 半徑50
-          0, this.height, this.width  // 終點圓心(左下角), 半徑最大(整個畫布寬)
+          this.width, 0, 100, // 光源中心
+          this.width / 2, this.height / 2, this.width / 1.5 // 擴散半徑
         );
-        gradient.addColorStop(0, `rgba(255, 255, 200, ${pulse.alpha})`);
-        gradient.addColorStop(1, 'rgba(255, 255, 200, 0)');
+        gradient.addColorStop(0, `rgba(255, 255, 153, ${pulse.alpha})`);
+        gradient.addColorStop(1, 'rgba(255, 255, 153, 0)');
+
         this.ctx.fillStyle = gradient;
         this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // 太陽本體（右上）
+        const sunX = this.width - 100;
+        const sunY = 100;
+        const sunRadius = 40;
+        this.ctx.beginPath();
+        this.ctx.arc(sunX, sunY, sunRadius, 0, Math.PI * 2);
+        this.ctx.fillStyle = `rgba(255, 223, 0, ${pulse.alpha})`; // 黃色太陽
+        this.ctx.fill();
       }
     });
   }
 
+  // 煙火動畫
   fireworksAnimation() {
     this.clearCanvas();
     this.particles = [];
@@ -520,7 +536,6 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
     drawFireworks();
   }
 
-
   stopAnimations() {
     if (this.animationFrameId) {
       cancelAnimationFrame(this.animationFrameId);
@@ -535,6 +550,32 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
     this.clearCanvas();
   }
 
+  queryDates(offset: number): void {
+    this.queriedDates = [];
 
+    const step = offset > 0 ? 1 : -1;
+    for (let i = 1; i <= Math.abs(offset); i++) {
+      const day = this.currentPageIndex + i * step;
+      if (day >= 1 && day <= this.daysInMonth) {
+        this.queriedDates.push(day);
+      }
+    }
+
+    // 若是往前查詢，讓日期正序顯示
+    if (offset < 0) {
+      this.queriedDates.reverse();
+    }
+  }
+
+  goToPage(targetDay: number): void {
+    if (targetDay < 1 || targetDay > this.daysInMonth) return;
+
+    this.currentPageIndex = targetDay;
+
+    // 立即更新頁面內容（文字、日記）
+    this.updatePages();
+
+    // 啟動對應的動畫（根據當天的 mood score）
+    this.startAnimation();
+  }
 }
-

@@ -1,6 +1,6 @@
 /* Main container */
 .book-container {
-  width: 85vw;
+  width: 80vw;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin: 25px;
+  // margin: 25px;
+  // background-color: white;
 }
 
 // 封面
@@ -21,6 +22,7 @@
   padding-top: 50px;
   gap: 20px;
   text-align: center;
+  background: #F2EEE5;
 }
 
 .cover-title {
@@ -43,7 +45,7 @@
   display: flex;
   position: absolute;
   top: 40%;
-  left: 42.5%;
+  left: 39.5%;
   transform: translate(-50%, -50%);
 }
 
@@ -62,7 +64,7 @@
 
 .left-page {
   left: 0;
-  background: #ffffff;
+  background: #F2EEE5;
   // border-right: 4px solid #030303;
   transform-origin: right center;
   z-index: 1;
@@ -70,7 +72,7 @@
 
 .right-page {
   left: 40vw;
-  background: #fffefc;
+  background: #F2EEE5;
   // border-left: 1px solid #e0c097;
   transform-origin: left center;
   z-index: 2;
@@ -199,4 +201,85 @@ button:disabled {
   position: relative;
   overflow: hidden;
   /* 若你想讓動畫不超出邊界 */
+}
+
+
+/* 日期查詢功能樣式 */
+.date-query {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 50px;
+  background: #F2EEE5;
+}
+
+.query-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.query-buttons button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #054b22;
+  color: white;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #168654;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.query-result {
+  margin: 15px 0 15px 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.query-result ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.query-result li {
+  margin-bottom: 10px;
+}
+
+.query-result button {
+  margin-top: 20px;
+  gap:10px;
+  font-size: 25px;
+  /* 按鈕文字也設定為 25px */
+  padding: 8px 16px;
+  border: none;
+  background-color: #054b22;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #168654;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.query-result button.active {
+  background-color: #a0e4a0;
+  color: #000;
+  font-weight: bold;
+}
+
+.selectbtn {
+  font-size: 25px;
 }

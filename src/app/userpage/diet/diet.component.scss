@@ -8,18 +8,21 @@ p-message {
 
 .title {
   text-align: center;
-
   margin: 5px auto;
 }
 
 .container {
   display: flex;
   margin: 20px;
+  background: #F2EEE5;
+  height: 90vh;
 }
 
-.left-pane, .right-pane {
+.left-pane,
+.right-pane {
   padding: 0 50px;
 }
+
 .left-pane {
   width: 50%;
 }
@@ -28,6 +31,8 @@ p-message {
   width: 50%;
 }
 
-p-selectbutton, p-floatlabel, p-select {
+p-selectbutton,
+p-floatlabel,
+p-select {
   margin: 15px 10px 0 0;
 }
