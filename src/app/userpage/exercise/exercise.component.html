@@ -2,7 +2,7 @@
   @for (item of cards; track item) {
   <div class="card" [class.selected]="item === selectedCard" (click)="selectCard(item, $event)"
     [style.background-image]="'url(' + item.backgroundImage + ')'">
-    <div class="card-title">{{ item.title }}</div>
+    <div class="card-title"></div>
     <div class="card-description">
       <p>{{ item.description }}</p>
       <p>{{ item.note }}</p>
@@ -18,7 +18,7 @@
     @for (category of imageList; track category.type) {
     @if (category.type === activeType) {
     <div>
-      <h3>{{ category.type }} 類運動</h3>
+      <h3>{{ category.type }}</h3>
       <div class="image-grid">
         @for (item of category.data; track item.name) {
         <div class="image-container" [class.selected]="selectedImageName === item.name" (click)="selectImage(item)">

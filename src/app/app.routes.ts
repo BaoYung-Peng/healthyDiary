@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ReportComponent } from './userpage/report/report.component';
 import { BookcaseComponent } from './bookcase/bookcase.component';
 import { MoodDiaryComponent } from './mood-diary/mood-diary.component';
+import { WriteMoodComponent } from './write-mood/write-mood.component';
 
 export const routes: Routes = [
   {
@@ -70,6 +71,10 @@ export const routes: Routes = [
   {
     path: 'bookcase',
     component: BookcaseComponent
+  },
+    {
+    path: 'write-mood',
+    component: WriteMoodComponent
   },
    {
     path: 'mood-diary/:month',  // 使用動態路徑參數

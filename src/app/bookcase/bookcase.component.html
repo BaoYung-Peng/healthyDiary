@@ -5,12 +5,12 @@
   <div class="shelf upper-shelf">
     <div class="books-row">
       @for (book of months.slice(0, 6); track book.id) {
-        <div class="book" (click)="onBookClick(book.id)">
-          <div class="book-spine" [style.backgroundColor]="book.color">
-            <span class="month-name">{{ book.name }}</span>
-          </div>
-          <div class="book-cover"></div>
+      <div class="book" (click)="onBookClick(book.id)">
+        <div class="book-spine" [style.backgroundColor]="book.color">
+          <span class="month-name">{{ book.name }}</span>
         </div>
+        <div class="book-cover"></div>
+      </div>
       }
     </div>
   </div>
@@ -21,13 +21,19 @@
   <div class="shelf lower-shelf">
     <div class="books-row">
       @for (book of months.slice(6); track book.id) {
-        <div class="book" (click)="onBookClick(book.id)">
-          <div class="book-spine" [style.backgroundColor]="book.color">
-            <span class="month-name">{{ book.name }}</span>
-          </div>
-          <div class="book-cover"></div>
+      <div class="book" (click)="onBookClick(book.id)">
+        <div class="book-spine" [style.backgroundColor]="book.color">
+          <span class="month-name">{{ book.name }}</span>
         </div>
+        <div class="book-cover"></div>
+      </div>
       }
     </div>
   </div>
+
+
+  <div class="write-button-container">
+    <button class="write" [routerLink]="['/write-mood']">寫點什麼吧</button>
+  </div>
+
 </div>

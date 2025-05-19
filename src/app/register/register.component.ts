@@ -14,7 +14,7 @@ import { DividerModule } from 'primeng/divider';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RadioButton } from 'primeng/radiobutton';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpService } from '../@services/http.service';
 
 interface Person {
@@ -56,17 +56,17 @@ export class RegisterComponent {
   account: string = '';
   password: string = '';
   passwordError: string = '';
-  birthDate: string='';
+  birthDate: string = '';
   age: number | null = null;
   height: number = 0;
   weight: number = 0;
-  person = {bodyType: ''};
-   // 當前顯示的說明
+  person = { bodyType: '' };
+  // 當前顯示的說明
   currentDescription: string = '';
 
   is_edit = true; // 控制編輯狀態
 
-  constructor(private httpservice: HttpService, private fb: FormBuilder) { }
+  constructor(private httpservice: HttpService, private fb: FormBuilder,private router: Router) { }
 
   //進度條顏色計算
   get progressValue(): number {
@@ -176,8 +176,8 @@ export class RegisterComponent {
   ];
 
   ngOnInit() {
-     // 初始化表單
-     this.formGroup = this.fb.group({
+    // 初始化表單
+    this.formGroup = this.fb.group({
       selectedCategory: ['', Validators.required]  // 預設空值，必填
     });
   }
@@ -192,28 +192,13 @@ export class RegisterComponent {
       birthdate: this.birthDate,
       height: this.height,
       weight: this.weight,
-      workType:this.formGroup.value.selectedCategory, //key
+      workType: this.formGroup.value.selectedCategory, //key
       bodyType: this.person.bodyType
     }
     console.log(registerData);
-
-    // const registerData = {
-    //   email: 'a123@gmail.com',
-    //   password: '000',
-    //   name: 'Bob',
-    //   birthdate: '2000-01-02',
-    //   height: 170,
-    //   weight: 50,
-    //   gender: '男',
-    //   workType: '輕度活動工作',
-    //   bodyType: null
-
-    // }
-    // console.log(registerData);
-
-
     this.httpservice.registerApi(registerData).subscribe((res: any) => {
       console.log(res);
+      this.router.navigate(['/login']);
     });
   }
 }

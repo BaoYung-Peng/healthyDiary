@@ -1,4 +1,4 @@
-import { Component, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from '../@services/http.service';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -41,9 +41,10 @@ function createPage(front: string, back: string, disabled: boolean, type: PageTy
   styleUrls: ['./mood-diary.component.scss'],
   providers: [DatePipe]
 })
-export class MoodDiaryComponent implements AfterViewInit {
+export class MoodDiaryComponent implements AfterViewInit, OnInit {
   @ViewChild('leftPageRef', { static: false }) leftPageRef!: ElementRef;
   @ViewChild('rightPageRef', { static: false }) rightPageRef!: ElementRef;
+  @ViewChild('weatherCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
 
   leftPageFront: string = '';
   leftPageBack: string = '';
@@ -60,8 +61,14 @@ export class MoodDiaryComponent implements AfterViewInit {
 
   currentPageIndex = 0; // 指向右頁Page索引
   isAnimating = false;
+  fireworksIntervalId: ReturnType<typeof setInterval> | null = null;
 
   daysInMonth: number = 0; // 新增，用來記錄當月天數
+
+  private ctx!: CanvasRenderingContext2D;
+  private width!: number;
+  private height!: number;
+  private animationFrameId: number = 0;
 
   constructor(
     private router: Router,
@@ -80,7 +87,8 @@ export class MoodDiaryComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.updateMoodAnimation();
+
+
 
     this.activatedRoute.paramMap.subscribe(params => {
       const monthParam = params.get('month');
@@ -177,6 +185,12 @@ export class MoodDiaryComponent implements AfterViewInit {
     setTimeout(() => {
       this.updatePages();
     });
+    const canvas = this.canvasRef.nativeElement;
+    this.ctx = canvas.getContext('2d')!;
+    this.resizeCanvas();
+
+    window.addEventListener('resize', () => this.resizeCanvas());
+    this.startAnimation();
   }
 
   // 新增這個方法來取得日記內容
@@ -221,7 +235,8 @@ export class MoodDiaryComponent implements AfterViewInit {
     if (this.isAnimating) return;
     if (this.currentPageIndex >= this.daysInMonth + 1) return;
     this.currentPageIndex++;
-    this.updateMoodAnimation();
+    this.startAnimation(); // 翻頁後重啟動畫
+
 
     this.isAnimating = true;
 
@@ -234,7 +249,7 @@ export class MoodDiaryComponent implements AfterViewInit {
       ease: 'power2.inOut'
     });
 
-    this.updateMoodAnimation();
+
     this.updatePages();
 
     // 立刻把右頁角度重置為0，下一頁顯示正常
@@ -247,7 +262,8 @@ export class MoodDiaryComponent implements AfterViewInit {
     if (this.isAnimating) return;
     if (this.currentPageIndex <= 0) return;
     this.currentPageIndex--;
-    this.updateMoodAnimation();
+    this.startAnimation(); // 翻頁後重啟動畫
+
 
     this.isAnimating = true;
 
@@ -262,7 +278,7 @@ export class MoodDiaryComponent implements AfterViewInit {
     // 翻頁指標減少一次
     this.currentPageIndex--;
 
-    this.updateMoodAnimation();
+
     this.updatePages();
 
     this.isAnimating = false;
@@ -277,16 +293,6 @@ export class MoodDiaryComponent implements AfterViewInit {
     const months = ['一月', '二月', '三月', '四月', '五月', '六月',
       '七月', '八月', '九月', '十月', '十一月', '十二月'];
     return months[month - 1] || '';
-  }
-
-  getMoodAnimation(score: number | null): 'snow' | 'sun' | 'rain' | 'none' {
-    if (score === null) return 'none';
-
-    if (score === 1) return 'snow';
-    if (score >= 4) return 'sun';
-    if (score >= 2 && score <= 3) return 'rain';
-
-    return 'none';
   }
 
   getMoodScore(dayIndex: number): number | null {
@@ -306,40 +312,229 @@ export class MoodDiaryComponent implements AfterViewInit {
     return null; // 找不到
   }
 
-  currentMoodAnimation: 'snow' | 'sun' | 'rain' | 'none' = 'none';
 
-  updateMoodAnimation() {
+  resizeCanvas() {
+    const canvas = this.canvasRef.nativeElement;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    canvas.width = this.width;
+    canvas.height = this.height;
+  }
+
+  private particles: any[] = [];
+
+  // 動畫邏輯主控
+  startAnimation() {
     const score = this.getMoodScore(this.currentPageIndex);
-    this.currentMoodAnimation = this.getMoodAnimation(score);
+    this.stopAnimations();
+
+    if (score === null || this.currentPageIndex === 0 || this.currentPageIndex > this.daysInMonth) {
+      return;
+    }
+
+    if (score === 1) {
+      this.snowAnimation();
+    } else if (score >= 2 && score <= 4) {
+      this.rainAnimation();
+    } else if (score >= 5 && score <= 7) {
+      this.sunAnimation();
+    } else if (score > 7 && score <= 10) {
+      this.fireworksAnimation();
+    } else {
+      this.clearCanvas();
+    }
+  }
+
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.width, this.height);
+  }
+
+  // 雪花動畫
+  snowAnimation() {
+    // 初始化雪花粒子
+    for (let i = 0; i < 150; i++) {
+      this.particles.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        radius: Math.random() * 3 + 1,
+        speedY: Math.random() * 1 + 0.5,
+        speedX: Math.random() * 0.5 - 0.25,
+        opacity: Math.random() * 0.5 + 0.5
+      });
+    }
+
+    const drawSnow = () => {
+      // 畫背景色（青藍色）
+      this.ctx.fillStyle = '#1E3F66'; // 青藍色，可以自由換成你喜歡的
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+      // 畫雪花
+      this.ctx.fillStyle = 'white';
+      this.particles.forEach(p => {
+        this.ctx.globalAlpha = p.opacity;
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        p.y += p.speedY;
+        p.x += p.speedX;
+        if (p.y > this.height) p.y = 0;
+        if (p.x > this.width) p.x = 0;
+        if (p.x < 0) p.x = this.width;
+      });
+      this.ctx.globalAlpha = 1;
+      this.animationFrameId = requestAnimationFrame(drawSnow);
+    };
+
+    drawSnow();
+  }
+
+  // 下雨動畫
+  rainAnimation() {
+    for (let i = 0; i < 200; i++) {
+      this.particles.push({
+        x: Math.random() * this.width,
+        y: Math.random() * this.height,
+        length: Math.random() * 20 + 10,
+        speedY: Math.random() * 4 + 4,
+        opacity: Math.random() * 0.5 + 0.5
+      });
+    }
+    const drawRain = () => {
+      // 背景色
+      this.ctx.fillStyle = '#2c3e50';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+
+      // 雨滴
+      this.ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+      this.ctx.lineWidth = 1;
+      this.particles.forEach(p => {
+        this.ctx.globalAlpha = p.opacity;
+        this.ctx.beginPath();
+        this.ctx.moveTo(p.x, p.y);
+        this.ctx.lineTo(p.x, p.y + p.length);
+        this.ctx.stroke();
+
+        p.y += p.speedY;
+        if (p.y > this.height) p.y = 0;
+      });
+      this.ctx.globalAlpha = 1;
+
+
+
+      this.animationFrameId = requestAnimationFrame(drawRain);
+    };
+
+    drawRain();
   }
 
 
+  // 晴天動畫
+  sunAnimation() {
+    gsap.killTweensOf(this);
+    this.clearCanvas();
 
-  // submitInputData() {
-  //   if (!this.inputData || !this.queryDate || !this.currentMoodScore) {
-  //     alert('請完整填寫心情分數、日期與日記內容');
-  //     return;
-  //   }
-  //   const token = localStorage.getItem('token');
-  //   const moodData = {
-  //     mood: this.currentMoodScore,
-  //     date: this.queryDate,
-  //     token: token,
-  //     diary: this.inputData
-  //   };
+    const pulse = { alpha: 0.7 };
+    gsap.to(pulse, {
+      alpha: 1,
+      duration: 1,
+      yoyo: true,
+      repeat: -1,
+      ease: 'sine.inOut',
+      onUpdate: () => {
+        // 先畫青藍色背景
+        this.ctx.fillStyle = '#CDFCF6';  // 你想要的青藍色，可改
+        this.ctx.fillRect(0, 0, this.width, this.height);
 
-  //   this.httpService.fillInMood(moodData).subscribe({
-  //     next: (res: any) => {
-  //       console.log('✅ 完整回應:', res);
-  //       this.submitSuccess = true;
-  //       this.submitError = false;
-  //     },
-  //     error: (err) => {
-  //       console.error('❌ 發送失敗:', err);
-  //       this.submitSuccess = false;
-  //       this.submitError = true;
-  //     }
-  //   });
-  // }
+        // 從右上往左下放射光線
+        const gradient = this.ctx.createRadialGradient(
+          this.width, 0, 80,   // 起點圓心(右上角), 半徑50
+          0, this.height, this.width  // 終點圓心(左下角), 半徑最大(整個畫布寬)
+        );
+        gradient.addColorStop(0, `rgba(255, 255, 200, ${pulse.alpha})`);
+        gradient.addColorStop(1, 'rgba(255, 255, 200, 0)');
+        this.ctx.fillStyle = gradient;
+        this.ctx.fillRect(0, 0, this.width, this.height);
+      }
+    });
+  }
+
+  fireworksAnimation() {
+    this.clearCanvas();
+    this.particles = [];
+
+    const colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+
+    // 每次呼叫會放一個煙火
+    const launchFirework = () => {
+      const x = Math.random() * this.width;
+      const y = Math.random() * this.height * 0.5; // 上半部
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      for (let i = 0; i < 50; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3 + 2;
+
+        this.particles.push({
+          x,
+          y,
+          radius: Math.random() * 2 + 1,
+          speedX: Math.cos(angle) * speed,
+          speedY: Math.sin(angle) * speed,
+          life: 100,
+          color,
+        });
+      }
+    };
+
+    this.fireworksIntervalId = setInterval(() => {
+      launchFirework();
+    }, 800);
+
+
+
+    const drawFireworks = () => {
+      // 使用透明黑畫布當夜空背景 + 拖尾效果
+      this.ctx.fillStyle = 'rgba(0, 0, 30, 0.2)';
+      this.ctx.fillRect(0, 0, this.width, this.height);
+
+      this.particles.forEach((p, i) => {
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        this.ctx.fillStyle = p.color;
+        this.ctx.fill();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life -= 1;
+
+        if (p.life <= 0) {
+          this.particles.splice(i, 1);
+        }
+      });
+
+      this.animationFrameId = requestAnimationFrame(drawFireworks);
+    };
+
+    drawFireworks();
+  }
+
+
+  stopAnimations() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = 0;
+    }
+    if (this.fireworksIntervalId !== null) {
+      clearInterval(this.fireworksIntervalId);
+      this.fireworksIntervalId = null;
+    }
+    gsap.killTweensOf(this);
+    this.particles = [];
+    this.clearCanvas();
+  }
+
+
 }
 

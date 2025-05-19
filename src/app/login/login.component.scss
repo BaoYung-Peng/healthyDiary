@@ -1,3 +1,13 @@
+/* 主要佈局 */
+.split-layout {
+  display: flex;
+  width: 100%;
+  height: 300vh;
+  /* 與圖片區域同高 */
+  position: relative;
+
+}
+
 .door-container {
   position: fixed;
   top: 0;
@@ -5,12 +15,8 @@
   width: 100%;
   height: 100vh;
   z-index: 20;
-  pointer-events: none; // 添加這行 都可響應點擊
+  pointer-events: none;
   overflow: visible !important;
-
-  // .door, .light-line, .light-beam, .light-flash, .light-expansion {
-  //   pointer-events: none; // 所有動畫元素都不響應點擊
-  // }
 
   .door {
     position: absolute;
@@ -78,9 +84,8 @@
     transform: translate(-50%, -50%) scale(1);
     transform: translate3d(-50%, -50%, 0);
     backface-visibility: hidden;
-    z-index: 1000; // 確保最高層級
-    opacity: 0.9;  // 提高初始可見度
-    // opacity: 0.5;
+    z-index: 1000;
+    opacity: 0.9;
   }
 }
 
@@ -88,109 +93,175 @@
   position: relative;
   min-height: 100vh;
   z-index: 10;
-  // 確保內容可交互
   pointer-events: auto;
+  display: flex;
+
 }
 
-// 登入畫面
 .content-section {
-  position: fixed; // 只保留 fixed
+  // position: fixed;
   z-index: 15;
-  /* 高於 .trapezoid 的父層 */
-  position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 300vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  // 確保背景不阻擋點擊
   background: transparent;
-  background: linear-gradient(160deg,
-      #FFF9E6 0%,
-      /* 淺黃（陽光） */
-      #FFD8A8 50%,
-      /* 淡橙（溫暖） */
-      #C3E2DD 100%
-      /* 淺綠（自然陰影） */
-    );
 
-  p {
-    font-size: 1.2rem;
-    color: #555;
-    max-width: 600px;
+}
+
+/* 左側登入表單 (50%寬度，100%高度) */
+.login-section {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:#F2EEE5;
+  padding: 2rem;
+  position: sticky;
+  top: 0;
+  will-change: transform;
+}
+
+/* 右側圖片區域 (50%寬度，100%高度) */
+.image-section {
+  width: 50vw;
+  height: 300vh;
+  overflow: hidden;
+  // height: 100vh;
+
+
+  .scroll-page {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img {
+    width: 50vw;
+    height: 100vh;
+    object-fit: cover;
   }
 }
 
 .login-box {
-  /* 確保表單內容在梯形上方 */
   z-index: 16;
   padding: 2.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 33vw;
-  height: 50vh;
+  max-width: 450px;
+  height: auto;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 18px auto;
-  gap: 20px;
-  background: linear-gradient(180deg,
-      #fff8e8 10%,
-      /* 乳白色（光暈） */
-      #ffefd8 60%,
-      /* 淺蜜桃色 */
-      #e4fafd 95%
-      /* 你的青綠色，增加自然感 */
-    );
+  background:#F0E4D4;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
 }
 
-/* 主按鈕（登入） */
-.btn {
-  /* 圓角設計 */
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  /* 暖米色背景 */
-  background-color: #F9D9CA;
-  /* 深棕色文字（對比可讀） */
-  color: #5C3A21;
-  /* 米色邊框 */
-  border: 2px solid #F9D9CA;
-  border: none;
-  border-radius: 8px;
-    /* 輕微陰影 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.p-floatlabel {
+  display: block;
+  margin-bottom: 25px;
+  width: 100%;
+
+  label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
 }
 
-/* 按鈕特效 */
-.btn:hover {
-  /* 懸停時稍深的米色 */
-  background-color: #E8C4B0;
-  /* 輕微上浮效果 */
-  transform: translateY(-1px);
-  /* 陰影 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+::ng-deep {
+  .p-password {
+    width: 100%;
+
+    .p-inputtext {
+      width: 100% !important;
+      height: auto !important;
+      padding: 12px !important;
+      font-size: 16px !important;
+    }
+  }
 }
 
 .button-group {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  gap: 50px;
+  gap: 20px;
+  margin-top: 30px;
 }
 
-/* 在組件的 CSS 檔案中添加 */
-::ng-deep .input .p-password .p-inputtext {
-  width: 13vw !important;
-  height: 3.9vh !important;
-  font-size: 30px !important;
+/* 登入按鈕樣式更新 */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #054b22;
+  color: white;
+  border: none;
+  font-size: 25px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 30px 0;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #168654;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+
+  a {
+    color: #4285f4;
+    text-decoration: none;
+    font-size: 20px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .login-box {
+    max-width: 90%;
+    margin-left: 0;
+    padding: 2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

@@ -35,8 +35,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     { title: '我每天的健康分數都好差，我不想用了？', content: '我們希望能陪你一起面對所有困難，但如果想要休息一下也沒關係，我們隨時都在', value: '2' },
   ];
 
-
-
   register() {
     this.router.navigateByUrl('/register');
   }

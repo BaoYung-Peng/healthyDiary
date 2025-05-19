@@ -3,10 +3,10 @@
   width: 100vw;
   display: grid;
   padding: 2.5rem;
-  margin-left: 0.8rem;
   justify-content: center;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
+  background: #F2EEE5;
 }
 
 .card {
@@ -26,6 +26,7 @@
   z-index: 10;
   will-change: transform;
   transform-origin: center center;
+
 }
 
 .card:hover {
@@ -36,11 +37,11 @@
 .card-image {
   width: 100%;
   height: 100px; // 固定图片高度
-  object-fit: cover; // 确保图片覆盖区域
+  object-fit: cover; // 確保圖片覆蓋區域
 }
 
 .card.selected {
-  border-color: rgb(76, 166, 255);
+  border-color: rgb(47, 128, 53);
   position: relative;
   background-image:
     linear-gradient(to bottom, rgba(240, 247, 255, 0.6), rgba(230, 240, 255, 0.6)),
@@ -78,7 +79,6 @@
   margin-bottom: 30px;
 }
 
-
 //=========================
 .content {
   flex: 3;
@@ -88,6 +88,7 @@
   background-color: #ffffff;
   padding: 10px;
   text-align: center;
+  background: #F2EEE5
 }
 
 .carousel {
@@ -192,7 +193,24 @@
 }
 
 .btn {
-  width: 50%;
+  width: 100%;
+  padding: 14px;
+  background-color: #054b22;
+  color: white;
+  border: none;
+  font-size: 25px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 30px 0;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: #168654;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 }
 
 //================================================================================================
@@ -457,6 +475,7 @@ progress::-moz-progress-bar {
   /* 卡片之間的間距 */
   padding: 20px;
   box-sizing: border-box;
+  background: #F2EEE5;
 }
 
 .day-card {
@@ -476,6 +495,7 @@ progress::-moz-progress-bar {
   /* 允許內容超過時自動擴展 */
   font-size: 20px;
   gap: 8px;
+  background: #F0E4D4;
 }
 
 .day-card ul {

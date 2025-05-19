@@ -1,26 +1,24 @@
 /* Main container */
 .book-container {
-  width: 100vw;
+  width: 85vw;
   height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f9f4ef;
-  position: relative;
-  margin: 10vh auto;
+  // border: 4px solid rgb(90, 35, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 25px;
 }
 
 // 封面
 .cover-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* 水平置中 */
-  justify-content: flex-start;
-  /* 靠上 */
   height: 100%;
   padding-top: 50px;
-  /* 往下推一點距離 */
   gap: 20px;
   text-align: center;
 }
@@ -38,28 +36,34 @@
 
 /* Book wrapper */
 .book {
-  width: 80vw;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   position: relative;
   perspective: 2500px;
   display: flex;
+  position: absolute;
+  top: 40%;
+  left: 42.5%;
+  transform: translate(-50%, -50%);
 }
 
 /* Page styles */
 .page {
   width: 40vw;
-  height: 100%;
+  height: 79vh;
   position: absolute;
-  top: 0;
+  top: 1.5px;
   transform-style: preserve-3d;
   transition: transform 0.01s;
+  font-size: 30px;
+  border: 3px solid rgb(90, 35, 0);
   /* small transition for z-index changes */
 }
 
 .left-page {
   left: 0;
-  background: #fff9e6;
-  border-right: 1px solid #e0c097;
+  background: #ffffff;
+  // border-right: 4px solid #030303;
   transform-origin: right center;
   z-index: 1;
 }
@@ -67,7 +71,7 @@
 .right-page {
   left: 40vw;
   background: #fffefc;
-  border-left: 1px solid #e0c097;
+  // border-left: 1px solid #e0c097;
   transform-origin: left center;
   z-index: 2;
 }
@@ -81,6 +85,11 @@
   padding: 2rem;
   box-sizing: border-box;
   overflow-y: auto;
+}
+
+.diary-content {
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 /* Front/back faces */
@@ -115,10 +124,44 @@
   justify-content: center;
 }
 
+.prev-button-wrapper,
+.next-button-wrapper {
+  position: absolute;
+  border: 1px solid rgb(0, 0, 0);
+  color: #000;
+  top: 50%;
+  transform: translateY(-50vh);
+  z-index: 10;
+  pointer-events: none; // 確保不擋事件，由內部 button 處理事件
+}
+
+.prev-button-wrapper button,
+.next-button-wrapper button {
+  pointer-events: auto;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.prev-button-wrapper button:disabled,
+.next-button-wrapper button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 位置微調（以 .book-container 為定位基準） */
+.prev-button-wrapper {
+  left: -50px; // 可視需求調整超出多少
+}
+
+.next-button-wrapper {
+  right: -35px;
+}
+
 button {
   padding: 0.8rem 1.5rem;
-  background-color: #8d6e63;
-  color: white;
+  color: #000;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -129,118 +172,31 @@ button:disabled {
   cursor: not-allowed;
 }
 
-app-mood-thermometer {
+.mood-score-left {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 120px; // 根據實際情況調整
+  bottom: 20px;
+  left: 20px;
+  font-size: 1.2rem;
+  color: #444;
+  font-weight: bold;
+  font-size: 30px;
 }
 
-// snow
-.snow-container {
+.weather-canvas {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+
+  z-index: 0;
+  /* 背景層 */
+  pointer-events: none;
+  /* 不要阻擋點擊事件 */
+}
+
+.day-page {
+  position: relative;
   overflow: hidden;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.snowflake {
-  position: absolute;
-  top: -10px;
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-
-  animation-name: fall, sway;
-  animation-timing-function: linear, ease-in-out;
-  animation-iteration-count: infinite, infinite;
-  animation-direction: normal, alternate;
-
-  /* 時間與延遲可覆蓋於元素內 */
-  animation-duration: 15s, 3s;
-  animation-delay: 0s, 0s;
-}
-
-.snow-animation {
-  position: fixed; /* 確保覆蓋整個視窗 */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0; /* 放最底層 */
-  background: transparent; /* 不蓋掉其他內容 */
-}
-
-@keyframes fall {
-  0% {
-    top: -10px;
-  }
-
-  100% {
-    top: 110%;
-  }
-}
-
-@keyframes sway {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(20px);
-  }
-}
-
-
-// rain
-.rain-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: repeating-linear-gradient(45deg,
-      rgba(0, 0, 255, 0.2),
-      rgba(0, 0, 255, 0.2) 2px,
-      transparent 3px,
-      transparent 7px);
-  animation: rain-fall 0.5s linear infinite;
-}
-
-@keyframes rain-fall {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 50px 50px;
-  }
-}
-
-// sun
-.sun-animation {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(circle, yellow, orange);
-  animation: sun-glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes sun-glow {
-  from {
-    box-shadow: 0 0 10px 5px yellow;
-  }
-
-  to {
-    box-shadow: 0 0 30px 15px orange;
-  }
+  /* 若你想讓動畫不超出邊界 */
 }

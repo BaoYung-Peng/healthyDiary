@@ -1,6 +1,6 @@
 // bookcase.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpService } from '../@services/http.service';
@@ -10,6 +10,7 @@ import { HttpService } from '../@services/http.service';
   imports: [
     FormsModule,
     CommonModule,
+    RouterLink
   ],
   templateUrl: './bookcase.component.html',
   styleUrl: './bookcase.component.scss',
@@ -22,18 +23,18 @@ export class BookcaseComponent implements OnInit {
 
   // 預設月份與顏色
   months = [
-    { id: 1, name: '一月', color: '#4a6ea9' },
-    { id: 2, name: '二月', color: '#a94a6e' },
-    { id: 3, name: '三月', color: '#6ea94a' },
-    { id: 4, name: '四月', color: '#a96e4a' },
-    { id: 5, name: '五月', color: '#4aa96e' },
-    { id: 6, name: '六月', color: '#6e4aa9' },
-    { id: 7, name: '七月', color: '#8e44ad' },
-    { id: 8, name: '八月', color: '#3498db' },
-    { id: 9, name: '九月', color: '#e74c3c' },
-    { id: 10, name: '十月', color: '#2ecc71' },
-    { id: 11, name: '十一月', color: '#f39c12' },
-    { id: 12, name: '十二月', color: '#1abc9c' }
+    { id: 1, name: '一月', color: '#727D73' },
+    { id: 2, name: '二月', color: '#727D73' },
+    { id: 3, name: '三月', color: '#727D73' },
+    { id: 4, name: '四月', color: '#727D73' },
+    { id: 5, name: '五月', color: '#727D73' },
+    { id: 6, name: '六月', color: '#727D73' },
+    { id: 7, name: '七月', color: '#727D73' },
+    { id: 8, name: '八月', color: '#727D73' },
+    { id: 9, name: '九月', color: '#727D73' },
+    { id: 10, name: '十月', color: '#727D73' },
+    { id: 11, name: '十一月', color: '#727D73' },
+    { id: 12, name: '十二月', color: '#727D73' }
   ];
 
   constructor(
@@ -113,4 +114,11 @@ export class BookcaseComponent implements OnInit {
       }
     });
   }
+
+  wirte(){
+     this.router.navigate(['/writemood']);
+  }
+
+
+
 }

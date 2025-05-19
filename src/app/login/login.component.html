@@ -12,50 +12,47 @@
 
 <!-- 主要內容 -->
 <div #contentScene class="content-scene">
-  <!-- 你的登入表單或其他內容 -->
-  <!-- 動畫容器 -->
-  <div #animationContainer class="animation-container">
-    <!-- content-section（登入介面層） -->
-    <div class="scroll-container">
-      <div class="content-section">
-        <!-- login-box（登入框） -->
-        <div class="login-box">
-          <!-- 帳號輸入 -->
-          <p-floatlabel variant="on">
-            <input pInputText
-            [style.height]="'3.9vh'"
-            [style.width]="'12.85vw'"
-            [style.font-size]="'20px'"
-            id="email"
-            [(ngModel)]="email"
-            />
-            <label for="account">帳號</label>
-          </p-floatlabel>
+  <div class="split-layout">
+    <!-- 左側登入表單 -->
+    <div class="login-section">
+      <div class="login-box">
+        <h2>登入</h2>
 
-            <!-- 密碼輸入 -->
-            <p-floatLabel variant="on" class="input">
-              <p-password
-                [style.font-size]="'20px'"
-                [(ngModel)]="password"
-                name="password"
-                inputId="password"
-                [feedback]="false"
-                [toggleMask]="true"
-                promptLabel="請輸入密碼"
-                required />
-              <label for="password">密碼</label>
-            </p-floatLabel>
+        <p-floatlabel variant="on">
+          <input pInputText
+          id="email"
+          [(ngModel)]="email"
+          />
+          <label for="email">電子郵件地址</label>
+        </p-floatlabel>
 
-            <div class="button-group">
-              <button (click)="submit()" class="btn">登入</button>
-              <button type="button" class="btn" routerLink="/home">取消</button>
-            </div>
+        <p-floatLabel variant="on" class="input">
+          <p-password
+            [(ngModel)]="password"
+            name="password"
+            inputId="password"
+            [feedback]="false"
+            [toggleMask]="true"
+            promptLabel="請輸入密碼"
+            required />
+          <label for="password">密碼</label>
+        </p-floatLabel>
 
-          <!-- 底部連結 -->
-          <div class="footer-links">
-            <p><a routerLink="/forgotpassword">忘記密碼</a></p>
-            <p><a routerLink="/register">註冊</a></p>
-          </div>
+        <button (click)="submit()" class="login-btn">登入</button>
+
+        <div class="footer-links">
+          <a routerLink="/forgotpassword">忘記密碼</a>
+          <a routerLink="/register">註冊</a>
         </div>
       </div>
     </div>
+
+    <!-- 右側圖片 -->
+    <div class="image-section" #scrollContainer>
+      <!-- 這裡放您的圖片 -->
+      <div class="scroll-page page1"><img src="/imgs/aerobic.jpg" alt="登入頁面圖片"></div>
+      <div class="scroll-page page2"><img src="/imgs/light.jpeg" alt="登入頁面圖片"></div>
+      <div class="scroll-page page3"><img src="/imgs/training.jpg" alt="登入頁面圖片"></div>
+    </div>
+  </div>
+</div>

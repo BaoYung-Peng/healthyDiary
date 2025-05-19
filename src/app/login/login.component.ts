@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 import { DividerModule } from 'primeng/divider';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -9,6 +11,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { PasswordModule } from 'primeng/password';
 import { HttpService } from '../@services/http.service';
 import { LocalstorageService } from '../@services/localstorage.service';
+import Lenis from '@studio-freight/lenis/types';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +27,7 @@ import { LocalstorageService } from '../@services/localstorage.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements AfterViewInit {
+export class LoginComponent implements AfterViewInit, OnDestroy {
   // 門元素
   @ViewChild('leftDoor') leftDoor!: ElementRef;
   @ViewChild('rightDoor') rightDoor!: ElementRef;
@@ -37,7 +40,13 @@ export class LoginComponent implements AfterViewInit {
   @ViewChild('lightExpansion') lightExpansion!: ElementRef; // 光擴散
   @ViewChild('contentScene') contentScene!: ElementRef;   // 主要內容場景
   @ViewChild('animationContainer') animationContainer!: ElementRef;
-  // private lenis!: Lenis;
+
+  @ViewChild('block2', { static: false }) block2Ref!: ElementRef;
+  // @ViewChild('block2') block2Ref!: ElementRef;
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  private lenis!: Lenis;
+  currentImage = 0;
+  private isLocked = false;
 
   email: string = '';
   password: string = '';
@@ -61,6 +70,12 @@ export class LoginComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.lockScroll();
     this.playDoorAnimation();
+  }
+
+  ngOnDestroy() {
+    if (this.lenis) {
+      this.lenis.destroy();
+    }
   }
 
   // 防止畫面滾動（避免動畫中被打斷）
@@ -179,6 +194,48 @@ export class LoginComponent implements AfterViewInit {
     });
   }
 
+  private initSmoothScroll() {
+    gsap.registerPlugin(ScrollSmoother);
+
+    ScrollSmoother.create({
+      smooth: 1.5,
+      effects: true
+    });
+  }
+
+  private handleWheel(e: WheelEvent) {
+    if (!this.isLocked) return;
+
+    e.preventDefault();
+    const delta = e.deltaY;
+    const container = this.scrollContainer.nativeElement;
+
+    // 计算新位置
+    let newPos = container.scrollTop + delta * 0.5;
+    newPos = Math.max(0, Math.min(newPos, container.scrollHeight - container.clientHeight));
+
+    // 平滑滚动
+    container.scrollTo({
+      top: newPos,
+      behavior: 'smooth'
+    });
+
+    // 更新当前图片索引
+    this.currentImage = Math.round(newPos / container.clientHeight);
+
+    // 边界检测
+    if ((this.currentImage === 0 && delta < 0) ||
+      (this.currentImage === 2 && delta > 0)) {
+      this.unlockSection();
+    }
+  }
+
+  private unlockSection() {
+    if (!this.isLocked) return;
+    this.isLocked = false;
+    this.lenis.start();
+  }
+
   submit() {
     // const trimmedPassword = this.password.trim();
     // const length = trimmedPassword.length;
@@ -208,7 +265,7 @@ export class LoginComponent implements AfterViewInit {
           this.router.navigateByUrl('/admin');
           return;
         }
-        this.router.navigateByUrl('/userpage');
+        this.router.navigateByUrl('/userpage/report');
       }
       console.log(res);
     });

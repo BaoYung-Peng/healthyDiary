@@ -1,0 +1,23 @@
+<div class="book-wrapper">
+  <div class="book-page left">
+    <h3>今日心情</h3>
+
+    <label for="date">📅 日期：</label>
+    <input id="date" type="date" [(ngModel)]="queryDate" name="date" required />
+
+    <label for="mood">😊 心情指數：</label>
+    <input id="mood" type="range" min="1" max="10" [(ngModel)]="currentMoodScore" name="mood" />
+    <div class="mood-score">{{ currentMoodScore }}/10</div>
+  </div>
+
+  <div class="book-page right">
+    <h3>✍️ 寫下你的心情</h3>
+
+    <textarea [(ngModel)]="inputData" name="diary" maxlength="300" rows="10" placeholder="今天發生了什麼呢？..." required></textarea>
+    <div class="char-count">{{ inputData.length || 0 }}/300</div>
+
+    <button (click)="submitInputData()">📬 儲存日記</button>
+    <p class="success" *ngIf="submitSuccess">✅ 提交成功！</p>
+    <p class="error" *ngIf="submitError">❌ 提交失敗，請再試一次。</p>
+  </div>
+</div>

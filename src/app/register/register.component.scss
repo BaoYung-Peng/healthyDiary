@@ -8,7 +8,7 @@
   text-align: center;
   margin: 20px auto 40px 550px;
   font-weight: bold;
-  font-size:20px;
+  font-size: 20px;
   color: var(--progressbar-color);
 }
 
@@ -93,18 +93,17 @@
   transform: translateX(-50%);
   padding: 12px 24px;
   font-size: 20px;
-  background-color: #E1B4D3;
+  background-color: #054b22;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease;
-}
 
-//返回按鈕動畫
-.back-htn:hover {
-  background-color: #CB8A90;
+  &:hover {
+    background-color: #168654;
+  }
 }
 
 //下一步按鈕
@@ -115,17 +114,17 @@
   transform: translateX(-50%);
   padding: 12px 24px;
   font-size: 20px;
-  background-color: #E1B4D3;
+  background-color: #054b22;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease;
-}
 
-.action-button:hover {
-  background-color: #CB8A90;
+  &:hover {
+    background-color: #168654;
+  }
 }
 
 input {
@@ -207,35 +206,45 @@ li {
   /* 內間距 (上下) */
 }
 
-.custom-select{
+.custom-select {
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
-  margin:20px 15px auto 0px;
+  margin: 20px 15px auto 0px;
 }
 
 /* 調整 select 框本身的樣式 */
 .select-box {
-  font-size: 25px; /* 調整字體大小 */
-  padding: 8px 12px; /* 調整內邊距 */
-  height: 46px; /* 調整高度 */
-  width: 275px; /* 調整寬度 */
-  border: 1px solid #ccc; /* 邊框 */
-  border-radius: 4px; /* 圓角 */
+  font-size: 25px;
+  /* 調整字體大小 */
+  padding: 8px 12px;
+  /* 調整內邊距 */
+  height: 46px;
+  /* 調整高度 */
+  width: 275px;
+  /* 調整寬度 */
+  border: 1px solid #ccc;
+  /* 邊框 */
+  border-radius: 4px;
+  /* 圓角 */
   background-color: white;
 }
 
 /* 調整下拉選單的樣式 (部分瀏覽器支援有限) */
 .select-box option {
-  font-size: 14px; /* 選項字體大小 */
-  padding: 8px 12px; /* 選項內邊距 */
-  height: 30px; /* 選項高度 (部分瀏覽器可能不支援) */
+  font-size: 14px;
+  /* 選項字體大小 */
+  padding: 8px 12px;
+  /* 選項內邊距 */
+  height: 30px;
+  /* 選項高度 (部分瀏覽器可能不支援) */
 }
 
 /* 針對 Firefox 的額外調整 */
 @-moz-document url-prefix() {
   .select-box {
-    padding: 6px 12px; /* Firefox 的 padding 表現略有不同 */
+    padding: 6px 12px;
+    /* Firefox 的 padding 表現略有不同 */
   }
 }

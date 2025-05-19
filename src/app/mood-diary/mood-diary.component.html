@@ -1,7 +1,12 @@
-<div class="snow-animation"></div>
-<div class="book-container">
-  <h2 class="month-title">月份：{{ monthName }}</h2>
+<!-- ✅ Canvas 放這裡最上層 -->
+<canvas #weatherCanvas class="weather-canvas"></canvas>
+
+<div class="book-container" [ngClass]="{'blur-background': isAnimating}">
+
+  <!--
+  <h2 class="month-title">月份：{{ monthName }}</h2> -->
   <div class="book">
+
     <!-- 左頁 -->
     <div class="page left-page" #leftPageRef>
       <div class="content">
@@ -22,6 +27,11 @@
         <div class="back">
           {{ leftPageBack }}
         </div>
+
+        <div class="mood-score-left"
+          *ngIf="getMoodScore(currentPageIndex) !== null && currentPageIndex > 0 && currentPageIndex <= daysInMonth">
+          <p>心情指數：{{ getMoodScore(currentPageIndex) }}</p>
+        </div>
       </div>
     </div>
 
@@ -39,9 +49,6 @@
         <!-- 日記內容頁 -->
         <div class="front diary-page" *ngIf="currentPageIndex > 0 && currentPageIndex <= daysInMonth">
           <p class="diary-content">{{ getDiaryContent(currentPageIndex) }}</p>
-          <p class="mood-score" *ngIf="getMoodScore(currentPageIndex) !== null">
-            心情指數：{{ getMoodScore(currentPageIndex) }}
-          </p>
         </div>
 
         <!-- 背面內容 -->
@@ -53,8 +60,14 @@
   </div>
 
   <div class="controls">
-    <button (click)="goBack()">返回書櫃</button>
-    <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">上一頁</button>
-    <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">下一頁</button>
+    <!-- <button (click)="goBack()">返回書櫃</button> -->
+    <div class="prev-button-wrapper">
+      <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">上</button>
+    </div>
+
+    <div class="next-button-wrapper">
+      <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">下</button>
+    </div>
   </div>
+
 </div>
