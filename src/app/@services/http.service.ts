@@ -11,8 +11,6 @@ export class HttpService {
   // IP: string = '172.16.1.188';
   IP: string = 'localhost';
 
-
-
   // 登入
   loginApi(postData: any) {
     const url = `http://${this.IP}:8080/daily/login`;
