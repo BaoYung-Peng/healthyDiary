@@ -150,9 +150,9 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
-  // 取得每日報告
-  getDailyReportApi(postData: any) {
-    const url = `http://${this.IP}:8080/feedback/get_daily`;
+  // 取得該日報告
+  getReportByDateApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_data_by_date`;
     return this.httpClient.post(url, postData);
   }
 

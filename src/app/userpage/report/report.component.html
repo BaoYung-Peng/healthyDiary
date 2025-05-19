@@ -10,18 +10,21 @@
 <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
 }
 
-<h1>當週報告</h1>
-<div class="week-buttons">
-  @for(day of weekDays; track $index){
-  <button (click)="selectDay($index)"
-    [ngClass]="{'today-button': isToday($index), 'selected-button': selectedDateIndex === day.value}"
-    [disabled]="isFutureDate(day.value)">
-    {{day.label}}
-  </button>
-  }
-</div>
+<div class="container">
+  <div class="diet">
 
-@if(selectedDayReport && !(aiRes)){
+  </div>
+  <div class="sleep">
+
+  </div>
+  <div class="exercise">
+
+  </div>
+  <p-datepicker class="max-w-full" [(ngModel)]="selectedDate" [inline]="true" [showWeek]="true"
+    (onSelect)="getData()" />
+
+</div>
+<!-- @if(selectedDayReport && !(aiRes)){
 <div class="report-container">
   <div class="daily-report">
     <p class="summary">{{summary}}</p>
@@ -40,7 +43,7 @@
 @if(!(aiRes) && !(selectedDayReport)){
 <div class="card">
   <h2>還沒有產生報告</h2>
-  <p-button class="report-btn" (click)="showDialog()" label="產生報告" icon="pi pi-check" iconPos="right" />
+  <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" />
 </div>
 }
 @if(aiRes){
@@ -57,11 +60,11 @@
     <img class="cat" src="imgs/playful-cat.svg" />
   </div>
 </div>
-}
+} -->
 
 <p-dialog header="是否要產生報告" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
   <div class="btn-area">
     <p-button label="取消" severity="danger" (click)="visible = false" />
-    <p-button label="產生報告" (click)="confirm()" />
+    <p-button label="產生報告" />
   </div>
 </p-dialog>
