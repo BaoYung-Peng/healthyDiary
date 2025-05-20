@@ -65,11 +65,13 @@ export class SleepComponent {
     const defaultSleepTime = new Date();
     defaultSleepTime.setDate(defaultSleepTime.getDate() - 1); // 設定為昨天
     defaultSleepTime.setHours(21, 0, 0, 0); // 設定時間為 21:00 (9 PM)
+    const defaultAwakeTime = new Date();
+    defaultAwakeTime.setHours(7, 0, 0, 0); // 設定時間為 07:00 (7 AM)
     this.sleepTime = defaultSleepTime; // 指定預設值
-
+    this.awakeTime = defaultAwakeTime;
     console.log('睡覺', this.sleepTime);
     console.log('起床', this.awakeTime);
-
+    this.calculateSleepHours();
 
   }
 

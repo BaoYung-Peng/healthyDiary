@@ -4,31 +4,10 @@ h1 {
 
 .container {
   width: 100%;
-  height: 80vh;
-  margin: 10px auto;
-
+  height: 88vh;
+  // margin: 10px auto;
+  background:#F2EEE5;
   display: flex;
-}
-
-h2 {
-  text-align: center;
-
-  margin: 20px;
-}
-
-.week-buttons {
-  display: flex;
-  justify-content: center;
-
-  gap: 20px;
-}
-
-
-button {
-  background-color: greenyellow;
-  padding: 20px;
-
-  border-radius: 20px;
 }
 
 .report-box {
@@ -42,19 +21,19 @@ button {
   padding: 15px;
 
   width: 25%;
-  background-color: yellowgreen;
+  background-color: #F0E4D4;
   border-radius: 10px;
 
   overflow-y: auto;
+
+  p {
+    line-height: 2;
+    font-size: 25px;
+  }
 }
 
 .date-box {
   padding: 10px;
-}
-
-.selected-button {
-  background-color: lightblue;
-  /* 使用者點選的按鈕顏色 */
 }
 
 .report-btn {
@@ -81,6 +60,7 @@ button {
 }
 
 .loading-text {
+  margin-right: 10px;
   color: #050505;
   font-weight: bold;
   text-align: center;
@@ -92,20 +72,15 @@ p-progress-spinner {
   z-index: 11;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//   }
 
-  to {
-    opacity: 1;
-  }
-}
-
-
-button {
-  font-family: Seto;
-}
+//   to {
+//     opacity: 1;
+//   }
+// }
 
 p-message {
   width: 40vw;
@@ -113,52 +88,4 @@ p-message {
   top: 15vh;
   left: 30vw;
   z-index: 100;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  backdrop-filter: blur(2px);
-
-  z-index: 9;
-}
-
-.loading-text {
-  position: absolute;
-  text-align: center;
-  font-size: 50px;
-  top: 50%;
-  right: 42%;
-  z-index: 11;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cat {
-  position: static;
-  width: auto;
-  max-width: 80%;
-  margin: 0 auto;
-}
-
-.chat {
-  max-width: 220px;
-  margin-top: 15%;
-  margin-left: 45%;
-}
-
-span {
-  width: 170px;
-
-  padding: 10px;
-  position: absolute;
-  top: 30%;
-  left: 53%;
-  font-size: 15px;
 }

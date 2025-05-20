@@ -4,7 +4,7 @@
 <div class="container">
   <p>睡前是否有玩手機?</p>
   <div class="input-box">
-    <p-selectbutton class="opts-btn" size="small" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label"
+    <p-selectbutton class="opts-btn" size="small" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label" id="usePhone"
       optionValue="value" />
   </div>
   <p>是否失眠?</p>
@@ -34,5 +34,5 @@
   <div class="input-box">
     <p>睡眠時數: {{sleepHours}} 小時</p>
   </div>
-  <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" [disabled]="!awakeTime || !sleepTime"/>
+  <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" [disabled]="(sleepLatency == null) || (insomnia == null) || (usePhone == null)"/>
 </div>
