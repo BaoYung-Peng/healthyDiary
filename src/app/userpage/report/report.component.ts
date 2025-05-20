@@ -11,13 +11,11 @@ import { LoadingService } from '../../@services/loading.service';
 import { Message } from 'primeng/message';
 import { DropdownModule } from 'primeng/dropdown';
 import { DatePicker } from 'primeng/datepicker';
-import { SpeedDial } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
+import { DateService } from '../../@services/date.service';
 
 interface MenuItem {
   icon: string;
   command: any;
-  label: string;
 }
 
 @Component({
@@ -32,8 +30,6 @@ interface MenuItem {
     Message,
     DropdownModule,
     DatePicker,
-    ToastModule,
-    SpeedDial
   ],
   templateUrl: './report.component.html',
   styleUrl: './report.component.scss'
@@ -45,10 +41,7 @@ export class ReportComponent implements OnInit {
   showMessage: boolean = false;
   user!: any;
 
-  selectedWeekOffset: number = 0; //選擇週數 0為本周
   today: Date = new Date(); //今天
-  weekStartDate!: Date; //每周開始日期
-  weekEndDate!: Date; //每周結束日期
 
   selectedDate: Date = new Date(); // 選擇的日期
 
@@ -66,27 +59,12 @@ export class ReportComponent implements OnInit {
   constructor(
     private http: HttpService,
     private gptService: GptService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private dateService: DateService
   ) { }
 
   ngOnInit(): void {
-    this.items = [
-      {
-        label: '',
-        icon: 'pi pi-pencil',
-        command: () => {
-          // this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-        }
-      },
-      {
-        label: '',
-        icon: 'pi pi-refresh',
-        command: () => {
-          // this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-        }
-      }
-    ];
-
+    this.loading$ = this.loadingService.loading$;
     const req = {
       token: this.token
     }
@@ -96,13 +74,28 @@ export class ReportComponent implements OnInit {
     this.getData();
   }
 
+  // 取得該天AI回應資料
+  getAiResData(req: any) {
+    this.http.getDailyReportApi(req).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.report = res.dailyFeedback ? res.dailyFeedback.feedback : null;
+      }
+    });
+  }
+
   // 取的該天飲食、睡眠、運動資料
   getData() {
+    console.log(this.selectedDate);
+
     const req = {
       token: this.token,
-      date: this.selectedDate.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-')
+      date: this.dateService.changeDateFormat(this.selectedDate)
     }
-    this.getAiResData(req);
+
+    this.getAiResData(req); // 取得該天AI回應資料
+
+    // 取得該天健康資料
     this.http.getDataByDateApi(req).subscribe({
       next: (res: any) => {
         this.mealsList = res.mealsList
@@ -124,13 +117,72 @@ export class ReportComponent implements OnInit {
     })
   }
 
-  // 取得該天AI回應資料
-  getAiResData(req: any) {
-    this.http.getDailyReportApi(req).subscribe({
+  // 判斷是否為當天
+  get isToday(): boolean {
+    const todayTimestamp = new Date().setHours(0, 0, 0, 0);
+    const selectedTimestamp = new Date(this.selectedDate).setHours(0, 0, 0, 0);
+    return todayTimestamp == selectedTimestamp;
+  }
+
+  // 產生報告
+  generateReport() {
+    this.loadingService.showLoading();
+    this.visible = false;
+    // 飲食
+    const mealText = [
+      this.diet.breakfast.length > 0 ? `早餐吃了${this.diet.breakfast.join("、")}，` : "",
+      this.diet.lunch.length > 0 ? `午餐吃了${this.diet.lunch.join("、")}，` : "",
+      this.diet.dinner.length > 0 ? `晚餐吃了${this.diet.dinner.join("、")}` : ""
+    ].filter(text => text).join(" ");
+
+    // 運動
+    const exerciseText = this.exerciseList.length > 0 ? this.exerciseList.map((exercise: any) => `${exercise.exerciseName} ${exercise.duration}分鐘`).join('、') : '';
+    // 睡眠
+    const sleepText = this.sleepList.length > 0 ? `我睡了 ${this.sleepList[0].hours} 小時，${this.sleepList[0].insomnia ? "有" : "沒"}失眠，睡前${this.sleepList[0].phone ? "有" : "沒"}用手機` : '';
+    // 給 AI 的文字
+    const req = `
+    你是一位健康分析建議師，我給你使用者資訊，用淺顯易懂的方式產生一份約100字的健康建議。
+    我的身高${this.user.height}公分，
+    體重${this.user.weight}公斤，
+    性別為${this.user.gender}，
+    工作型態為${this.user.workType}。
+    ${mealText}。${exerciseText}。${sleepText}。`.replace(/\s+/g, ' ').trim();
+    console.log(req);
+
+    this.gptService.sendMessage(req).subscribe({
       next: (res: any) => {
-        console.log(res);
-        this.report = res.dailyFeedback ? res.dailyFeedback.feedback : null;
+        this.aiRes = res;
+        if (this.aiRes) {
+          this.save();
+        }
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+        setTimeout(() => {
+          this.loadingService.hideLoading();
+        }, 2000);
       }
     });
+  }
+
+  save() {
+    const req = {
+      token: this.token,
+      date: this.dateService.changeDateFormat(new Date()),
+      feedback: this.aiRes
+    }
+    console.log(req);
+    this.http.fillInTodayReportApi(req).subscribe((res: any) => {
+      if (res.code == 200) {
+        this.loadingService.hideLoading();
+        this.aiRes = null;
+        this.getData();
+      } else {
+        setTimeout(() => {
+          this.loadingService.hideLoading();
+        }, 2000);
+      }
+    });
+
   }
 }

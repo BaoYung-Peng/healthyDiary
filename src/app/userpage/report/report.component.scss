@@ -1,4 +1,9 @@
+h1 {
+  margin: 10px 0;
+}
+
 .container {
+  width: 100%;
   height: 80vh;
   margin: 10px auto;
   display: flex;
@@ -14,7 +19,7 @@
 
 .report {
   margin: 0 10px;
-  padding: 10px;
+  padding: 15px;
 
   width: 25%;
   height: 100%;
@@ -23,12 +28,55 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 
+  overflow-y: auto;
+
   p {
     line-height: 1.8;
     overflow-wrap: break-word;
   }
 }
 
-.ai {
-  overflow-y: auto;
+.report-btn {
+  margin: 20px auto;
+}
+
+.btn-area {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loading-text {
+  color: #050505;
+  font-weight: bold;
+  text-align: center;
+  z-index: 11;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+p-progress-spinner {
+  z-index: 11;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

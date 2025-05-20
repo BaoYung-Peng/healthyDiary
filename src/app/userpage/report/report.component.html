@@ -1,10 +1,12 @@
 @if(loading$ | async){
-<div class="overlay"></div>
-<p class="loading-text">
-  報告產生中
+<div class="overlay">
+  <h1 class="loading-text">
+    報告產生中
+  </h1>
   <p-progress-spinner strokeWidth="5" fill="transparent" animationDuration="1s"
     [style]="{ width: '70px', height: '70px' }" />
-</p>
+</div>
+
 }
 @if(showMessage){
 <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
@@ -13,7 +15,7 @@
 <div class="container">
   <div class="report-box">
     <div class="diet report">
-      <h1>飲食</h1>
+      <h1>飲食紀錄</h1>
       @if(mealsList?.length > 0){
       @if(diet.breakfast.length > 0){
       <p>早餐吃了: {{diet.breakfast}}</p>
@@ -30,16 +32,20 @@
       }
     </div>
     <div class="sleep report">
-      <h1>睡眠</h1>
+      <h1>睡眠紀錄</h1>
       @if(sleepList?.length > 0){
-      <p>睡了 {{sleepList[0]?.hours}} 小時</p>
+      <p>
+        睡了 {{sleepList[0]?.hours}} 小時<br>
+        {{sleepList[0]?.insomnia? '有' : '沒'}}失眠<br>
+        睡前{{sleepList[0]?.phone? '有' : '沒'}}玩手機
+      </p>
       }
       @else{
       <p>無資料</p>
       }
     </div>
     <div class="exercise report">
-      <h1>運動</h1>
+      <h1>運動紀錄</h1>
       @if(exerciseList?.length > 0){
       @for(exercise of exerciseList; track $index){
       <p>{{exercise.exerciseName}} - {{exercise.duration}} 分鐘</p>
@@ -56,26 +62,26 @@
       <p>{{report}}</p>
       }
       @else{
+      @if(isToday){
+      <div style="display: flex; justify-content: center;">
+        <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true" />
+      </div>
+      }
+      @else {
       <p>無資料</p>
+      }
       }
     </div>
   </div>
   <div>
     <p-datepicker [(ngModel)]="selectedDate" [inline]="true" [showWeek]="false" (onSelect)="getData()"
       [maxDate]="today" />
-    @if(mealsList?.length == 0 && sleepList?.length == 0 && exerciseList?.length == 0){
-    <div class="card">
-      <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" [disabled]="selectedDate < today" />
-    </div>
-    }
   </div>
-  <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left"
-    [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
 </div>
 
 <p-dialog header="是否要產生報告" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
   <div class="btn-area">
     <p-button label="取消" severity="danger" (click)="visible = false" />
-    <p-button label="產生報告" />
+    <p-button label="產生報告" (click)="generateReport()" />
   </div>
 </p-dialog>
