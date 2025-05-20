@@ -1,3 +1,35 @@
+/* 修改表頭背景和文字顏色 */
+::ng-deep .p-datatable .p-datatable-thead>tr>th {
+  background: #F0E4D4 !important;
+  color: rgb(0, 0, 0) !important;
+  font-size: 25px;
+}
+
+::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+  font-size: 18px;
+}
+
+/* 限制表頭不換行 + 名稱欄位變寬 */
+::ng-deep .p-datatable {
+
+  /* 名稱欄位寬度設定 */
+  .p-datatable-thead>tr>th:nth-child(1),
+  .p-datatable-tbody>tr>td:nth-child(1) {
+    width: 50px;
+    /* 自訂寬度 */
+  }
+
+  /* 所有表頭文字不換行 */
+  .p-datatable-thead>tr>th {
+    white-space: nowrap;
+    /* 禁止換行 */
+    overflow: hidden;
+    /* 隱藏溢出內容 */
+    text-overflow: ellipsis;
+    /* 過長時顯示... */
+  }
+}
+
 p-message {
   width: 40vw;
   position: fixed;
@@ -13,26 +45,50 @@ p-message {
 
 .container {
   display: flex;
-  margin: 20px;
+  // margin: 0px;
   background: #F2EEE5;
-  height: 90vh;
+  height: 95vh;
 }
 
 .left-pane,
 .right-pane {
+  margin-top: 38.5px;
   padding: 0 50px;
+  font-size: 25px;
 }
 
 .left-pane {
-  width: 50%;
+  width: 55%;
 }
 
 .right-pane {
-  width: 50%;
+  width: 45%;
 }
 
 p-selectbutton,
 p-floatlabel,
 p-select {
-  margin: 15px 10px 0 0;
+  margin: 20px 40px 0 0;
+}
+
+.right-box {
+  position: relative;
+  background-color: rgb(209, 245, 168);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.card {
+  margin-top: 10px;
+}
+
+.p-btn {
+  position: absolute; /* 改為絕對定位 */
+  right: 2rem;       /* 距離右邊界 */
+  bottom: 2rem;      /* 距離下邊界 */
+  margin: 0;         /* 移除原有 margin */
+  height: 5vh;
 }
