@@ -11,6 +11,7 @@
 <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
 }
 
+<<<<<<< HEAD
 <div class="container">
   <div class="report-box">
     <div class="diet report">
@@ -76,11 +77,64 @@
     <p-datepicker [(ngModel)]="selectedDate" [inline]="true" [showWeek]="false" (onSelect)="getData()"
       [maxDate]="today" />
   </div>
+=======
+<h1>當週報告</h1>
+<div class="week-buttons">
+  @for(day of weekDays; track $index){
+  <button (click)="selectDay($index)"
+    [ngClass]="{'today-button': isToday($index), 'selected-button': selectedDateIndex === day.value}"
+    [disabled]="isFutureDate(day.value)">
+    {{day.label}}
+  </button>
+  }
+>>>>>>> 81c1efe0c27e47f91e8885e801daa96ab87911e2
 </div>
+
+@if(selectedDayReport && !(aiRes)){
+<div class="report-container">
+  <div class="daily-report">
+    <p class="summary">{{summary}}</p>
+  </div>
+  <div class="ai-report">
+    <p class="summary">{{selectedDayReport.feedback}}</p>
+  </div>
+  <div class="score-report">
+    <img class="chat" src="imgs/chat.svg" />
+    <span>持續讓自己變得更好!!</span>
+    <img class="cat" src="imgs/playful-cat.svg" />
+  </div>
+</div>
+}
+
+@if(!(aiRes) && !(selectedDayReport)){
+<div class="card">
+  <h2>還沒有產生報告</h2>
+  <p-button class="report-btn" (click)="showDialog()" label="產生報告" icon="pi pi-check" iconPos="right" />
+</div>
+}
+@if(aiRes){
+<div class="report-container">
+  <div class="daily-report">
+    <p class="summary">{{summary}}</p>
+  </div>
+  <div class="ai-report">
+    <p class="summary">{{aiRes}}</p>
+  </div>
+  <div class="score-report">
+    <img class="chat" src="imgs/chat.svg" />
+    <span>今天的紀錄已完成，明天再來吧</span>
+    <img class="cat" src="imgs/playful-cat.svg" />
+  </div>
+</div>
+}
 
 <p-dialog header="是否要產生報告" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
   <div class="btn-area">
     <p-button label="取消" severity="danger" (click)="visible = false" />
+<<<<<<< HEAD
     <p-button label="產生報告" (click)="generateReport()" />
+=======
+    <p-button label="產生報告" (click)="confirm()" />
+>>>>>>> 81c1efe0c27e47f91e8885e801daa96ab87911e2
   </div>
 </p-dialog>

@@ -143,15 +143,15 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
-  // 取得該日AI報告
-  getDailyReportApi(postData: any) {
-    const url = `http://${this.IP}:8080/feedback/get_daily`;
+  // 取得每週報告
+  getWeeklyReportApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_weekly`;
     return this.httpClient.post(url, postData);
   }
 
-  // 取得該日所有資料 (睡眠、運動、飲食)
-  getDataByDateApi(postData: any) {
-    const url = `http://${this.IP}:8080/feedback/get_data_by_date`;
+  // 取得每日報告
+  getDailyReportApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_daily`;
     return this.httpClient.post(url, postData);
   }
 

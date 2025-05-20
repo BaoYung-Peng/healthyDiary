@@ -162,8 +162,13 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
 
   // 元件載入後初始化動畫與滑動效果
   ngAfterViewInit(): void {
-    // 啟用 Lenis 平滑滾動
-    const lenis = new Lenis();
+    // 初始化 Lenis 並明確設定選項
+    const lenis = new Lenis({
+      wrapper: document.body, // 或你的滾動容器
+      content: document.documentElement,
+      smoothWheel: true,
+      // 其他選項...
+    });
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);

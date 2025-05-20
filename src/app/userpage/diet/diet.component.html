@@ -3,28 +3,31 @@
     <app-food-table></app-food-table>
   </div>
   <div class="right-pane">
-    <div class="input-box">
-      <!-- 烹煮方式:
+    <div class="right-box">
+      <div class="input-box">
+        <!-- 烹煮方式:
       <p-selectbutton class="method-btn" size="small" [options]="methods" [(ngModel)]="searchedMethod"
         optionLabel="label" optionValue="value" (click)="searchFood()"
         [disabled]="searchedType == '飲料甜點零食' || searchedType == '外食'" /> -->
-      <p-select [options]="methods" [(ngModel)]="searchedMethod" [checkmark]="true" optionLabel="label"
-        [showClear]="true" placeholder="選擇烹煮方式" optionValue="value" (click)="searchFood()" />
-    </div>
-    <div class="input-box">
-      <!-- 食物類型:
+        <p-select [options]="methods" [(ngModel)]="searchedMethod" [checkmark]="true" optionLabel="label"
+          [showClear]="true" placeholder="選擇烹煮方式" optionValue="value" (click)="searchFood()" />
+      </div>
+      <div class="food-box">
+        <!-- 食物類型:
       <p-selectbutton class="type-btn" size="small" [options]="types" [(ngModel)]="searchedType" optionLabel="label"
         optionValue="value" (click)="searchFood()" /> -->
-      <p-select [options]="types" [(ngModel)]="searchedType" [checkmark]="true" optionLabel="label" [showClear]="true"
-        placeholder="選擇食物種類" optionValue="value" (click)="searchFood()" />
-    </div>
+        <p-select [options]="types" [(ngModel)]="searchedType" [checkmark]="true" optionLabel="label" [showClear]="true"
+          placeholder="選擇食物種類" optionValue="value" (click)="searchFood()" />
+      </div>
 
-    <div style="display: flex; align-items: center;">
-      <p-floatlabel variant="in">
-        <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off" />
-        <label for="foodName">食物名稱</label>
-      </p-floatlabel>
-      <p-button (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
+      <div style="display: flex; align-items: center;">
+        <p-floatlabel variant="in">
+          <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off" />
+          <label for="foodName">食物名稱</label>
+        </p-floatlabel>
+
+      </div>
+      <p-button class="p-btn" (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
     </div>
     <div class="showDBfood-box">
       <ng-container *ngTemplateOutlet="refTemplate"></ng-container>

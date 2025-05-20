@@ -14,6 +14,7 @@ td {
 
   p {
     margin: 10px 0;
+    font-size:25px;
   }
 }
 p-selectbutton {
@@ -32,11 +33,10 @@ p-selectbutton {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   /* 每行 4 個 */
-  gap: 10px;
-  /* 設定間距 */
+  gap: 20px;
 
   p {
-    font-size: 1.1rem;
+    font-size: 25px;
   }
 }
 
@@ -49,8 +49,10 @@ li:hover {
 }
 
 .card {
+  margin-top: 10px;
   height: 250px;
   overflow-y: auto;
+  height:50vh;
 }
 
 p-message {
