@@ -154,6 +154,11 @@ export class HttpService {
     const url = `http://${this.IP}:8080/feedback/get_daily`;
     return this.httpClient.post(url, postData);
   }
+  // 取得該天所有資料
+  getDataByDateApi(postData: any) {
+    const url = `http://${this.IP}:8080/feedback/get_data_by_date`;
+    return this.httpClient.post(url, postData);
+  }
 
   // 填入每日報告
   fillInTodayReportApi(postData: any) {
