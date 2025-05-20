@@ -1,15 +1,13 @@
 h1 {
-<<<<<<< HEAD
   margin: 10px 0;
 }
 
 .container {
   width: 100%;
   height: 80vh;
-=======
-  text-align: center;
->>>>>>> 81c1efe0c27e47f91e8885e801daa96ab87911e2
   margin: 10px auto;
+
+  display: flex;
 }
 
 h2 {
@@ -33,38 +31,30 @@ button {
   border-radius: 20px;
 }
 
-<<<<<<< HEAD
+.report-box {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+}
+
 .report {
   margin: 0 10px;
   padding: 15px;
-=======
-.today-button {
-  background-color: yellow;
-  /* 當天按鈕的顏色 */
+
+  width: 25%;
+  background-color: yellowgreen;
+  border-radius: 10px;
+
+  overflow-y: auto;
 }
->>>>>>> 81c1efe0c27e47f91e8885e801daa96ab87911e2
+
+.date-box {
+  padding: 10px;
+}
 
 .selected-button {
   background-color: lightblue;
   /* 使用者點選的按鈕顏色 */
-}
-
-.card {
-  width: 50vw;
-  height: 60vh;
-
-  margin: 10px auto;
-  background-color: rgb(209, 245, 168);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-
-<<<<<<< HEAD
-  overflow-y: auto;
-
-  p {
-    line-height: 1.8;
-    overflow-wrap: break-word;
-  }
 }
 
 .report-btn {
@@ -110,78 +100,11 @@ p-progress-spinner {
   to {
     opacity: 1;
   }
-=======
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  gap: 20px;
 }
 
-.report-container {
-  width: 70vw;
-  height: 65vh;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-areas:
-    "daily-report score-report"
-    "ai-report score-report";
-
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
-}
-
-.daily-report {
-  grid-area: daily-report;
-}
-
-.summary {
-  line-height: 1.5;
-}
-
-.ai-report {
-  grid-area: ai-report;
-  overflow-y: auto;
->>>>>>> 81c1efe0c27e47f91e8885e801daa96ab87911e2
-}
-
-.score-report {
-  height: 65vh;
-  grid-area: score-report;
-  position: relative;
-
-}
-
-.daily-report,
-.ai-report,
-.score-report {
-  padding: 20px;
-  margin: 15px;
-
-  background-color: rgb(209, 245, 168);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-}
-
-.report-btn {
-  margin: 20px;
-}
-
-.btn-area {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
 
 button {
   font-family: Seto;
-}
-
-button:disabled {
-  background-color: #d7d4d4;
 }
 
 p-message {
