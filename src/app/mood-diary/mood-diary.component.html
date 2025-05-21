@@ -84,11 +84,25 @@
   <div class="controls">
     <!-- <button (click)="goBack()">返回書櫃</button> -->
     <div class="prev-button-wrapper">
-      <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">上</button>
+      <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">
+        <span class="pi pi-arrow-circle-left"
+          style="font-size: 2.5rem;
+          color:rgb(255, 141, 20);
+          background-color: antiquewhite;
+          border-radius: 20rem;" >
+        </span>
+      </button>
     </div>
 
     <div class="next-button-wrapper">
-      <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">下</button>
+      <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">
+        <span class="pi pi-arrow-circle-right"
+        style="font-size: 2.5rem;
+          color:rgb(255, 141, 20);
+          background-color: antiquewhite;
+          border-radius: 20rem;" >
+        </span>
+      </button>
     </div>
   </div>
 

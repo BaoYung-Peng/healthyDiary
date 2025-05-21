@@ -7,6 +7,8 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Message } from 'primeng/message';
+import { CommonModule } from '@angular/common';
+import { ShootingStarsBackgroundComponent } from '../../shooting-stars-background/shooting-stars-background.component';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { Message } from 'primeng/message';
     ButtonModule,
     SelectButtonModule,
     Message,
+    CommonModule,
+    ShootingStarsBackgroundComponent
   ],
   templateUrl: './sleep.component.html',
   styleUrl: './sleep.component.scss'

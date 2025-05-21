@@ -71,7 +71,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     {
       title: '輕度',
       description: '輕度：適合新手或恢復期的簡單活動。',
-      note: '如伸展、瑜伽、輕鬆散步',
+      note: '如伸展、瑜珈、輕鬆散步',
       backgroundImage: '/imgs/light.jpeg'
     },
     {
@@ -94,7 +94,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       type: 'light',
       data: [
         { name: '散步', src: '/imgs/Walk.jpeg' },
-        { name: '瑜伽', src: '/imgs/Yoga.jpeg' },
+        { name: '瑜珈', src: '/imgs/Yoga.jpeg' },
         { name: '太極拳', src: '/imgs/TaiChi.jpeg' },
         { name: '皮拉提斯', src: '/imgs/Pilates.jpeg' },
         { name: '騎自行車', src: '/imgs/Bike.jpeg' },
@@ -107,7 +107,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
         { name: '游泳', src: '/imgs/Swim.jpeg' },
         { name: '跳繩', src: '/imgs/Jump-rope.jpeg' },
         { name: '階梯有氧', src: '/imgs/Climb-stairs.jpeg' },
-        { name: '划船機', src: '/imgs/Rowing-machine.jpeg' },
+        { name: '划船', src: '/imgs/Rowing-machine.jpg' },
       ],
     },
     {

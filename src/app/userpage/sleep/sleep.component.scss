@@ -1,32 +1,108 @@
-h1 {
-  margin: 10px;
+/* === 全站基本設定 === */
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 25px;
+  margin-top: 0px;
+  padding: 0;
+  background-color: #f9f6f1;
 }
+
+/* 所有段落文字 */
 p {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 25px;
+  margin: 0;
 }
 
+/* 表單容器樣式 */
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 25px;
 
-  padding: 20px;
-  margin: 10px auto;
+  padding: 30px;
+  margin: 7.5vh auto;
 
-  width: 30vw;
+  width: 40vw;
+  max-width: 600px;
+  min-width: 300px;
 
-  background-color: rgb(209, 245, 168);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: #F0E4D4;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
 
+/* 輸入欄位統一 */
+.input-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 25px;
+}
+
+/* PrimeNG 的 p-selectbutton 字體與大小 */
+.opts-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 25px;
+}
+
+/* 選擇按鈕中文字強制放大 */
+::ng-deep .p-selectbutton .p-button {
+  font-size: 25px;
+}
+
+/* 日期選擇器字體 */
+::ng-deep .p-inputtext {
+  font-size: 25px;
+}
+
+/* 浮動標籤文字大小 */
+::ng-deep .p-float-label label {
+  font-size: 25px;
+}
+
+/* 儲存成功提示 */
 p-message {
   width: 40vw;
+  height:40vh;
   position: fixed;
   top: 15vh;
   left: 30vw;
   z-index: 100;
+  font-size:50px;
+}
+
+
+/* 按鈕字體 */
+::ng-deep .p-button {
+  font-size: 25px;
+}
+
+/* === 響應式：平板 === */
+@media (max-width: 768px) {
+  .container {
+    width: 80vw;
+    padding: 20px;
+  }
+
+  p-message {
+    width: 80vw;
+    left: 10vw;
+  }
+}
+
+/* === 響應式：手機 === */
+@media (max-width: 480px) {
+  .container {
+    width: 90vw;
+    padding: 15px;
+  }
+
+  p-message {
+    width: 90vw;
+    left: 5vw;
+  }
 }

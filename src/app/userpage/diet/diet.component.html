@@ -1,35 +1,88 @@
+@if(showMessage){
+<p-message severity="success" icon="pi pi-check-circle" styleClass="mb-2">儲存成功</p-message>
+}
 <div class="container">
-  <div class="left-pane">
-    <app-food-table></app-food-table>
-  </div>
-  <div class="right-pane">
-    <div class="right-box">
-      <div class="input-box">
-        <!-- 烹煮方式:
-      <p-selectbutton class="method-btn" size="small" [options]="methods" [(ngModel)]="searchedMethod"
-        optionLabel="label" optionValue="value" (click)="searchFood()"
-        [disabled]="searchedType == '飲料甜點零食' || searchedType == '外食'" /> -->
-        <p-select [options]="methods" [(ngModel)]="searchedMethod" [checkmark]="true" optionLabel="label"
-          [showClear]="true" placeholder="選擇烹煮方式" optionValue="value" (click)="searchFood()" />
+  <div class="up">
+    <div class="up-left">
+      <div class="result-table">
+        <div class="data-table">
+          <p>總卡路里: {{totalCalorie.toFixed(1)}}</p>
+          <p>總蛋白質: {{totalProtein.toFixed(1)}}</p>
+          <p>總脂肪: {{totalFat.toFixed(1)}}</p>
+          <p>總碳水化合物: {{totalCarbohydrate.toFixed(1)}}</p>
+          <p>總反式脂肪: {{totalTransFat.toFixed(1)}}</p>
+          <p>總糖: {{totalSugar.toFixed(1)}} </p>
+          <p>總飽和脂肪: {{totalSaturatedFat.toFixed(1)}}</p>
+          <p>膳食纖維: {{totalDietaryFiber.toFixed(1)}}</p>
+        </div>
+        <div class="btn-box">
+          <p>選擇用餐時段:
+            <p-selectbutton class="time-btn" size="large" [options]="times" [(ngModel)]="mealsType" optionLabel="label"
+              optionValue="value" />
+          </p>
+          <p-button class="save-btn" icon="pi pi-save" label="儲存" iconPos="right" (click)="save()"
+            [disabled]="!this.mealsType || (this.myDiet.length == 0)" />
+        </div>
       </div>
-      <div class="food-box">
-        <!-- 食物類型:
-      <p-selectbutton class="type-btn" size="small" [options]="types" [(ngModel)]="searchedType" optionLabel="label"
-        optionValue="value" (click)="searchFood()" /> -->
-        <p-select [options]="types" [(ngModel)]="searchedType" [checkmark]="true" optionLabel="label" [showClear]="true"
-          placeholder="選擇食物種類" optionValue="value" (click)="searchFood()" />
-      </div>
-
-      <div style="display: flex; align-items: center;">
-        <p-floatlabel variant="in">
-          <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off" />
-          <label for="foodName">食物名稱</label>
-        </p-floatlabel>
-
-      </div>
-      <p-button class="p-btn" (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
     </div>
-    <div class="showDBfood-box">
+    <div class="up-right">
+      <div>
+        <div class="input-box">
+          <p-select [options]="methods" [(ngModel)]="searchedMethod" [checkmark]="true" optionLabel="label"
+            [showClear]="true" placeholder="選擇烹煮方式" optionValue="value" (click)="searchFood()" />
+        </div>
+        <div class="input-box">
+          <p-select [options]="types" [(ngModel)]="searchedType" [checkmark]="true" optionLabel="label"
+            [showClear]="true" placeholder="選擇食物種類" optionValue="value" (click)="searchFood()" />
+        </div>
+      </div>
+      <div>
+        <div>
+          <p-floatlabel class="search-box" variant="in">
+            <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off" />
+            <label for="foodName">食物名稱</label>
+          </p-floatlabel>
+        </div>
+        <div class="search-btn">
+          <p-button (click)="searchFood()" label="查詢食物" icon="pi pi-search" iconPos="right" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="down">
+    <div class="down-left">
+      <div class="card">
+        <p-table [value]="selectedFoods" [paginator]="false" [rows]="5" [tableStyle]="{ 'min-width': '100%' }">
+          <ng-template #header>
+            <tr>
+              <th class="th" style="width:10%">名稱</th>
+              <th style="width:10%">卡路里</th>
+              <th style="width:10%">蛋白質</th>
+              <th style="width:10%">總脂肪</th>
+              <th style="width:14%">碳水化合物</th>
+              <th style="width:10%">份數</th>
+              <th style="width:18%;"></th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-item let-i="rowIndex">
+            <tr>
+              <td>{{item.foodName}}</td>
+              <td>{{item.calorie}}</td>
+              <td>{{item.protein}}</td>
+              <td>{{item.totalFat}}</td>
+              <td>{{item.totalCarbohydrate}}</td>
+              <td>{{item.serve}}</td>
+              <td>
+                <p-button class="op-btn" icon="pi pi-pencil" (click)="editFood(item)" />
+                <p-button class="op-btn" icon="pi pi-times" (click)="delFood(i)" />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+    </div>
+    <div class="down-right">
       <ng-container *ngTemplateOutlet="refTemplate"></ng-container>
     </div>
   </div>
@@ -37,11 +90,11 @@
 
 <!-- 搜尋結果顯示 -->
 <ng-template #refTemplate>
-  <div class="card">
+  <div class="select-table">
     <p-table [value]="foods" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '10rem' }">
-      <!-- [rowsPerPageOptions]="[5, 10, 20]"> -->
       <ng-template #header>
         <tr>
+          <th style="width:10%">圖片</th>
           <th style="width:20%">名稱</th>
           <th style="width:25%">類型</th>
           <th style="width:20%">烹調方式</th>
@@ -51,12 +104,13 @@
       </ng-template>
       <ng-template #body let-item>
         <tr>
+          <td><img class="food-photo" src="{{item.photo}}"></td>
           <td>{{item.foodName}}</td>
           <td>{{item.type}}</td>
           <td>{{item.cookingMethod}}</td>
           <td>{{item.unit}}</td>
           <td>
-            <p-button label="選擇" icon="pi pi-plus" (click)="add(item)" />
+            <p-button label="選擇" icon="pi pi-plus" (click)="addFood(item)" />
           </td>
         </tr>
       </ng-template>

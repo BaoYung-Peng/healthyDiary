@@ -1,32 +1,34 @@
+<app-shooting-stars-background></app-shooting-stars-background>
+
 @if(showMessage){
 <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">儲存成功</p-message>
 }
 <div class="container">
   <p>睡前是否有玩手機?</p>
   <div class="input-box">
-    <p-selectbutton class="opts-btn" size="small" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label" id="usePhone"
+    <p-selectbutton class="opts-btn" size="large" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label" id="usePhone"
       optionValue="value" />
   </div>
   <p>是否失眠?</p>
   <div class="input-box">
-    <p-selectbutton class="opts-btn" size="small" [options]="InsomniaOpts" [(ngModel)]="insomnia" optionLabel="label"
+    <p-selectbutton class="opts-btn" size="large" [options]="InsomniaOpts" [(ngModel)]="insomnia" optionLabel="label"
       optionValue="value" />
   </div>
   <p>是否睡不好?</p>
   <div class="input-box">
-    <p-selectbutton class="opts-btn" size="small" [options]="sleepLatencyOpts" [(ngModel)]="sleepLatency"
+    <p-selectbutton class="opts-btn" size="large" [options]="sleepLatencyOpts" [(ngModel)]="sleepLatency"
       optionLabel="label" optionValue="value" />
   </div>
   <div class="input-box">
     <p-floatlabel variant="in">
-      <p-datepicker inputId="sleepTime" [(ngModel)]="sleepTime" [showTime]="true" [hourFormat]="'12'"
+      <p-datepicker inputId="sleepTime" size="large" [(ngModel)]="sleepTime" [showTime]="true" [hourFormat]="'12'"
         [minDate]="yesterDay" [maxDate]="today" />
       <label for="sleepTime"> 就寢時間 </label>
     </p-floatlabel>
   </div>
   <div class="input-box">
     <p-floatlabel variant="in">
-      <p-datepicker inputId="awakeTime" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
+      <p-datepicker inputId="awakeTime"  size="large" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
         [minDate]="sleepTime" [maxDate]="today"  (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
       <label for="awakeTime"> 起床時間 </label>
     </p-floatlabel>
