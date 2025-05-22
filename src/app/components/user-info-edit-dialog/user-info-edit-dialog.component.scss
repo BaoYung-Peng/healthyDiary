@@ -12,7 +12,21 @@ p-button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size:25px;
+  font-size: 25px;
+  background-color: #F2EEE5;
+}
+
+.info-box {
+  .p-password {
+    font-size: 25px;
+    font-family: "Seto";
+  }
+
+  .p-floatlabel label {
+    font-size: 25px;
+    font-family: "Seto";
+    color: #000;
+  }
 }
 
 .work-type {
@@ -79,6 +93,7 @@ p-button {
 .select-btn {
   width: 200px;
   height: 200px;
+  font-size: 25px;
   font-family: "Seto";
 
   background-color: rgb(253, 253, 253);
@@ -101,6 +116,7 @@ p-button {
   background-color: #F0E4D4;
   margin: 10px;
   border-radius: 10px;
+  font-size: 30px;
 }
 
 .date-picker {

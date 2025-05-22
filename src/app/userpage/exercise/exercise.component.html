@@ -17,7 +17,7 @@
   <div class="carousel">
     @for (category of imageList; track category.type) {
     @if (category.type === activeType) {
-    <div class= "category-title">
+    <div class="category-title">
       <h3>{{ category.type }}</h3>
       <div class="image-grid">
         @for (item of category.data; track item.name) {
@@ -67,7 +67,7 @@
           點擊的圖片名稱
           <p>{{ selectedImageName || '運動項目' }}</p>
         </div>
-        請選擇運動多久
+        請選擇運動多久(分鐘)
         <input type="number" [(ngModel)]="minutesInput" (ngModelChange)="onMinutesChange($event)"
           (change)="setStartMinutes()" placeholder="輸入分鐘數">
         <button class="btn">設定時間</button>
@@ -81,8 +81,9 @@
 
         請選擇日期
         <input type="date" [min]="minDate" [max]="maxDate" [(ngModel)]="date">
+        <button class="btn" (click)="confirm()">確認</button>
       </div>
-      <button class="btn" (click)="confirm()">確認</button>
+
     </div>
   </div>
 </section>

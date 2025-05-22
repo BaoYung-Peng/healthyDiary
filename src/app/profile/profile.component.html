@@ -1,6 +1,6 @@
 @if(showMessage){
-  <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">修改成功</p-message>
-  }
+<p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">修改成功</p-message>
+}
 <div class="profile-box">
   <h1>會員中心</h1>
   @if(person){
@@ -61,7 +61,9 @@
     <!-- 個人資訊 -->
     <div class="acctInfo-box">
       <img class="chat" src="imgs/chat.svg" />
-      <span>時不時就回來留一些給自己的話吧</span>
+      <span>時不時<br>
+        就回來留一些<br>
+        給自己的話吧</span>
       <img class="cat" src="imgs/playful-cat.svg" />
       <p-button (click)="edit('pwd')" label="修改密碼" icon="pi pi-key" iconPos="right" />
     </div>
