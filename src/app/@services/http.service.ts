@@ -160,6 +160,12 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 取得該天心情日誌
+  getMoodByDateApi(postData: any) {
+    const url = `http://${this.IP}:8080/mood/get_date_mood`;
+    return this.httpClient.post(url, postData);
+  }
+
   // 填入每日報告
   fillInTodayReportApi(postData: any) {
     const url = `http://${this.IP}:8080/feedback/fill_in_daily`;

@@ -135,6 +135,22 @@ export class DietComponent implements OnInit {
     }
   }
 
+  reset(event: Event) {
+    if (!(event.target as HTMLInputElement).value) {
+      const req = {
+        foodName: '',
+        type: '',
+        cookingMethod: ''
+      };
+      console.log(req);
+
+      this.http.saerchFoodApi(req).subscribe((res: any) => {
+        this.foods = res.foodList;
+      })
+    }
+  }
+
+
   searchFood() {
     this.searchedType = (this.searchedType == null) ? "" : this.searchedType;
     this.searchedMethod = (this.searchedMethod == null) ? "" : this.searchedMethod;

@@ -39,7 +39,7 @@
       <div>
         <div>
           <p-floatlabel class="search-box" variant="in">
-            <input pInputText id="foodName" pSize="small" [(ngModel)]="searchedName" autocomplete="off" />
+            <input pInputText id="foodName" pSize="large" [(ngModel)]="searchedName" autocomplete="off" (input)="reset($event)"/>
             <label for="foodName">食物名稱</label>
           </p-floatlabel>
         </div>

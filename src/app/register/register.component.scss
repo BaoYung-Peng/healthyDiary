@@ -233,12 +233,12 @@ li {
 
 /* 調整下拉選單的樣式 (部分瀏覽器支援有限) */
 .select-box option {
-  font-size: 14px;
-  /* 選項字體大小 */
-  padding: 8px 12px;
-  /* 選項內邊距 */
+  font-size: 25px;
+  font-family: "Seto";
+  padding: 15px 15px;
+
   height: 30px;
-  /* 選項高度 (部分瀏覽器可能不支援) */
+
 }
 
 /* 針對 Firefox 的額外調整 */

@@ -1,6 +1,9 @@
+::ng-deep .p-button {
+  width: 120px;
+}
+
 th {
   background-color: #F0E4D4 !important;
-
 }
 
 td {
@@ -8,6 +11,7 @@ td {
 
   .op-btn {
     margin: 0 5px;
+    width:10px;
   }
 }
 
@@ -115,9 +119,10 @@ p-message {
   }
 
   p-select {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 25px;
     font-family: "Seto";
+    padding: 6px;
   }
 
   p-floatlabel {
@@ -130,7 +135,11 @@ p-message {
 .search-btn {
   font-size: 25px;
   font-family: "Seto";
+  padding: 14px;
+  margin: auto auto auto 50px;
 }
+
+
 
 .food-photo {
   width: 100%;

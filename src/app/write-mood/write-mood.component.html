@@ -16,7 +16,7 @@
     <textarea [(ngModel)]="inputData" name="diary" maxlength="500" rows="10" placeholder="今天發生了什麼呢？..." required></textarea>
     <div class="char-count">{{ inputData.length || 0 }}/500</div>
 
-    <button (click)="submitInputData()">📬 儲存日記</button>
+    <button class= "save-btn" (click)="submitInputData()">儲存日記</button>
     <p class="success" *ngIf="submitSuccess">✅ 提交成功！</p>
     <p class="error" *ngIf="submitError">❌ 提交失敗，請再試一次。</p>
   </div>

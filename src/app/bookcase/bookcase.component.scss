@@ -20,23 +20,9 @@ h1 {
 
 .shelf {
   background-color: #A76545;
-  /* 木頭色 */
-  padding: 30px 15px;
-  /* 從20px 10px增加到30px 15px */
+  padding: 20px 15px;
   border-radius: 8px;
-  /* 從5px增加到8px */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  /* 陰影加大 */
-}
-
-.upper-shelf {
-  margin-bottom: 10px;
-  /* 從5px增加到10px */
-}
-
-.lower-shelf {
-  margin-top: 10px;
-  /* 從5px增加到10px */
 }
 
 .shelf-divider {
@@ -56,15 +42,15 @@ h1 {
 
 .book {
   position: relative;
-  width: 70px;
-  height: 250px;
+  width: 75px;
+  height: 240px;
   background-color: var(--book-color);
   cursor: pointer;
   transition: transform 0.3s;
 }
 
 .book:hover {
-  transform: translateY(-20px);
+  transform: translateY(-15px);
 }
 
 .book-spine {
@@ -86,21 +72,18 @@ h1 {
 .book-cover {
   position: absolute;
   width: 15px;
-  /* 從10px增加到15px */
   height: 100%;
   background-color: #f5f5f5;
   left: 70px;
   border-radius: 0 3px 3px 0;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-
 }
 
 .month-name {
-  font-size: 25px;
-  /* 從14px增加到16px */
+  font-size: 30px;
+  font-family: "Seto";
   font-weight: bold;
   padding: 8px;
-  /* 從5px增加到8px */
 }
 
 .write-button-container {

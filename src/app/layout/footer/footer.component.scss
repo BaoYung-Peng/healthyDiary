@@ -1,6 +1,11 @@
-$go-top-btn-bg-color: #2196F3;
-$go-top-btn-hover-bg-color: rgb(0, 81, 255);
+$go-top-btn-bg-color: #054b22;
+$go-top-btn-hover-bg-color: #168654;
 
+.footer {
+  padding: 15px;
+  background-color: #f4e8d9;
+  font-size: 20px;
+}
 
 .pi-angle-up {
   position: sticky;
@@ -45,8 +50,6 @@ h3 {
     margin-left: 20%;
   }
 }
-
-
 
 .pi-angle-up {
   position: fixed;

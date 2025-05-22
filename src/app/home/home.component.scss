@@ -132,22 +132,20 @@ $ans-text-color: black;
     width: 30%;
     max-width: 300px;
     min-width: 50px;
-
+    font-size: 25px;
     padding: 15px;
 
     border-radius: 10px;
 
-    background-color: $reg-login-btn-bg-color;
-    color: $reg-login-btn-color;
-
+    background-color: #054b22;
+    color: white;
     transition: background-color 0.3s ease;
   }
 
   button:hover {
-    background-color: $reg-login-btn-hover-bg-color;
-    color: $reg-login-btn-hover-color;
-    // animation: jello-horizontal 1s both;
-
+    background-color: #168654;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -167,10 +165,12 @@ $ans-text-color: black;
   }
 
   p-accordion-header {
+    background-color: #F0E4D4;
     color: $ques-color;
   }
 
   p-accordion-header:hover {
+    background-color: #F0E4D4;
     color: $ques-hover-color;
   }
 }

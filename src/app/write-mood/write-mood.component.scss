@@ -54,7 +54,8 @@ h3 {
 
 label {
   display: block;
-  margin: 10px 0 6px;
+  margin: 10px 0px 20px auto;
+  font-size:25px;
   font-weight: bold;
 }
 
@@ -62,9 +63,9 @@ input[type="date"],
 input[type="range"],
 textarea {
   width: 100%;
-  padding: 8px;
-  font-family: inherit;
-  font-size: 20px;
+  padding: 10px;
+  font-family: "Seto";
+  font-size: 25px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: #fffefc;
@@ -99,8 +100,8 @@ button {
   color: white;
   border: none;
   font-size: 25px;
+  font-family: "Seto";
   border-radius: 6px;
-  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   margin: 10px 0;
@@ -128,3 +129,4 @@ button {
 .error {
   color: red;
 }
+
