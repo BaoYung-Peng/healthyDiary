@@ -17,6 +17,7 @@
     <div class="char-count">{{ inputData.length || 0 }}/500</div>
 
     <button class= "save-btn" (click)="submitInputData()">儲存日記</button>
+    <button class= "back-btn" (click)="back()">返回書櫃</button>
     <p class="success" *ngIf="submitSuccess">✅ 提交成功！</p>
     <p class="error" *ngIf="submitError">❌ 提交失敗，請再試一次。</p>
   </div>

@@ -364,6 +364,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       next: (res) => {
         console.log('運動記錄成功', res);
         this.fetchExerciseRecords();
+        this.router.navigate(['/userpage/report']);
       },
       error: (err) => {
         console.error('提交失敗:', err);
@@ -394,7 +395,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
         console.error('獲取記錄失敗:', err);
         if (err.status === 401) {
           this.localStorageService.removeItem();
-          this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
         }
       }
     });

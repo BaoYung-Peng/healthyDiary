@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { HttpService } from '../@services/http.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-write-mood',
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './write-mood.component.html',
   styleUrl: './write-mood.component.scss'
@@ -20,7 +22,7 @@ export class WriteMoodComponent {
   submitSuccess = false;
   submitError = false;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private router: Router) { }
 
   submitInputData() {
     if (!this.inputData || !this.queryDate || !this.currentMoodScore) {
@@ -48,6 +50,10 @@ export class WriteMoodComponent {
         this.submitError = true;
       }
     });
+  }
+
+  back() {
+    this.router.navigate(['/bookcase']);
   }
 }
 
