@@ -146,19 +146,20 @@ input {
   justify-content: center;
   flex-direction: column;
   width: 100px;
-  height: 500px;
-  font-size: 25px;
+  height: 400px;
+  font-size: 30px;
   margin: 80px 380px auto auto;
   justify-content: space-evenly;
+  font-family: "Seto";
 }
 
 //男女性別框架
 .radio-group {
   display: flex;
-  gap: 0.3rem;
   align-items: center;
   width: 15vw;
-  font-size: 25px;
+  font-size: 30px;
+  font-family: "Seto";
 }
 
 li {
@@ -199,11 +200,9 @@ li {
 /* 調整每個選項的上下間距 */
 .field-checkbox {
   margin-top: 12px;
-  /* 上間距 */
   margin-bottom: 12px;
-  /* 下間距 */
-  padding: 8px 0;
   /* 內間距 (上下) */
+  padding: 8px 0;
 }
 
 .custom-select {

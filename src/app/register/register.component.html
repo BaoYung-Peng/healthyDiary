@@ -55,7 +55,7 @@
               #accountInput="ngModel" /> -->
               <input pInputText id="account" [(ngModel)]="email"
               #accountInput="ngModel" />
-            <label for="account">帳號/Email</label>
+            <label for="account"><p>帳號/Email</p></label>
           </p-floatlabel>
           <small *ngIf="accountInput.invalid && (accountInput.dirty || accountInput.touched)" class="p-error">
             <i class="pi pi-exclamation-circle">帳號為必填</i>
@@ -87,7 +87,7 @@
                 </ul>
               </ng-template>
             </p-password>
-            <label for="password">密碼</label>
+            <label for="password"><p>密碼</p></label>
           </p-floatLabel>
 
           <small *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="p-error">
@@ -105,20 +105,21 @@
 
       <div class="card2" [ngClass]="getCardClass(1)">
         <div class="basic2">
-          身高
+          <p>身高</p>
           <!-- <input type="number" name="height" [(ngModel)]="height" [max]="60" placeholder="請輸入數字"> -->
           <input type="number"
           name="height"
           [(ngModel)]="height"
           placeholder="請輸入數字">
-          體重
+          <br><p>體重</p>
           <!-- <input type="number" name="weight" [(ngModel)]="weight" [max]="60" placeholder="請輸入數字"> -->
           <input type="number"
           name="weight"
           [(ngModel)]="weight"
           placeholder="請輸入數字">
 
-          <div class="custom-select"> 理想身材(請選擇)
+          <div class="custom-select">
+            <br><p>理想身材(請選擇)</p>
             <select [(ngModel)]="person.bodyType" [disabled]="!is_edit" class="select-box">
               <option value="slim">變瘦</option>
               <option value="same">保持不變</option>

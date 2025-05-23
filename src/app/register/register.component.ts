@@ -199,6 +199,7 @@ export class RegisterComponent {
     this.httpservice.registerApi(registerData).subscribe((res: any) => {
       console.log(res);
       this.router.navigate(['/login']);
+
     });
   }
 }
