@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../@services/http.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-write-mood',
@@ -58,12 +57,17 @@ export class WriteMoodComponent {
 
     this.httpService.fillInMood(moodData).subscribe({
       next: (res) => {
-        console.log('✅ 完整回應:', res);
+        console.log('提交成功:', res);
         this.submitSuccess = true;
         this.submitError = false;
+
+        // 3秒後自動跳轉
+        setTimeout(() => {
+          this.router.navigate(['/bookcase']);
+        }, 3000);
       },
       error: (err) => {
-        console.error('❌ 發送失敗:', err);
+        console.error('提交失敗:', err);
         this.submitSuccess = false;
         this.submitError = true;
       }
@@ -74,6 +78,3 @@ export class WriteMoodComponent {
     this.router.navigate(['/bookcase']);
   }
 }
-
-
-

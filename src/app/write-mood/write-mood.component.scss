@@ -34,17 +34,19 @@
   /* IE/Edge */
   scrollbar-width: none;
   /* Firefox */
+
+
+  .left {
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+  }
+
+  .right {
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+  }
 }
 
-.left {
-  border-right: none;
-  border-radius: 8px 0 0 8px;
-}
-
-.right {
-  border-left: none;
-  border-radius: 0 8px 8px 0;
-}
 
 h3 {
   font-size: 30px;
@@ -55,7 +57,7 @@ h3 {
 label {
   display: block;
   margin: 10px 0px 20px auto;
-  font-size:25px;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -104,7 +106,7 @@ button {
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 10px 0 auto auto;
   transition: all 0.3s;
 
   &:hover {
@@ -130,3 +132,6 @@ button {
   color: red;
 }
 
+.back-btn {
+  margin: 10px auto -35px auto;
+}
