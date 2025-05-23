@@ -105,16 +105,16 @@ export class RegisterComponent {
   }
 
   next() {
-    // console.log('身高:', this.height, '體重:', this.weight);
-    // if (this.height === null || this.height <= 0 || this.height > 250) {
-    //   alert('請輸入有效的身高（1~250）');
-    //   return;
-    // }
+    console.log('身高:', this.height, '體重:', this.weight);
+    if (this.height === null || this.height <= 0 || this.height > 250) {
+      alert('請輸入有效的身高（1~250）');
+      return;
+    }
 
-    // if (this.weight === null || this.weight <= 0 || this.weight > 300) {
-    //   alert('請輸入有效的體重（1~300）');
-    //   return;
-    // }
+    if (this.weight === null || this.weight <= 0 || this.weight > 300) {
+      alert('請輸入有效的體重（1~300）');
+      return;
+    }
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
     }
@@ -125,10 +125,10 @@ export class RegisterComponent {
 
   //控制下一步進入下一張卡
   nextStep(accountInput: any, passwordInput: any) {
-    // if (!accountInput.valid || !passwordInput.valid) {
-    //   alert('請確認密碼格式正確');
-    //   return;
-    // }
+    if (!accountInput.valid || !passwordInput.valid) {
+      alert('請確認密碼格式正確');
+      return;
+    }
 
     // step1 ++
     if (this.activeStep < this.totalSteps) {

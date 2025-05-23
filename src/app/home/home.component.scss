@@ -66,7 +66,7 @@ $ans-text-color: black;
 
     .content-box {
       height: 100%;
-
+      width: 50vw;
       margin-left: 40%;
 
       display: flex;
@@ -78,8 +78,8 @@ $ans-text-color: black;
         margin-bottom: 10px;
 
         text-align: start;
-        font-size: 1.5rem;
-        font-weight: 10rem;
+        font-size: 30px;
+        font-weight: 25px;
         line-height: 1.6; // 閱讀性提升（可選）
       }
 
@@ -96,6 +96,11 @@ $ans-text-color: black;
     height: 300vh;
 
     overflow: hidden;
+
+    .scroll-page img {
+      height: 35vh;
+      width: 35vh;
+    }
   }
 
   .scroll-page {

@@ -42,6 +42,8 @@ h1 {
 
 .avatar-box {
   grid-area: avatar-box;
+  background-color: #F0E4D4;
+  border-radius: 20px;
 
   p {
     font-size: 25px;
@@ -84,7 +86,7 @@ h1 {
     position: static;
     width: auto;
     max-width: 70%;
-    height:30%;
+    height: 30%;
     margin: 0 auto;
   }
 

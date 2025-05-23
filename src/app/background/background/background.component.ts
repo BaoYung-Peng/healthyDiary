@@ -11,11 +11,10 @@ export class BackgroundComponent implements AfterViewInit {
 
   // 圖像資料 x: min=0 max=1455, y: min=75 max=675
   private readonly images: any[] = [
-    { src: 'imgs/lemon.svg', x: 1455, y: 675, size: 60 },
-    { src: 'imgs/lemon.svg', x: 1000, y: 350, size: 100 },
-    { src: 'imgs/lemon.svg', x: 650, y: 600, size: 150 },
-    { src: 'imgs/lemon.svg', x: 600, y: 350, size: 100 },
-    { src: 'imgs/lemon.svg', x: 600, y: 350, size: 100 },
+    { src: 'imgs/vegetable.png', x: 1455, y: 675, size: 200 },
+    { src: 'imgs/rice.png', x: 1000, y: 350, size: 170 },
+    { src: 'imgs/juice.png', x: 650, y: 600, size: 200 },
+    { src: 'imgs/potato.png', x: 600, y: 350, size: 190 },
   ];
 
   ngAfterViewInit(): void {

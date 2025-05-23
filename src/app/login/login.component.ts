@@ -42,7 +42,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   @ViewChild('animationContainer') animationContainer!: ElementRef;
 
   @ViewChild('block2', { static: false }) block2Ref!: ElementRef;
-  // @ViewChild('block2') block2Ref!: ElementRef;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   private lenis!: Lenis;
   currentImage = 0;
@@ -62,8 +61,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // gsap.registerPlugin(ScrollTrigger);
-    // this.setupLenisSmoothScroll();
   }
 
   // 動畫啟動 先鎖住滾動，並執行門開啟動畫
@@ -210,20 +207,20 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     const delta = e.deltaY;
     const container = this.scrollContainer.nativeElement;
 
-    // 计算新位置
+    // 計算新位置
     let newPos = container.scrollTop + delta * 0.5;
     newPos = Math.max(0, Math.min(newPos, container.scrollHeight - container.clientHeight));
 
-    // 平滑滚动
+    // 平滑滾動
     container.scrollTo({
       top: newPos,
       behavior: 'smooth'
     });
 
-    // 更新当前图片索引
+    // 更新當前圖片索引
     this.currentImage = Math.round(newPos / container.clientHeight);
 
-    // 边界检测
+    // 檢測邊界
     if ((this.currentImage === 0 && delta < 0) ||
       (this.currentImage === 2 && delta > 0)) {
       this.unlockSection();
@@ -237,17 +234,17 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
   }
 
   submit() {
-    // const trimmedPassword = this.password.trim();
-    // const length = trimmedPassword.length;
+    const trimmedPassword = this.password.trim();
+    const length = trimmedPassword.length;
 
-    // if (length < 8 || length > 16) {
-    //   this.passwordError = '密碼長度需為 8~16 字元';
-    //   alert('密碼長度需為 8~16 字元');
-    //   return;
-    // }
+    if (length < 8 || length > 16) {
+      this.passwordError = '密碼長度需為 8~16 字元';
+      alert('密碼長度需為 8~16 字元');
+      return;
+    }
 
-    // this.passwordError = '';
-    // console.log('登入中...');
+    this.passwordError = '';
+    console.log('登入中...');
 
     const submitData = {
       email: this.email,
