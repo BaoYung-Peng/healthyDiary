@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../@services/http.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-write-mood',
@@ -14,15 +13,33 @@ import { Router } from '@angular/router';
   templateUrl: './write-mood.component.html',
   styleUrl: './write-mood.component.scss'
 })
-export class WriteMoodComponent {
-  inputData: string = ''; // ✅ 預設空字串
-  currentMoodScore: number = 5; // ✅ 預設分數中間值
-  queryDate: string = ''; // ✅ 可預設為今天的日期（可加）
+export class WriteMoodComponent implements OnInit {
+  inputData: string = ''; // 日記內容
+  currentMoodScore: number = 5; // 預設心情分數
+  queryDate: string = '';  // 初始化为空字符串
+  maxDate: string = ''; // 初始化為空字串
 
   submitSuccess = false;
   submitError = false;
 
   constructor(private httpService: HttpService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.setMaxDate();
+    this.setDefaultDate(); // 設定預設日期為今天
+  }
+
+  // 設定最大可選日期為今天
+  private setMaxDate() {
+    const today = new Date();
+    this.maxDate = today.toISOString().split('T')[0];
+  }
+
+  // 設定預設日期為今天
+  private setDefaultDate() {
+    const today = new Date();
+    this.queryDate = today.toISOString().split('T')[0];
+  }
 
   submitInputData() {
     if (!this.inputData || !this.queryDate || !this.currentMoodScore) {
@@ -40,12 +57,17 @@ export class WriteMoodComponent {
 
     this.httpService.fillInMood(moodData).subscribe({
       next: (res) => {
-        console.log('✅ 完整回應:', res);
+        console.log('提交成功:', res);
         this.submitSuccess = true;
         this.submitError = false;
+
+        // 3秒後自動跳轉
+        setTimeout(() => {
+          this.router.navigate(['/bookcase']);
+        }, 3000);
       },
       error: (err) => {
-        console.error('❌ 發送失敗:', err);
+        console.error('提交失敗:', err);
         this.submitSuccess = false;
         this.submitError = true;
       }
@@ -56,6 +78,3 @@ export class WriteMoodComponent {
     this.router.navigate(['/bookcase']);
   }
 }
-
-
-
