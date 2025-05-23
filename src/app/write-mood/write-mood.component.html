@@ -2,8 +2,15 @@
   <div class="book-page left">
     <h3>心情日誌</h3>
 
-    <label for="date">📅 日期：</label>
-    <input id="date" type="date" [(ngModel)]="queryDate" name="date" required />
+ <label for="date">📅 日期：</label>
+<input
+  id="date"
+  type="date"
+  [(ngModel)]="queryDate"
+  name="date"
+  required
+  [max]="maxDate"
+/>
 
     <label for="mood">😊 心情指數：</label>
     <input id="mood" type="range" min="1" max="10" [(ngModel)]="currentMoodScore" name="mood" />
