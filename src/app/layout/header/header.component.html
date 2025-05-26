@@ -10,15 +10,24 @@
         }
       </div>
     </ng-template>
+
+    <ng-template #center>
+      <div class="center">
+        <h1>Bueautiful Diary</h1>
+      </div>
+    </ng-template>
+
     <ng-template #end>
       <div class="end">
-        <p-menu #menu [model]="(islogin$ | async) ? menuItemsLoggedIn : menuItemsLoggedOut" [popup]="true" [appendTo]="'body'">
+        <p-menu #menu [model]="(islogin$ | async) ? menuItemsLoggedIn : menuItemsLoggedOut" [popup]="true"
+          [appendTo]="'body'">
         </p-menu>
         <i class="pi pi-user" (click)="menu.toggle($event)"></i>
       </div>
     </ng-template>
   </p-toolbar>
 </div>
+
 
 
 <div class="sidenav">
