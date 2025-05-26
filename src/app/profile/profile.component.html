@@ -34,6 +34,7 @@
         <span>{{person.bodyType}}</span>
         }
       </p>
+      <p-button (click)="edit('pwd')" label="修改密碼" size="large"icon="pi pi-key" iconPos="right" />
       <p style="color: red;"><em>點選資料欄位即可修改</em></p>
     </div>
 
@@ -65,7 +66,6 @@
         就回來留一些<br>
         給自己的話吧</span>
       <img class="cat" src="imgs/playful-cat.svg" />
-      <p-button (click)="edit('pwd')" label="修改密碼" icon="pi pi-key" iconPos="right" />
     </div>
   </div>
   }

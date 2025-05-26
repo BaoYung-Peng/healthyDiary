@@ -10,6 +10,8 @@ import { signal } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { Message } from 'primeng/message';
+
 // 定義時鐘數字結構
 interface ClockNumber {
   value: number;
@@ -38,7 +40,8 @@ interface ExerciseResponse {
     FormsModule,
     CommonModule,
     CalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Message
   ],
   templateUrl: './exercise.component.html',
   styleUrl: './exercise.component.scss'
@@ -48,6 +51,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   activeType: string = '';               // 對應卡片的運動類型（light/aerobic/training）
   selectedImageName: string = '';        // 被選中的圖片名稱
   count = signal(0);  // 建立一個 Signal
+  showMessage: boolean = false; // 提示訊息
 
   token: string | null = null;
   weekDays: Date[] = [];
@@ -361,20 +365,37 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     console.log(exerciseData);
 
     this.httpservice.fillInExercise(exerciseData).subscribe({
-      next: (res) => {
-        console.log('運動記錄成功', res);
-        this.fetchExerciseRecords();
-        this.router.navigate(['/userpage/report']);
-      },
-      error: (err) => {
-        console.error('提交失敗:', err);
-        if (err.status === 401) { // token 無效
-          this.localStorageService.removeItem(); // 清除 token
-          this.router.navigate(['/login']);
+      next: (res: any) => {
+        console.log('API回應', res);
+        if (res.code == 200) {
+          this.showMessage = true;
+          setTimeout(() => {
+            this.showMessage = false
+          }, 2000);
         }
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
       }
     });
   }
+
+  // next: (res) => {
+  //   console.log('運動記錄成功', res);
+  //   this.fetchExerciseRecords();
+  //   alert("儲存成功")
+  //   // this.router.navigate(['/userpage/report']);
+  // },
+  // error: (err) => {
+  //   console.error('提交失敗:', err);
+  //   if (err.status === 401) { // token 無效
+  //     this.localStorageService.removeItem(); // 清除 token
+  //     alert("提交失敗")
+  //     // this.router.navigate(['/login']);
+  //   }
+  // }
+  //   });
+  // }
 
   fetchExerciseRecords() {
     if (!this.token) {
