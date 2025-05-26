@@ -6,8 +6,8 @@
 <div class="container">
   <p>睡前是否有玩手機?</p>
   <div class="input-box">
-    <p-selectbutton class="opts-btn" size="large" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label" id="usePhone"
-      optionValue="value" />
+    <p-selectbutton class="opts-btn" size="large" [options]="phoneOpts" [(ngModel)]="usePhone" optionLabel="label"
+      id="usePhone" optionValue="value" />
   </div>
   <p>是否失眠?</p>
   <div class="input-box">
@@ -22,19 +22,20 @@
   <div class="input-box">
     <p-floatlabel variant="in">
       <p-datepicker inputId="sleepTime" size="large" [(ngModel)]="sleepTime" [showTime]="true" [hourFormat]="'12'"
-        [minDate]="yesterDay" [maxDate]="today" />
+      [maxDate]="today" (ngModelChange)="calculateSleepHours()" />
       <label for="sleepTime"> 就寢時間 </label>
     </p-floatlabel>
   </div>
   <div class="input-box">
     <p-floatlabel variant="in">
-      <p-datepicker inputId="awakeTime"  size="large" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
-        [minDate]="sleepTime" [maxDate]="today"  (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
+      <p-datepicker inputId="awakeTime" size="large" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
+        [minDate]="sleepTime" [maxDate]="today" (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
       <label for="awakeTime"> 起床時間 </label>
     </p-floatlabel>
   </div>
   <div class="input-box">
     <p>睡眠時數: {{sleepHours}} 小時</p>
   </div>
-  <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right" [disabled]="(sleepLatency == null) || (insomnia == null) || (usePhone == null)"/>
+  <p-button (click)="save()" label="儲存" icon="pi pi-check" iconPos="right"
+    [disabled]="(sleepLatency == null) || (insomnia == null) || (usePhone == null)" />
 </div>

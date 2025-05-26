@@ -62,14 +62,17 @@
       <p>{{report}}</p>
       }
       @else{
-      @if(isToday){
+      <!-- @if(isToday){
       <div style="display: flex; justify-content: center;">
         <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true" />
       </div>
-      }
-      @else {
+      } -->
+      <!-- @else { -->
       <p>無資料</p>
-      }
+      <div style="display: flex; justify-content: center;">
+        <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true" />
+      </div>
+      <!-- } -->
       }
     </div>
   </div>
