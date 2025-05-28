@@ -67,9 +67,13 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
   // 在組件類中添加這些屬性和方法
   queryResults: any[] = [];
-
+  // 在組件類中保持現有屬性，並添加以下內容
   queriedDates: number[] = [];
   currentMonth: number = new Date().getMonth() + 1;
+  currentYear: number = new Date().getFullYear();
+
+  // queriedDates: number[] = [];
+  // currentMonth: number = new Date().getMonth() + 1;
 
   private ctx!: CanvasRenderingContext2D;
   private width!: number;
@@ -508,8 +512,6 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
       launchFirework();
     }, 800);
 
-
-
     const drawFireworks = () => {
       // 使用透明黑畫布當夜空背景 + 拖尾效果
       this.ctx.fillStyle = 'rgba(0, 0, 30, 0.2)';
@@ -550,6 +552,18 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
     this.clearCanvas();
   }
 
+  // 新增方法：查詢整個月份日期
+  queryEntireMonth(): void {
+    const year = this.currentYear;
+    const month = this.currentMonth - 1; // JavaScript月份是0-11
+
+    // 獲取該月天數
+    this.daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // 生成1到天數的陣列
+    this.queriedDates = Array.from({ length: this.daysInMonth }, (_, i) => i + 1);
+  }
+
   queryDates(offset: number): void {
     this.queriedDates = [];
 
@@ -578,4 +592,17 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
     // 啟動對應的動畫（根據當天的 mood score）
     this.startAnimation();
   }
+
+  getMoodImagePath(score: number): string {
+    if (score === 1) {
+      return 'imgs/snow.jpeg';
+    } else if (score >= 2 && score <= 4) {
+      return 'imgs/rainny.jpeg';
+    } else if (score >= 5 && score <= 7) {
+      return 'imgs/sunny.jpeg';
+    } else {
+      return 'imgs/firework.jpeg';
+    }
+  }
 }
+

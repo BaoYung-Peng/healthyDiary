@@ -12,7 +12,6 @@ import { BackgroundComponent } from "../background/background/background.compone
   selector: 'app-home',
   imports: [
     AccordionModule,
-    RouterLink,
     BackgroundComponent
 ],
   templateUrl: './home.component.html',
