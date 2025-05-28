@@ -56,7 +56,7 @@
         <div class="mood-score-left"
           *ngIf="getMoodScore(currentPageIndex) !== null && currentPageIndex > 0 && currentPageIndex <= daysInMonth">
           <!-- <p>心情指數：{{ getMoodScore(currentPageIndex) }}</p> -->
-          <img [src]="getMoodImagePath(getMoodScore(currentPageIndex)!)" width="770" height="720" alt="心情圖片" />
+          <img [src]="getMoodImagePath(getMoodScore(currentPageIndex)!)" width="100%" height="100%" alt="心情圖片" />
         </div>
         <div>
         </div>
