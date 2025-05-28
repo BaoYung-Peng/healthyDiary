@@ -5,7 +5,7 @@
 
   <div class="book">
     <!-- 左頁 -->
-    <div class="page left-page" #leftPageRef>
+    <div class="page left-page" *ngIf="currentPageIndex !== 0" #leftPageRef>
       <div class="content">
 
         <!-- 初始時空白 -->
@@ -19,20 +19,24 @@
               <h3>查看日記</h3>
               <div class="query-buttons">
                 <h5>搜尋日期：</h5><br>
-                <button class="selectbtn" (click)="queryDates(-5)">前五天</button>
-                <button class="selectbtn" (click)="queryDates(5)">後五天</button>
+                <button class="selectbtn" (click)="queryEntireMonth()">查詢日期</button>
+              </div>
+              <div class="mood-score">
+                <p>心情指數：{{ getMoodScore(currentPageIndex) }}</p>
               </div>
 
-              <!-- 顯示查詢出來的日期 -->
-              <div class="query-result" *ngIf="queriedDates.length > 0">
-                <h4>查詢結果：</h4>
-                <ul>
-                  <li *ngFor="let day of queriedDates">
-                    <button (click)="goToPage(day)" [ngClass]="{ 'active': day === currentPageIndex }">
-                      {{ currentMonth }}月{{ day }}日
-                    </button>
-                  </li>
-                </ul>
+              <div>
+                <!-- 顯示查詢出來的日期 -->
+                <div class="query-result" *ngIf="queriedDates.length > 0">
+                  <h4>查詢結果：</h4>
+                  <ul>
+                    <li *ngFor="let day of queriedDates">
+                      <button (click)="goToPage(day)" [ngClass]="{ 'active': day === currentPageIndex }">
+                        {{ currentMonth }}月{{ day }}日
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -51,7 +55,10 @@
         <!-- 心情分數 -->
         <div class="mood-score-left"
           *ngIf="getMoodScore(currentPageIndex) !== null && currentPageIndex > 0 && currentPageIndex <= daysInMonth">
-          <p>心情指數：{{ getMoodScore(currentPageIndex) }}</p>
+          <!-- <p>心情指數：{{ getMoodScore(currentPageIndex) }}</p> -->
+          <img [src]="getMoodImagePath(getMoodScore(currentPageIndex)!)" width="770" height="720" alt="心情圖片" />
+        </div>
+        <div>
         </div>
 
       </div>
@@ -85,22 +92,20 @@
     <!-- <button (click)="goBack()">返回書櫃</button> -->
     <div class="prev-button-wrapper">
       <button (click)="goToPrevPage()" [disabled]="currentPageIndex <= 0 || isAnimating">
-        <span class="pi pi-arrow-circle-left"
-          style="font-size: 2.5rem;
+        <span class="pi pi-arrow-circle-left" style="font-size: 2.5rem;
           color:rgb(255, 141, 20);
           background-color: antiquewhite;
-          border-radius: 20rem;" >
+          border-radius: 20rem;">
         </span>
       </button>
     </div>
 
     <div class="next-button-wrapper">
       <button (click)="goToNextPage()" [disabled]="currentPageIndex >= daysInMonth + 1 || isAnimating">
-        <span class="pi pi-arrow-circle-right"
-        style="font-size: 2.5rem;
+        <span class="pi pi-arrow-circle-right" style="font-size: 2.5rem;
           color:rgb(255, 141, 20);
           background-color: antiquewhite;
-          border-radius: 20rem;" >
+          border-radius: 20rem;">
         </span>
       </button>
     </div>
