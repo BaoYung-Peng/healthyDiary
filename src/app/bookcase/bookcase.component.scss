@@ -1,12 +1,13 @@
 /* bookcase.component.css */
 .bookshelf-container {
-  max-width: 600px;
+  max-width: 1000px;
   /* 從900px增加到1200px */
   margin: 5vh auto;
   padding: 30px;
   text-align: center;
   font-family: Arial, sans-serif;
   background-color: #F2EEE5;
+  border-radius: 8px;
 }
 
 h1 {

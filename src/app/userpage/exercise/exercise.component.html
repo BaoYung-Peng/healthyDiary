@@ -89,7 +89,19 @@
       </div>
 
     </div>
+
+    <div class="weight-img-wrapper">
+      <div class="weight">
+        <p>請輸入體重(kg)</p>
+        <input type="number" [(ngModel)]="weightInput">
+        <button class="weight-btn" (click)="confirmweight()">確認</button>
+      </div>
+      <div class="imgbox">
+        <img src="imgs/scale.png" alt="體重計圖片">
+      </div>
+    </div>
   </div>
+
 </section>
 
 <div class="week-container">
