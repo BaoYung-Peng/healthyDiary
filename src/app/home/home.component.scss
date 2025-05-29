@@ -178,3 +178,22 @@ $ans-text-color: black;
     color: $ques-hover-color;
   }
 }
+
+.photo-frame {
+  display: inline-block;
+  padding: 10px;
+  /* 相框內邊距 */
+  background-color: white;
+  /* 相框顏色 */
+  border: 5px solid #ccc;
+  /* 相框邊框 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  margin: 10px;
+}
+
+.photo-frame img {
+  width: 20vw;
+  height: auto;
+  display: block;
+}

@@ -113,6 +113,12 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 紀錄體重
+  updateWeight(postData: any) {
+    const url = `http://${this.IP}:8080/daily/update_weight`;
+    return this.httpClient.post(url, postData);
+  }
+
   // 取得心情日誌
   getMood(postData: any) {
     const url = `http://${this.IP}:8080/mood/get_mood`;

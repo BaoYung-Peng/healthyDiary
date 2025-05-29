@@ -23,6 +23,11 @@
 .sidenav {
   display: flex;
   justify-content: center;
+  background-color: #d69703 !important;
+}
+
+::ng-deep .custom-drawer .p-drawer {
+  background-color: #F2EEE5;
 }
 
 .headless {
@@ -55,7 +60,7 @@
 }
 
 .nav-btn:hover {
-  background-color: #b5c9f9;
+  background-color: #F0E4D4;
 }
 
 img {
@@ -65,4 +70,8 @@ img {
 
 .nav-text {
   font-size: 1.8rem;
+}
+
+::ng-deep .p-menu .p-menuitem-text {
+  font-size: 20px; // ← 你可以改成想要的大小
 }

@@ -247,6 +247,8 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   duration: number = 0;
   email: string = '';
 
+  weightInput = 0; // 使用者輸入體重
+
   // 新增：計算結束時間的方法
   calculateEndTime(minutesToAdd: number): void {
     const now = new Date();
@@ -275,6 +277,8 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     const today = new Date();
     this.token = localStorage.getItem('token');
     this.fetchExerciseRecords(); // 載入資料
+
+
 
     // 計算本週的週一日期
     const dayOfWeek = today.getDay(); // 0 是星期天, 1 是星期一, ... 6 是星期六
@@ -379,6 +383,34 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       }
     });
   }
+
+  confirmweight() {
+    if (!this.token) {
+      console.error('未找到 token，請重新登入');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const weightData = {
+      token: this.token,
+      weight: this.weightInput
+    };
+
+    console.log('送出資料:', weightData);
+
+    this.httpservice.updateWeight(weightData).subscribe({
+      next: (res: any) => {
+        console.log('API回應', res);
+        if (res.code == 200) {
+          this.showMessage = true;
+        }
+      },
+      error: (err: any) => {
+        console.log('API錯誤', err);
+      }
+    });
+  }
+
 
   // next: (res) => {
   //   console.log('運動記錄成功', res);
