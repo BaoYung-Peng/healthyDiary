@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP: string = '172.16.0.206';
+  IP: string = '172.16.1.106';
   // IP: string = 'localhost';
 
   // 登入
