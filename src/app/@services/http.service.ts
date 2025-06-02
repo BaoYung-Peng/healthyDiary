@@ -49,7 +49,7 @@ export class HttpService {
 
   // 變更密碼
   editpasswordApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/editpassword`;
+    const url = `http://${this.IP}:8080/daily/reset_password`;
     return this.httpClient.post(url, postData);
   }
 
