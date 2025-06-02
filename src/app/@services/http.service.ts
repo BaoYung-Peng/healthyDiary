@@ -31,7 +31,7 @@ export class HttpService {
 
   // 忘記密碼
   forgotpasswordApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/send_reset_password`;
+    const url = `http://${this.IP}:8080/daily/reset_password`;
     return this.httpClient.post(url, postData);
   }
 

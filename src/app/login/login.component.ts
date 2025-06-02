@@ -191,14 +191,14 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private initSmoothScroll() {
-    gsap.registerPlugin(ScrollSmoother);
+  // private initSmoothScroll() {
+  //   gsap.registerPlugin(ScrollSmoother);
 
-    ScrollSmoother.create({
-      smooth: 1.5,
-      effects: true
-    });
-  }
+  //   ScrollSmoother.create({
+  //     smooth: 1.5,
+  //     effects: true
+  //   });
+  // }
 
   private handleWheel(e: WheelEvent) {
     if (!this.isLocked) return;
