@@ -92,13 +92,12 @@ export class UserInfoEditDialogComponent {
   }
 
   fillincheck(): boolean {
-    if (this.newPassword == '') {
-      return false;
-    }
-    if (this.confirmPassword == '') {
+    if (this.newPassword.length < 8) {
+      console.log('長度<8');
       return false;
     }
     if (this.confirmPassword != this.newPassword) {
+      console.log('和確認密碼不同');
       return false;
     }
     return true;

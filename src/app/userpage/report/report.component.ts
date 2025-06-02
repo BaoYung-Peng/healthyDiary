@@ -103,9 +103,9 @@ export class ReportComponent implements OnInit {
         this.diet = {
           breakfast: res.mealsList.filter((meal: any) => meal.mealsType === "早餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
           lunch: res.mealsList.filter((meal: any) => meal.mealsType === "午餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-          dinner: res.mealsList.filter((meal: any) => meal.mealsType === "晚餐").map((meal: any) => JSON.parse(meal.mealsName)).flat()
+          dinner: res.mealsList.filter((meal: any) => meal.mealsType === "晚餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
+          other: res.mealsList.filter((meal: any) => meal.mealsType === "其他").map((meal: any) => JSON.parse(meal.mealsName)).flat()
         };
-        console.log(this.diet);
 
         this.sleepList = res.sleepList;
 
@@ -118,7 +118,6 @@ export class ReportComponent implements OnInit {
     });
     this.http.getMoodByDateApi(req).subscribe((res: any) => {
       this.mood = res.mood ? res.mood.diary : '';
-      console.log('心情', this.mood);
     });
   }
 
@@ -137,13 +136,14 @@ export class ReportComponent implements OnInit {
     const mealText = [
       this.diet.breakfast.length > 0 ? `早餐吃了${this.diet.breakfast.join("、")}， ` : "",
       this.diet.lunch.length > 0 ? `午餐吃了${this.diet.lunch.join("、")}， ` : "",
-      this.diet.dinner.length > 0 ? `晚餐吃了${this.diet.dinner.join("、")}` : ""
+      this.diet.dinner.length > 0 ? `晚餐吃了${this.diet.dinner.join("、")}` : "",
+      this.diet.other.length > 0 ? `其他時段吃了${this.diet.other.join("、")}` : ""
     ].filter(text => text).join(" ");
 
     // 運動
     const exerciseText = this.exerciseList.length > 0 ? this.exerciseList.map((exercise: any) => `${exercise.exerciseName} ${exercise.duration}分鐘`).join('、') : '';
     // 睡眠
-    const sleepText = this.sleepList.length > 0 ? `我睡了 ${this.sleepList[0].hours} 小時，${this.sleepList[0].insomnia ? "有" : "沒"}失眠，睡前${this.sleepList[0].phone ? "有" : "沒"}用手機` : '';
+    const sleepText = this.sleepList.length > 0 ? `我睡了 ${this.sleepList[this.sleepList.length - 1].hours} 小時，${this.sleepList[this.sleepList.length - 1].insomnia ? "有" : "沒"}失眠，睡前${this.sleepList[this.sleepList.length - 1].phone ? "有" : "沒"}用手機` : '';
 
     const sleepPrompts = [
       "早上醒來後，如果在10點內仍然想睡，可能表示昨晚的睡眠質量不足。你今天的身體感覺如何？",

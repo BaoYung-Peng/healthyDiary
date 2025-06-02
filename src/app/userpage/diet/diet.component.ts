@@ -58,6 +58,7 @@ export class DietComponent implements OnInit {
     { label: '早餐', value: '早餐' },
     { label: '午餐', value: '午餐' },
     { label: '晚餐', value: '晚餐' },
+    { label: '其他', value: '其他' },
   ];
   mealsType!: any; // 用餐時段
 
