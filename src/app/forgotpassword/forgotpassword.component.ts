@@ -77,7 +77,6 @@ export class ForgotpasswordComponent {
         // 處理其他錯誤
         this.message = '發生錯誤，請稍後再試';
         this.messageType = 'error';
-        console.error(err);
       },
       complete: () => {
         // 無論成功或失敗都隱藏載入狀態（如果有的話）

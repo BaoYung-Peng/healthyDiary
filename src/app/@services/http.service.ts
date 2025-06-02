@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  IP: string = '172.16.0.206';
+  IP: string = '172.16.0.195';
   // IP: string = 'localhost';
 
   // 登入
@@ -29,11 +29,11 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
-  // 忘記密碼
-  forgotpasswordApi(postData: any) {
-    const url = `http://${this.IP}:8080/daily/send_reset_password`;
-    return this.httpClient.post(url, postData);
-  }
+  // // 忘記密碼
+  // forgotpasswordApi(postData: any) {
+  //   const url = `http://${this.IP}:8080/daily/reset_password`;
+  //   return this.httpClient.post(url, postData);
+  // }
 
   // 重設密碼寄驗證信(傳email)
   sendVerifyPwdApi(postData: any) {
