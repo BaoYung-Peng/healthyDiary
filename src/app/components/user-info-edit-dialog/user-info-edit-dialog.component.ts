@@ -8,18 +8,24 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputNumber } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 interface Items {
   label: string;
   value: string;
+
+}
+
+interface Items {
+  img: string;
 }
 
 @Component({
   selector: 'app-user-info-edit-dialog',
   imports: [
     FormsModule,
-
+    CommonModule,
     ButtonModule,
     FloatLabelModule,
     InputTextModule,
@@ -32,17 +38,28 @@ interface Items {
 export class UserInfoEditDialogComponent {
 
   wtList: Items[] = [
-    { label: '輕度活動工作: 大部分從事坐著或不動的工作。 例如: 上班族、醫師', value: '輕度活動工作' },
-    { label: '中度活動工作: 從事需來回走動，偶爾使用力氣之工作。例如: 護理師、警察', value: '中度活動工作' },
-    { label: '重度活動工作: 從事需耗費大量力氣，時常揮汗如雨的工作。例如: 工人、農人', value: '重度活動工作' }
-  ]
+    {
+      label: '靜態活動工作: 大部分從事坐著或不動的工作。例如: 上班族、醫師',
+      value: '靜態活動工作',
+      img: 'imgs/wt-static.png'
+    },
+    {
+      label: '輕度活動工作: 從事需來回走動，偶爾使用力氣之工作。例如: 護理師、警察',
+      value: '輕度活動工作',
+      img: 'imgs/wt-light.png'
+    },
+    {
+      label: '重度活動工作: 從事需耗費大量力氣，時常揮汗如雨的工作。例如: 工人、農人',
+      value: '重度活動工作',
+      img: 'imgs/wt-heavy.png'
+    }
+  ];
 
   btList: Items[] = [
-    { label: '變瘦', value: '變瘦' },
-    { label: '保持不變', value: '保持不變' },
-    { label: '變精美', value: '變精美' },
-    { label: '變巨巨', value: '變巨巨' },
-
+    { label: '變瘦', value: '變瘦', img: 'imgs/thin.png' },
+    { label: '維持身材', value: '維持身材', img: 'imgs/maintain.png' },
+    { label: '變精美', value: '變精美', img: 'imgs/toned.png' },
+    { label: '變巨巨', value: '變巨巨', img: 'imgs/muscular.png' },
   ]
 
   changeData!: any;

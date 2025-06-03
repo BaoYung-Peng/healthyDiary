@@ -278,8 +278,6 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     this.token = localStorage.getItem('token');
     this.fetchExerciseRecords(); // 載入資料
 
-
-
     // 計算本週的週一日期
     const dayOfWeek = today.getDay(); // 0 是星期天, 1 是星期一, ... 6 是星期六
     const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 若今天是星期天，要往前推6天
@@ -373,6 +371,9 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
         console.log('API回應', res);
         if (res.code == 200) {
           this.showMessage = true;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['userpage/exercise']);
+          });
           setTimeout(() => {
             this.showMessage = false
           }, 2000);

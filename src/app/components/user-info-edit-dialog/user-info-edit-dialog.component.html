@@ -92,7 +92,9 @@
   <p>修改工作型態:</p>
   <div class="info-box">
     @for(wt of wtList; track $index){
-    <button class="select-btn" (click)="editWt(wt.value)">{{wt.label}}</button>
+    <button class="select-btn" [ngStyle]="{'background-image': 'url(' + wt.img + ')'}" (click)="editWt(wt.value)">
+      <div class="label-overlay">{{ wt.label }}</div>
+    </button>
     }
   </div>
 </div>
@@ -100,11 +102,12 @@
 
 @case ('bt') {
 <div class="dream-body" style="width: 50vw;">
-  <p>修改理想身材:</p>
-  <div class="info-box"
-    style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);">
+  <p>理想身材:</p>
+  <div class="info-box">
     @for(bt of btList; track $index){
-    <button class="select-btn" (click)="editBt(bt.value)">{{bt.label}}</button>
+    <button class="select-btn" [ngStyle]="{'background-image': 'url(' + bt.img + ')'}" (click)="editBt(bt.value)">
+      <div class="label-overlay">{{ bt.label }}</div>
+    </button>
     }
   </div>
 </div>
