@@ -90,6 +90,7 @@ export class RegisterComponent {
   calculateAge() {
     if (!this.birthDate) {
       this.age = null;
+      alert('');
       return;
     }
 
@@ -130,13 +131,41 @@ export class RegisterComponent {
   nextStep(accountInput: any, passwordInput: any) {
     const accountValue = accountInput.value?.trim();
     const passwordValue = passwordInput.value?.trim();
+    const userNameValue = this.user_name?.trim();
+    const birthDateValue = this.birthDate;
+    const genderValue = this.selectedGender;
 
-    if (!accountValue || !passwordValue) {
-      alert('請輸入帳號或密碼');
+    if (!userNameValue) {
+      alert('請輸入暱稱');
       return;
     }
 
-    if (!accountInput.valid || !passwordInput.valid) {
+    if (!genderValue) {
+      alert('請選擇性別');
+      return;
+    }
+
+    if (!birthDateValue) {
+      alert('請輸入出生日期');
+      return;
+    }
+
+    if (!accountValue) {
+      alert('請輸入帳號');
+      return;
+    }
+
+    if (!passwordValue) {
+      alert('請輸入密碼');
+      return;
+    }
+
+    if (!accountInput.valid) {
+      alert('請確認帳號格式正確');
+      return;
+    }
+
+    if (!passwordInput.valid) {
       alert('請確認密碼格式正確');
       return;
     }
@@ -144,9 +173,9 @@ export class RegisterComponent {
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
     }
-    // 然後旋轉卡片
     this.rotateCards();
   }
+
 
   // 保留你原有的卡片旋轉邏輯
   rotateCards() {

@@ -37,9 +37,8 @@
             年齡：{{ age }}
           </div> -->
 
-          <p-floatlabel >
-            <input pInputText id="account" [(ngModel)]="email" required
-              #accountInput="ngModel" />
+          <p-floatlabel>
+            <input pInputText id="account" [(ngModel)]="email" required #accountInput="ngModel" />
             <!-- <input pInputText id="account" [(ngModel)]="email" #accountInput="ngModel" /> -->
             <label for="account">
               <p>帳號/Email</p>
@@ -49,7 +48,7 @@
             <i class="pi pi-exclamation-circle">帳號為必填</i>
           </small>
 
-          <p-floatLabel class="floatlabel" >
+          <p-floatLabel class="floatlabel">
             <p-password [style.font-size]="'20px'" [(ngModel)]="password" name="password" inputId="password"
               [toggleMask]="true" [feedback]="true" promptLabel="請輸入密碼" weakLabel="簡單" mediumLabel="適中" strongLabel="嚴謹"
               minlength="8" #passwordInput="ngModel">
@@ -74,14 +73,14 @@
           <!-- <small *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="p-error">
             <i class="pi pi-exclamation-circle">密碼至少為8字元</i>
           </small> -->
-          <small *ngIf="passwordInput.errors?.['minlength'] && (passwordInput.dirty || passwordInput.touched)" class="p-error">
+          <small *ngIf="passwordInput.errors?.['minlength'] && (passwordInput.dirty || passwordInput.touched)"
+            class="p-error">
             <i class="pi pi-exclamation-circle"></i> 密碼至少 8 個字元
           </small>
 
           <button class="back-htn" routerLink="/login">返回登入頁</button>
 
-          <button class="action-button" (click)="nextStep(accountInput, passwordInput)"
-            [disabled]="!accountInput.valid">下一步</button>
+          <button class="action-button" (click)="nextStep(accountInput, passwordInput)">下一步</button>
         </div>
       </div>
 

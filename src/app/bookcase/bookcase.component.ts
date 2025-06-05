@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpService } from '../@services/http.service';
+import { formatDate } from '@angular/common'; // ✅ 加這行
 
 @Component({
   selector: 'app-bookcase',
@@ -20,7 +21,7 @@ export class BookcaseComponent implements OnInit {
   // 請求狀態
   isLoading: boolean = false;
   currentMonth: number = new Date().getMonth() + 1;
-
+  hasWrittenToday: boolean = false;
 
   // 預設月份與顏色
   months = [
@@ -41,11 +42,33 @@ export class BookcaseComponent implements OnInit {
   constructor(
     private router: Router,
     private httpService: HttpService,
-    private datepipe: DatePipe
+
   ) { }
 
   ngOnInit(): void {
     this.createPetals(30); // 可調整數量
+    this.checkIfTodayMoodIsWritten(); // 這裡名稱請與方法一致
+  }
+
+  checkIfTodayMoodIsWritten(): void {
+    const today = new Date();
+    const formattedDate = formatDate(today, 'yyyy-MM-dd', 'en-US');
+
+    const token = localStorage.getItem('token');
+
+    const postData = {
+      date: formattedDate,
+      token: token
+    };
+
+    this.httpService.getDateMood(postData).subscribe({
+      next: (res: any) => {
+        this.hasWrittenToday = res?.written === true;
+      },
+      error: (err) => {
+        console.error('查詢當天日誌失敗', err);
+      }
+    });
   }
 
   createPetals(count: number) {
