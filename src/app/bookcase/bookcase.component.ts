@@ -65,10 +65,8 @@ export class BookcaseComponent implements OnInit {
   }
 
   onBookClick(monthId: number): void {
-    const currentMonth = new Date().getMonth() + 1; // getMonth() 回傳 0-11，所以加 1
-
-    // 👉 檢查是否是當月或未來月份（過去月份不讓點）
-
+    console.log('clicked month:', monthId);
+    const currentMonth = new Date().getMonth() +1; // getMonth() 回傳 0-11，所以加 1
 
     const selectedMonth = this.months.find(m => m.id === monthId);
     if (!selectedMonth) {

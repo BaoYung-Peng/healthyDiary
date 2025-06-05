@@ -77,7 +77,7 @@ export const routes: Routes = [
     component: WriteMoodComponent
   },
    {
-    path: 'mood-diary/:month',  // 使用動態路徑參數
+    path: 'mood-diary/:monthId',  // 使用動態路徑參數
     component: MoodDiaryComponent
   },
   {

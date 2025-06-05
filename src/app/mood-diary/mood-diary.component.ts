@@ -98,7 +98,7 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      const monthParam = params.get('month');
+      const monthParam = params.get('monthId');  // 改成 'monthId'
       if (monthParam) {
         this.monthId = monthParam;
       } else {
@@ -110,6 +110,7 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
           this.monthId = (new Date().getMonth() + 1).toString();
         }
       }
+      this.currentMonth = +this.monthId;  // **加這行，確保畫面初始月份正確**
       console.log('Current monthId:', this.monthId);
 
       this.monthName = this.getMonthName(this.monthId);
@@ -586,12 +587,16 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
 
     this.currentPageIndex = targetDay;
 
+    // 確保月份變數是正確的
+    this.currentMonth = this.monthId ? +this.monthId : new Date().getMonth() + 1;
+
     // 立即更新頁面內容（文字、日記）
     this.updatePages();
 
     // 啟動對應的動畫（根據當天的 mood score）
     this.startAnimation();
   }
+
 
   getMoodImagePath(score: number): string {
     if (score === 1) {
