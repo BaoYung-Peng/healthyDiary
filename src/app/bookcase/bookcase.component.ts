@@ -14,11 +14,12 @@ import { HttpService } from '../@services/http.service';
   ],
   templateUrl: './bookcase.component.html',
   styleUrl: './bookcase.component.scss',
-  providers: [DatePipe]  // 👈 加這行
+  providers: [DatePipe]
 })
 export class BookcaseComponent implements OnInit {
   // 請求狀態
   isLoading: boolean = false;
+  currentMonth: number = new Date().getMonth() + 1;
 
 
   // 預設月份與顏色
@@ -63,9 +64,16 @@ export class BookcaseComponent implements OnInit {
     }
   }
 
-  onBookClick(monthId: number): void {  // Change to number
-    const selectedMonth = this.months.find(m => m.id === monthId);
+  onBookClick(monthId: number): void {
+    const currentMonth = new Date().getMonth() + 1; // getMonth() 回傳 0-11，所以加 1
 
+    // 👉 檢查是否是當月或未來月份（過去月份不讓點）
+    if (monthId < currentMonth) {
+      console.warn(`無法查看過去月份 (${monthId} 月) 的日記`);
+      return;
+    }
+
+    const selectedMonth = this.months.find(m => m.id === monthId);
     if (!selectedMonth) {
       console.error('無效的月份 ID:', monthId);
       return;
@@ -80,7 +88,7 @@ export class BookcaseComponent implements OnInit {
 
     const requestData = {
       token: token,
-      month: monthId // This is now a number
+      month: monthId
     };
 
     this.isLoading = true;
@@ -115,8 +123,9 @@ export class BookcaseComponent implements OnInit {
     });
   }
 
-  wirte(){
-     this.router.navigate(['/writemood']);
+
+  wirte() {
+    this.router.navigate(['/writemood']);
   }
 
 

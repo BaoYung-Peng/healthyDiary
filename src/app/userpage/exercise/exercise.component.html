@@ -40,6 +40,24 @@
     }
   </div>
 
+  <div class="week-container">
+    <div class="day-card" *ngFor="let date of weekDays">
+      <h4>{{ date | date: 'EEEE' }}<br>{{ date | date: 'yyyy-MM-dd' }}</h4>
+
+      <div *ngIf="getRecordsForDate(date).length; else noRecord">
+        <ul>
+          <li *ngFor="let record of getRecordsForDate(date)">
+            {{ record.exerciseName }} - {{ record.duration }} 分鐘
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #noRecord>
+        <p>無資料</p>
+      </ng-template>
+    </div>
+  </div>
+
   <div class="bottom-section">
     <div class="clock-container">
       <div class="clock-face">
@@ -92,7 +110,8 @@
 
     <div class="weight-img-wrapper">
       <div class="weight">
-        <p>請輸入體重(kg)</p>
+        <p>如果體重有變更</p>
+        <p>可在此輸入體重</p>
         <input type="number" [(ngModel)]="weightInput">
         <button class="weight-btn" (click)="confirmweight()">確認</button>
       </div>
@@ -103,21 +122,3 @@
   </div>
 
 </section>
-
-<div class="week-container">
-  <div class="day-card" *ngFor="let date of weekDays">
-    <h4>{{ date | date: 'EEEE' }}<br>{{ date | date: 'yyyy-MM-dd' }}</h4>
-
-    <div *ngIf="getRecordsForDate(date).length; else noRecord">
-      <ul>
-        <li *ngFor="let record of getRecordsForDate(date)">
-          {{ record.exerciseName }} - {{ record.duration }} 分鐘
-        </li>
-      </ul>
-    </div>
-
-    <ng-template #noRecord>
-      <p>無資料</p>
-    </ng-template>
-  </div>
-</div>

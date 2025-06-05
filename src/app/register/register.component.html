@@ -1,15 +1,14 @@
 <div class="section">
+
+
   <div class="left-box">
   </div>
 
   <div class="card-area">
     <!-- 進度條放在卡片上方 -->
     <div class="progress-container">
-      <p-progressbar
-      [value]="progressValue"
-      [showValue]="true"
-      [style]="{ '--progressbar-color': progressBarHex }"
-      styleClass="mb-6">
+      <p-progressbar [value]="progressValue" [showValue]="true" [style]="{ '--progressbar-color': progressBarHex }"
+        styleClass="mb-6">
       </p-progressbar>
       <div class="step-indicator">步驟 {{activeStep}} / {{totalSteps}}</div>
     </div>
@@ -17,29 +16,17 @@
     <div class="card-wrapper">
       <div class="card" [ngClass]="getCardClass(0)">
         <div class="basic1">
-
           <input [(ngModel)]="user_name" pInputText id="input" type="text" placeholder="請輸入暱稱">
 
           <div class="radio-group">
             <label>性別：</label>
             <div class="p-d-flex p-ai-center p-mt-2">
 
-              <p-radioButton
-                name="gender"
-                value="male"
-                [(ngModel)]="selectedGender"
-                inputId="male"
-                label="男"
-              ></p-radioButton> 男
+              <p-radioButton name="gender" value="male" [(ngModel)]="selectedGender" inputId="male"
+                label="男"></p-radioButton> 男
 
-              <p-radioButton
-                name="gender"
-                value="female"
-                [(ngModel)]="selectedGender"
-                inputId="female"
-                label="女"
-                class="p-ml-3"
-              ></p-radioButton> 女
+              <p-radioButton name="gender" value="female" [(ngModel)]="selectedGender" inputId="female" label="女"
+                class="p-ml-3"></p-radioButton> 女
             </div>
           </div>
 
@@ -50,29 +37,21 @@
             年齡：{{ age }}
           </div> -->
 
-          <p-floatlabel variant="on">
-            <!-- <input pInputText id="account" [(ngModel)]="email" required
-              #accountInput="ngModel" /> -->
-              <input pInputText id="account" [(ngModel)]="email"
+          <p-floatlabel >
+            <input pInputText id="account" [(ngModel)]="email" required
               #accountInput="ngModel" />
-            <label for="account"><p>帳號/Email</p></label>
+            <!-- <input pInputText id="account" [(ngModel)]="email" #accountInput="ngModel" /> -->
+            <label for="account">
+              <p>帳號/Email</p>
+            </label>
           </p-floatlabel>
           <small *ngIf="accountInput.invalid && (accountInput.dirty || accountInput.touched)" class="p-error">
             <i class="pi pi-exclamation-circle">帳號為必填</i>
           </small>
 
-              <p-floatLabel class="floatlabel" variant="on">
-              <p-password
-              [style.font-size]="'20px'"
-              [(ngModel)]="password"
-              name="password"
-              inputId="password"
-              [toggleMask]="true"
-              [feedback]="true"
-              promptLabel="請輸入密碼"
-              weakLabel="簡單"
-              mediumLabel="適中"
-              strongLabel="嚴謹"
+          <p-floatLabel class="floatlabel" >
+            <p-password [style.font-size]="'20px'" [(ngModel)]="password" name="password" inputId="password"
+              [toggleMask]="true" [feedback]="true" promptLabel="請輸入密碼" weakLabel="簡單" mediumLabel="適中" strongLabel="嚴謹"
               minlength="8" #passwordInput="ngModel">
 
               <ng-template pTemplate="header">
@@ -87,19 +66,22 @@
                 </ul>
               </ng-template>
             </p-password>
-            <label for="password"><p>密碼</p></label>
+            <label for="password">
+              <p>密碼</p>
+            </label>
           </p-floatLabel>
 
-          <small *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="p-error">
+          <!-- <small *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="p-error">
             <i class="pi pi-exclamation-circle">密碼至少為8字元</i>
-          </small>
-          <!-- <small *ngIf="passwordInput.errors?.['minlength'] && (passwordInput.dirty || passwordInput.touched)" class="p-error">
-            <i class="pi pi-exclamation-circle"></i> 密碼至少 8 個字元
           </small> -->
+          <small *ngIf="passwordInput.errors?.['minlength'] && (passwordInput.dirty || passwordInput.touched)" class="p-error">
+            <i class="pi pi-exclamation-circle"></i> 密碼至少 8 個字元
+          </small>
 
           <button class="back-htn" routerLink="/login">返回登入頁</button>
 
-          <button class="action-button" (click)="nextStep(accountInput, passwordInput)" [disabled]="!accountInput.valid">下一步</button>
+          <button class="action-button" (click)="nextStep(accountInput, passwordInput)"
+            [disabled]="!accountInput.valid">下一步</button>
         </div>
       </div>
 
@@ -107,19 +89,15 @@
         <div class="basic2">
           <p>身高</p>
           <!-- <input type="number" name="height" [(ngModel)]="height" [max]="60" placeholder="請輸入數字"> -->
-          <input type="number"
-          name="height"
-          [(ngModel)]="height"
-          placeholder="請輸入數字">
-          <br><p>體重</p>
+          <input type="number" name="height" [(ngModel)]="height" placeholder="請輸入數字">
+          <br>
+          <p>體重</p>
           <!-- <input type="number" name="weight" [(ngModel)]="weight" [max]="60" placeholder="請輸入數字"> -->
-          <input type="number"
-          name="weight"
-          [(ngModel)]="weight"
-          placeholder="請輸入數字">
+          <input type="number" name="weight" [(ngModel)]="weight" placeholder="請輸入數字">
 
           <div class="custom-select">
-            <br><p>理想身材(請選擇)</p>
+            <br>
+            <p>理想身材(請選擇)</p>
             <select [(ngModel)]="person.bodyType" [disabled]="!is_edit" class="select-box">
               <option value="slim">變瘦</option>
               <option value="same">保持不變</option>
@@ -134,13 +112,16 @@
 
       <div class="card" [ngClass]="getCardClass(2)">
         <div class="basic3">
+          @if(showMessage){
+          <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">註冊成功</p-message>
+          }
           <form class="flex flex-col gap-4" [formGroup]="formGroup">
             <div *ngFor="let category of categories" class="field-checkbox">
               <p-radiobutton [inputId]="category.key" [value]="category.key" formControlName="selectedCategory" />
               <label [for]="category.key" class="ml-2">{{ category.name }}</label>
             </div>
           </form>
-            <!-- 輕度活動工作：<br>
+          <!-- 輕度活動工作：<br>
             大部分從事坐著或不動的工作。<br>
             例如: 上班族、醫師
             中度活動工作:<br>

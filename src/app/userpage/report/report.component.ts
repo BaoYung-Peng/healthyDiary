@@ -52,7 +52,7 @@ export class ReportComponent implements OnInit {
   sleepList!: any; // 該天前晚睡眠紀錄
   mood!: any;
   report!: any;  // 該天AI報告
-
+  selectedMeal: string = ''; //選擇顯示哪個飲食時段
   aiRes!: any; // AI回應內容
   items: MenuItem[] = []; // 工具欄位內容
   visible: boolean = false;   // dialog 顯示
@@ -79,7 +79,6 @@ export class ReportComponent implements OnInit {
   getAiResData(req: any) {
     this.http.getDailyReportApi(req).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.report = res.dailyFeedback ? res.dailyFeedback.feedback : null;
       }
     });
@@ -87,8 +86,6 @@ export class ReportComponent implements OnInit {
 
   // 取的該天飲食、睡眠、運動資料
   getData() {
-    console.log(this.selectedDate);
-
     const req = {
       token: this.token,
       date: this.dateService.changeDateFormat(this.selectedDate)
@@ -99,14 +96,37 @@ export class ReportComponent implements OnInit {
     // 取得該天健康資料
     this.http.getDataByDateApi(req).subscribe({
       next: (res: any) => {
-        this.mealsList = res.mealsList
-        this.diet = {
-          breakfast: res.mealsList.filter((meal: any) => meal.mealsType === "早餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-          lunch: res.mealsList.filter((meal: any) => meal.mealsType === "午餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-          dinner: res.mealsList.filter((meal: any) => meal.mealsType === "晚餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-          other: res.mealsList.filter((meal: any) => meal.mealsType === "其他").map((meal: any) => JSON.parse(meal.mealsName)).flat()
-        };
+        // this.mealsList = res.mealsList
+        // console.log(this.mealsList);
 
+        // this.diet = {
+        //   breakfast: res.mealsList.filter((meal: any) => meal.mealsType === "早餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
+        //   lunch: res.mealsList.filter((meal: any) => meal.mealsType === "午餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
+        //   dinner: res.mealsList.filter((meal: any) => meal.mealsType === "晚餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
+        //   other: res.mealsList.filter((meal: any) => meal.mealsType === "其他").map((meal: any) => JSON.parse(meal.mealsName)).flat()
+        // };
+        console.log(res);
+
+        this.mealsList = res.mealsList;
+        console.log(this.mealsList);
+        if (this.mealsList.length > 0) {
+          // 抽出重複使用的處理函式
+          const getUniqueMeals = (type: string): any[] => {
+            const meals = res.mealsList
+              .filter((meal: any) => meal.mealsType === type)
+              .map((meal: any) => JSON.parse(meal.mealsName))
+              .flat();
+            return [...new Set(meals)]; // 去除重複
+          };
+
+          // 建立 diet 物件，已去除重複食物
+          this.diet = {
+            breakfast: getUniqueMeals("早餐"),
+            lunch: getUniqueMeals("午餐"),
+            dinner: getUniqueMeals("晚餐"),
+            other: getUniqueMeals("其他")
+          };
+        }
         this.sleepList = res.sleepList;
 
         this.exerciseList = res.exerciseList ? res.exerciseList : null;
@@ -120,6 +140,12 @@ export class ReportComponent implements OnInit {
       this.mood = res.mood ? res.mood.diary : '';
     });
   }
+
+  // 選擇飲食時段
+  toggleMeal(meal: string): void {
+    this.selectedMeal = this.selectedMeal === meal ? '' : meal;
+  }
+
 
   // 判斷是否為當天
   get isToday(): boolean {
@@ -233,7 +259,6 @@ export class ReportComponent implements OnInit {
     性別為${this.user.gender}，
     工作型態為${this.user.workType}。
     ${mealText}。${exerciseText}。${sleepText}。`.replace(/\s+/g, ' ').trim();
-    console.log(req);
 
     this.gptService.sendMessage(req).subscribe({
       next: (res: any) => {
@@ -257,7 +282,6 @@ export class ReportComponent implements OnInit {
       date: this.dateService.changeDateFormat(this.selectedDate),
       feedback: this.aiRes
     }
-    console.log(req);
     this.http.fillInTodayReportApi(req).subscribe((res: any) => {
       if (res.code == 200) {
         this.loadingService.hideLoading();

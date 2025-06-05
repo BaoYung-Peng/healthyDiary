@@ -260,6 +260,15 @@ export class DietComponent implements OnInit {
           this.selectedFoods = [];
           this.myDiet = [];
 
+          this.totalCalorie = 0;
+          this.totalFat = 0;
+          this.totalSaturatedFat = 0;
+          this.totalTransFat = 0;
+          this.totalProtein = 0;
+          this.totalCarbohydrate = 0;
+          this.totalSugar = 0;
+          this.totalDietaryFiber = 0;
+
           setTimeout(() => {
             this.showMessage = false
           }, 2000);

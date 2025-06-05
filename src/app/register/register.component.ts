@@ -16,6 +16,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RadioButton } from 'primeng/radiobutton';
 import { Router, RouterLink } from '@angular/router';
 import { HttpService } from '../@services/http.service';
+import { Message } from 'primeng/message';
 
 interface Person {
   bodyType: string;
@@ -39,6 +40,7 @@ interface selections {
     PasswordModule, FloatLabelModule, DividerModule,
     ReactiveFormsModule, RadioButton,
     RouterLink,
+    Message
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -49,6 +51,7 @@ export class RegisterComponent {
   totalSteps = 3;        // card共有幾張
   formGroup!: FormGroup;
   value: string | undefined;
+
 
   user_name = '';
   selectedGender: string = '';
@@ -64,9 +67,10 @@ export class RegisterComponent {
   // 當前顯示的說明
   currentDescription: string = '';
 
+  showMessage: boolean = false; //NG alert
   is_edit = true; // 控制編輯狀態
 
-  constructor(private httpservice: HttpService, private fb: FormBuilder,private router: Router) { }
+  constructor(private httpservice: HttpService, private fb: FormBuilder, private router: Router) { }
 
   //進度條顏色計算
   get progressValue(): number {
@@ -120,24 +124,30 @@ export class RegisterComponent {
     }
     // 旋轉卡片
     this.rotateCards();
-
   }
 
   //控制下一步進入下一張卡
   nextStep(accountInput: any, passwordInput: any) {
+    const accountValue = accountInput.value?.trim();
+    const passwordValue = passwordInput.value?.trim();
+
+    if (!accountValue || !passwordValue) {
+      alert('請輸入帳號或密碼');
+      return;
+    }
+
     if (!accountInput.valid || !passwordInput.valid) {
       alert('請確認密碼格式正確');
       return;
     }
 
-    // step1 ++
     if (this.activeStep < this.totalSteps) {
       this.activeStep++;
     }
-
     // 然後旋轉卡片
     this.rotateCards();
   }
+
   // 保留你原有的卡片旋轉邏輯
   rotateCards() {
     // 順時針旋轉：把第一個移到最後
@@ -170,8 +180,8 @@ export class RegisterComponent {
 
   //工作型態
   categories = [
-    { key: 'mild', name: '輕度活動工作' },
-    { key: 'moderate', name: '中度活動工作' },
+    { key: 'mild', name: '靜態活動工作' },
+    { key: 'moderate', name: '輕度活動工作' },
     { key: 'severe', name: '重度活動工作' }
   ];
 
@@ -197,9 +207,14 @@ export class RegisterComponent {
     }
     console.log(registerData);
     this.httpservice.registerApi(registerData).subscribe((res: any) => {
-      console.log(res);
-      this.router.navigate(['/login']);
-
+      console.log('API回應', res);
+      if (res.code == 200) {
+        this.showMessage = true;
+        setTimeout(() => {
+          this.showMessage = false;
+          this.router.navigate(['/login']);
+        }, 2000);
+      }
     });
   }
 }

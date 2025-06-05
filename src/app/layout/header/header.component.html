@@ -2,7 +2,11 @@
   <p-toolbar [style]="{ 'padding': '1rem 1rem 1rem 1.5rem', 'background-color': '#F0E4D4' }">
     <ng-template #start>
       <div class="start">
-        <img class="logo" (click)="gotoPage('/home')" src="/imgs/report.svg" alt="logo" />
+        <!-- <i class="pi pi-home my-home-icon" (click)="gotoPage('/home')" alt="logo"></i> -->
+
+
+        <!-- <img class="logo" (click)="gotoPage('/home')" src="/imgs/report.svg" alt="logo" /> -->
+
         @if(islogin$ | async){
         <button (click)="visible = true">
           <i class="pi pi-bars"></i>
@@ -13,7 +17,7 @@
 
     <ng-template #center>
       <div class="center">
-        <h1>Bueautiful Diary</h1>
+        <h1>Beautiful Diary</h1>
       </div>
     </ng-template>
 
@@ -32,7 +36,12 @@
   <p-drawer #drawerRef [(visible)]="visible" styleClass="custom-drawer" [style]="{'background-color':'#F2EEE5'}">
     <ng-template #headless>
       <div class="headless">
-        <h2 class="main-text">Bueautiful Diary</h2>
+        <div style="text-align: center;">
+          <a href="/home">
+            <img src="imgs/potato.png" alt="Potato" style="width: 100px; height: 100px; margin:10px auto 0px 30px;">
+          </a>
+        </div>
+        <!-- <h2 class="main-text">Beautiful Diary</h2> -->
         <i class="pi pi-times" (click)="closeCallback($event)"></i>
       </div>
       <ul>

@@ -75,3 +75,14 @@ img {
 ::ng-deep .p-menu .p-menuitem-text {
   font-size: 20px; // ← 你可以改成想要的大小
 }
+
+.my-home-icon {
+  font-size: 35px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.my-home-icon:hover {
+  color: #d69703;
+}

@@ -12,14 +12,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 interface Items {
-  label: string;
+  title: string;
+  description: string;
   value: string;
-
-}
-
-interface Items {
   img: string;
 }
+
+interface Items1 {
+  label: string;
+  value: string;
+  img: string;
+}
+
 
 @Component({
   selector: 'app-user-info-edit-dialog',
@@ -39,23 +43,26 @@ export class UserInfoEditDialogComponent {
 
   wtList: Items[] = [
     {
-      label: '靜態活動工作: 大部分從事坐著或不動的工作。例如: 上班族、醫師',
+      title: '靜態活動工作',
+      description: '大部分從事坐著或不動的工作。例如: 上班族、醫師',
       value: '靜態活動工作',
       img: 'imgs/wt-static.png'
     },
     {
-      label: '輕度活動工作: 從事需來回走動，偶爾使用力氣之工作。例如: 護理師、警察',
+      title: '輕度活動工作',
+      description: '從事需來回走動，偶爾使用力氣之工作。例如: 護理師、警察',
       value: '輕度活動工作',
       img: 'imgs/wt-light.png'
     },
     {
-      label: '重度活動工作: 從事需耗費大量力氣，時常揮汗如雨的工作。例如: 工人、農人',
+      title: '重度活動工作',
+      description: '從事需耗費大量力氣，時常揮汗如雨的工作。例如: 工人、農人',
       value: '重度活動工作',
       img: 'imgs/wt-heavy.png'
     }
   ];
 
-  btList: Items[] = [
+  btList: Items1[] = [
     { label: '變瘦', value: '變瘦', img: 'imgs/thin.png' },
     { label: '維持身材', value: '維持身材', img: 'imgs/maintain.png' },
     { label: '變精美', value: '變精美', img: 'imgs/toned.png' },

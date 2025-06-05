@@ -76,19 +76,19 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       title: '輕度',
       description: '輕度：適合新手或恢復期的簡單活動。',
       note: '如伸展、瑜珈、輕鬆散步',
-      backgroundImage: '/imgs/light.jpeg'
+      backgroundImage: '/imgs/light.png'
     },
     {
       title: '有氧',
       description: '有氧：中等強度，助於提升心肺功能。',
       note: '如慢跑、有氧舞蹈、快走',
-      backgroundImage: '/imgs/aerobic.jpg'
+      backgroundImage: '/imgs/aerobic.png'
     },
     {
       title: '重訓',
       description: '重訓：高強度，增加肌肉與力量。',
       note: '如舉重、阻力訓練、自重訓練',
-      backgroundImage: '/imgs/training.jpg'
+      backgroundImage: '/imgs/training.jpeg'
     }
   ];
 

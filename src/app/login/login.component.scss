@@ -115,7 +115,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background:#F2EEE5;
+  background: #F2EEE5;
   padding: 2rem;
   position: sticky;
   top: 0;
@@ -158,7 +158,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background:#F0E4D4;
+  background: #F0E4D4;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -175,6 +175,8 @@
   display: block;
   margin-bottom: 25px;
   width: 100%;
+  background-color: #00000000;
+  /* 黑色 + 00 表示完全透明 */
 
   label {
     font-size: 20px;
@@ -182,6 +184,7 @@
     margin-bottom: 8px;
     display: block;
     font-weight: bold;
+    background-color: transparent !important;
   }
 
   input {
@@ -264,4 +267,3 @@
     gap: 10px;
   }
 }
-

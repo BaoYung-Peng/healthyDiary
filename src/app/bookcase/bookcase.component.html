@@ -5,7 +5,9 @@
   <div class="shelf upper-shelf">
     <div class="books-row">
       @for (book of months.slice(0, 6); track book.id) {
-      <div class="book" (click)="onBookClick(book.id)">
+      <div class="book" [class.disabled]="book.id > currentMonth"
+        (click)="book.id <= currentMonth && onBookClick(book.id)">
+
         <div class="book-spine" [style.backgroundColor]="book.color">
           <span class="month-name">{{ book.name }}</span>
         </div>
@@ -17,11 +19,11 @@
 
   <!-- 下層書櫃 (7-12月) -->
   <div class="shelf-divider"></div>
-
   <div class="shelf lower-shelf">
     <div class="books-row">
       @for (book of months.slice(6); track book.id) {
-      <div class="book" (click)="onBookClick(book.id)">
+      <div class="book" [class.disabled]="book.id > currentMonth"
+        (click)="book.id <= currentMonth && onBookClick(book.id)">
         <div class="book-spine" [style.backgroundColor]="book.color">
           <span class="month-name">{{ book.name }}</span>
         </div>

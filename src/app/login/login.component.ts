@@ -122,7 +122,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     // 階段1: 門縫閃三下，接著 => 有強光從裡面透出來。
     tl.to(this.lightLine.nativeElement, {
       opacity: 1, // 透明度為 1（完全顯示）
-      duration: 0, // 0.2 秒完成。
+      duration: 0, // 0 秒完成。
       repeat: 0, // 重複 3 次。
       yoyo: true // 每次重複時會來回閃爍（亮→暗→亮→暗）
     });

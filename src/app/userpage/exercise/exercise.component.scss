@@ -96,16 +96,15 @@ p-message {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  border-bottom: 5px solid gray;
-  /* 上半部（標題）跟下半部（說明）分界線 */
+  // font-size: 2rem;
+  // border-bottom: 5px solid gray;
 }
 
 .card-description {
-  background-color: rgba(200, 200, 200, 0.6);
+  background-color: rgba(200, 200, 200, 0.4);
   padding: 2rem;
-  font-size: 25px;
-  margin-bottom: 30px;
+  font-size: 26px;
+  height:18%;
 }
 
 //=========================
@@ -203,7 +202,7 @@ p-message {
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-top: 105px;
+  margin-top: 0px;
 }
 
 .info {
@@ -307,6 +306,7 @@ p-message {
 
 //================================================================================================
 .week-container {
+  margin-top: 10vh;
   background-color: #fff;
 }
 
