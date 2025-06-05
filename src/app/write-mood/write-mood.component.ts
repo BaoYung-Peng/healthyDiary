@@ -24,9 +24,27 @@ export class WriteMoodComponent {
 
   constructor(private httpService: HttpService, private router: Router) { }
 
+  moodOptions = [
+    { value: 1, emoji: '😭', label: '非常沮喪' },
+    { value: 2, emoji: '😢', label: '沮喪' },
+    { value: 3, emoji: '😔', label: '難過' },
+    { value: 4, emoji: '😐', label: '普通偏差' },
+    { value: 5, emoji: '🙂', label: '普通' },
+    { value: 6, emoji: '😊', label: '平靜愉快' },
+    { value: 7, emoji: '😄', label: '開心' },
+    { value: 8, emoji: '😁', label: '非常開心' },
+    { value: 9, emoji: '🤩', label: '興奮' },
+    { value: 10, emoji: '🌟', label: '超棒！' }
+  ];
+
   ngOnInit(): void {
     this.setMaxDate();
     this.setDefaultDate(); // 設定預設日期為今天
+  }
+
+  getMoodLabel(): string {
+    const mood = this.moodOptions.find(m => m.value === this.currentMoodScore);
+    return mood ? mood.label : '';
   }
 
   // 設定最大可選日期為今天

@@ -68,10 +68,7 @@ export class BookcaseComponent implements OnInit {
     const currentMonth = new Date().getMonth() + 1; // getMonth() 回傳 0-11，所以加 1
 
     // 👉 檢查是否是當月或未來月份（過去月份不讓點）
-    if (monthId < currentMonth) {
-      console.warn(`無法查看過去月份 (${monthId} 月) 的日記`);
-      return;
-    }
+
 
     const selectedMonth = this.months.find(m => m.id === monthId);
     if (!selectedMonth) {

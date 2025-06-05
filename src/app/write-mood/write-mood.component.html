@@ -4,9 +4,20 @@
     <label for="date">📅 日期：</label>
     <input id="date" type="date" [(ngModel)]="queryDate" name="date" required [max]="maxDate" />
 
-    <label for="mood">😊 心情指數：</label>
-    <input id="mood" type="range" min="1" max="10" [(ngModel)]="currentMoodScore" name="mood" />
-    <div class="mood-score">{{ currentMoodScore }}/10</div>
+    <!-- 心情指數區塊 -->
+    <div class="mood-selector">
+      <label class="mood-label">😊 心情指數：</label>
+      <div class="mood-buttons-grid">
+        <button *ngFor="let score of moodOptions" type="button" [class.active]="currentMoodScore === score.value"
+          (click)="currentMoodScore = score.value">
+          {{ score.emoji }}
+        </button>
+      </div>
+      <div class="mood-score">
+        {{ currentMoodScore }}/10 （{{ getMoodLabel() }}）
+      </div>
+
+    </div>
   </div>
 
   <div class="book-page right">

@@ -135,3 +135,48 @@ button {
 .back-btn {
   margin: 10px auto -35px auto;
 }
+
+.book-page.left {
+  position: relative;
+  /* 📌 為了讓子項的 absolute 定位以它為基準 */
+  padding-bottom: 80px;
+  /* 預留空間避免覆蓋主要內容 */
+}
+
+.mood-selector {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.mood-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.mood-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  gap: 20px;
+  justify-content: center;
+}
+
+.mood-buttons-grid button {
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mood-buttons-grid button.active {
+  transform: scale(1.4);
+  border-bottom: 2px solid #ff9800;
+}
+
+.mood-score {
+  margin-top: 50px;
+  font-size: 25px;
+  font-family: "Seto";
+  color: #000000;
+}

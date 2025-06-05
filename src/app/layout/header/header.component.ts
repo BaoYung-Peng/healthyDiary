@@ -101,6 +101,11 @@ export class HeaderComponent {
       icon: '/imgs/person.svg',
       path: 'profile'
     },
+    {
+      label: '回到首頁',
+      icon: '/imgs/home.svg',
+      path: 'home'
+    },
   ];
 
   constructor(
