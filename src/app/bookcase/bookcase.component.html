@@ -35,12 +35,12 @@
 
 
   <div class="write-button-container">
-    <button class="write" [routerLink]="hasWrittenToday ? null : ['/write-mood']" [disabled]="hasWrittenToday">
+    <button class="write" (click)="writediary()">
       寫點什麼吧!!
     </button>
 
     <p *ngIf="hasWrittenToday" class="info-text">
-      今天已經寫過囉，明天再來吧～
+
     </p>
   </div>
 

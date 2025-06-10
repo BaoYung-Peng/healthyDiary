@@ -47,7 +47,7 @@ export class BookcaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.createPetals(30); // 可調整數量
-    this.checkIfTodayMoodIsWritten(); // 這裡名稱請與方法一致
+    this.checkIfTodayMoodIsWritten();
   }
 
   checkIfTodayMoodIsWritten(): void {
@@ -63,13 +63,23 @@ export class BookcaseComponent implements OnInit {
 
     this.httpService.getDateMood(postData).subscribe({
       next: (res: any) => {
-        this.hasWrittenToday = res?.written === true;
+        this.hasWrittenToday = !!res?.mood;
       },
-      error: (err) => {
-        console.error('查詢當天日誌失敗', err);
-      }
     });
   }
+
+  writediary(){
+    console.log(this.hasWrittenToday);
+
+    if(this.hasWrittenToday){
+      alert("今天已經寫過日誌!")
+    } else {
+      console.log('000');
+
+      this.router.navigateByUrl('write-mood')
+    }
+  }
+
 
   createPetals(count: number) {
     const container = document.getElementById('petalContainer');
