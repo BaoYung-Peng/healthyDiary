@@ -35,7 +35,13 @@
 
 
   <div class="write-button-container">
-    <button class="write" [routerLink]="['/write-mood']">寫點什麼吧!!</button>
+    <button class="write" (click)="writediary()">
+      寫點什麼吧!!
+    </button>
+
+    <p *ngIf="hasWrittenToday" class="info-text">
+
+    </p>
   </div>
 
 </div>

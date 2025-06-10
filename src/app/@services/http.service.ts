@@ -132,6 +132,12 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 取得當天是否填寫日誌
+  getDateMood(postData: any) {
+    const url = `http://${this.IP}:8080/mood/get_date_mood`;
+    return this.httpClient.post(url, postData);
+  }
+
   // 取得飲食紀錄
   getMealApi(postData: any) {
     const url = `http://${this.IP}:8080/meals/get_meals`;
