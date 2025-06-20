@@ -31,7 +31,7 @@ ng serve
 
 ## 📁 專案目錄結構（src/app）
 
-```plaintext
+```healthyDiary
 src/
 └── app/
     ├── @guards/                   # 路由守衛 (如 AuthGuard)
