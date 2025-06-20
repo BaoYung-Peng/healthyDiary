@@ -30,6 +30,7 @@ ng serve
 
 
 ```
+
 src/
 └── app/
     ├── @guards/                  # 路由守衛 (如 AuthGuard)
@@ -52,4 +53,5 @@ src/
     ├── userpage/                 # 使用者個人主頁
     ├── verify/                   # 驗證信箱等流程
     └── write-mood/               # 撰寫心情頁面
+
 ```
