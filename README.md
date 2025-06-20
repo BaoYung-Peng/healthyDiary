@@ -60,9 +60,6 @@ src/
     ├── layout/                      # 共用頁面版型結構
     │   ├── footer/                  # 頁尾
     │   ├── header/                  # 頁首
-    │   ├── layout.component.html    # Layout HTML
-    │   ├── layout.component.scss    # Layout 樣式
-    │   └── layout.component.ts      # Layout 邏輯
     ├── login/                       # 登入頁面
     ├── mood-diary/                  # 心情日記功能
     ├── not-found/                   # 404 頁面
@@ -70,5 +67,9 @@ src/
     ├── register/                    # 註冊帳號頁
     ├── shooting-stars-background/   # 星星背景動畫
     ├── userpage/                    # 使用者個人主頁
+    │   ├── diet/                    # 飲食紀錄
+    │   ├── exercise/                # 運動紀錄
+    │   ├── sleep/                   # 睡眠紀錄
+    │   ├── report/                  # 健康報告
     ├── verify/                      # 驗證流程模組
     └── write-mood/                  # 心情撰寫頁面
