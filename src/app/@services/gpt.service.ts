@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
 })
 export class GptService {
   private apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  private apiKey = 'Bearer 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'
+  private apiKey = 'Bearer APIKEY'
   private headers = new HttpHeaders({
     'Authorization': this.apiKey,
     'HTTP-Referer': 'https://www.your-site.com',
