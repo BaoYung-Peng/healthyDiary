@@ -41,13 +41,13 @@ src/
     │   ├── auth.service.ts          # 驗證處理
     │   ├── date.service.ts          # 日期處理服務
     │   ├── gpt.service.ts           # GPT 互動服務
-    │   ├── http.service.ts          # HTTP 請求處理
+    │   ├── http.service.ts          # HTTP 請求處理(API)
     │   ├── loading.service.ts       # 載入動畫狀態
     │   ├── localstorage.service.ts  # 本地儲存操作
     │   └── user.service.ts          # 使用者資訊服務
     ├── admin/                       # 管理員模組
     ├── background/background/       # 背景動畫模組
-    ├── bookcase/                    # 書櫃功能模組
+    ├── bookcase/                    # 書櫃功能模組(Route至心情日誌)
     ├── components/                  # 可重用元件
     │   ├── food-edit-dialog/        # 食物編輯對話框
     │   ├── food-table/              # 食物紀錄表格元件
@@ -65,11 +65,11 @@ src/
     ├── not-found/                   # 404 頁面
     ├── profile/                     # 個人資料頁面
     ├── register/                    # 註冊帳號頁
-    ├── shooting-stars-background/   # 星星背景動畫
+    ├── shooting-stars-background/   # 星星背景動畫模組(應用於sleep流星劃過夜空)
     ├── userpage/                    # 使用者個人主頁
     │   ├── diet/                    # 飲食紀錄
     │   ├── exercise/                # 運動紀錄
     │   ├── sleep/                   # 睡眠紀錄
-    │   ├── report/                  # 健康報告
+    │   ├── report/                  # 健康報告(AI生成式報告建議)
     ├── verify/                      # 驗證流程模組
     └── write-mood/                  # 心情撰寫頁面
