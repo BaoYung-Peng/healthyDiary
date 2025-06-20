@@ -34,23 +34,39 @@ ng serve
 ```healthyDiary
 src/
 └── app/
-    ├── @guards/                   # 路由守衛 (如 AuthGuard)
-    ├── @services/                 # 共用服務 (API, 狀態管理)
-    ├── admin/                     # 管理員相關功能
-    ├── background/background/     # 背景模組（含動畫）
-    ├── bookcase/                  # 書櫃功能模組
-    ├── components/                # 可重用 UI 元件
-    ├── edit-verify/               # 資料編輯驗證流程
-    ├── editpassword/              # 修改密碼功能
-    ├── forgotpassword/            # 忘記密碼頁面
-    ├── home/                      # 首頁內容與入口
-    ├── layout/                    # 共用版型與頁框架
-    ├── login/                     # 登入功能
-    ├── mood-diary/                # 心情日記列表與詳細
-    ├── not-found/                 # 404 頁面
-    ├── profile/                   # 個人資料頁
-    ├── register/                  # 註冊新帳號
-    ├── shooting-stars-background/ # 星空背景效果
-    ├── userpage/                  # 使用者個人主頁
-    ├── verify/                    # 驗證信箱等流程
-    └── write-mood/                # 撰寫心情頁面
+    ├── @guards/                     # 路由守衛（如 AuthGuard）
+    ├── @services/                   # 共用服務模組
+    │   ├── auth.service.ts          # 驗證處理
+    │   ├── date.service.ts          # 日期處理服務
+    │   ├── gpt.service.ts           # GPT 互動服務
+    │   ├── http.service.ts          # HTTP 請求處理
+    │   ├── loading.service.ts       # 載入動畫狀態
+    │   ├── localstorage.service.ts  # 本地儲存操作
+    │   └── user.service.ts          # 使用者資訊服務
+    ├── admin/                       # 管理員模組
+    ├── background/background/       # 背景動畫模組
+    ├── bookcase/                    # 書櫃功能模組
+    ├── components/                  # 可重用元件
+    │   ├── food-edit-dialog/        # 食物編輯對話框
+    │   ├── food-table/              # 食物紀錄表格元件
+    │   ├── report-dialog/           # 回報用的 Dialog
+    │   └── user-info-edit-dialog/   # 使用者資訊編輯 Dialog
+    ├── edit-verify/                 # 編輯流程驗證模組
+    ├── editpassword/                # 修改密碼頁面
+    ├── forgotpassword/              # 忘記密碼頁面
+    ├── home/                        # 首頁模組
+    ├── layout/                      # 共用頁面版型結構
+    │   ├── footer/                  # 頁腳
+    │   ├── header/                  # 頁首
+    │   ├── layout.component.html    # Layout HTML
+    │   ├── layout.component.scss    # Layout 樣式
+    │   └── layout.component.ts      # Layout 邏輯
+    ├── login/                       # 登入頁面
+    ├── mood-diary/                  # 心情日記功能
+    ├── not-found/                   # 404 頁面
+    ├── profile/                     # 個人資料頁面
+    ├── register/                    # 註冊帳號頁
+    ├── shooting-stars-background/   # 星星背景動畫
+    ├── userpage/                    # 使用者個人主頁
+    ├── verify/                      # 驗證流程模組
+    └── write-mood/                  # 心情撰寫頁面
