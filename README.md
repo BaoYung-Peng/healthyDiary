@@ -56,7 +56,7 @@ src/
     ├── forgotpassword/              # 忘記密碼頁面
     ├── home/                        # 首頁模組
     ├── layout/                      # 共用頁面版型結構
-    │   ├── footer/                  # 頁腳
+    │   ├── footer/                  # 頁尾
     │   ├── header/                  # 頁首
     │   ├── layout.component.html    # Layout HTML
     │   ├── layout.component.scss    # Layout 樣式
