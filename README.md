@@ -54,7 +54,7 @@ http://localhost:4200
 ```healthyDiary
 src/
 └── app/
-    ├── @guards/                     # 路由守衛（如 AuthGuard）
+    ├── @guards/                     # 路由守衛（AuthGuard）
     ├── @services/                   # 共用服務模組
     │   ├── auth.service.ts          # 驗證處理
     │   ├── date.service.ts          # 日期處理服務
