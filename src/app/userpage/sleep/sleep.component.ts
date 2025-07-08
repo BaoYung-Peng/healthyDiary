@@ -10,7 +10,6 @@ import { Message } from 'primeng/message';
 import { CommonModule } from '@angular/common';
 import { ShootingStarsBackgroundComponent } from '../../shooting-stars-background/shooting-stars-background.component';
 
-
 @Component({
   selector: 'app-sleep',
   imports: [
@@ -91,8 +90,8 @@ export class SleepComponent {
   save() {
     const req = {
       token: localStorage.getItem('token'),
-      sleepTime: this.sleepTime,
-      awakeTime: this.awakeTime,
+      // sleepTime: this.sleepTime,
+      // awakeTime: this.awakeTime,
       hours: this.sleepHours,
       phone: this.usePhone,
       insomnia: this.insomnia,
