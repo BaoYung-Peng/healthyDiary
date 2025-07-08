@@ -26,13 +26,13 @@
       <label for="sleepTime"> 就寢時間 </label>
     </p-floatlabel>
   </div>
-  <div class="input-box">
+  <!-- <div class="input-box">
     <p-floatlabel variant="in">
       <p-datepicker inputId="awakeTime" size="large" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"
         [minDate]="sleepTime" [maxDate]="today" (ngModelChange)="calculateSleepHours()" [disabled]="!sleepTime" />
       <label for="awakeTime"> 起床時間 </label>
     </p-floatlabel>
-  </div>
+  </div> -->
   <div class="input-box">
     <p>睡眠時數: {{sleepHours}} 小時</p>
   </div>
