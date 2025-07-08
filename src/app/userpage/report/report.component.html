@@ -63,14 +63,20 @@
         <h1>運動紀錄</h1>
         <div class="show-data">
           @if(exerciseList?.length > 0){
-        @for(exercise of exerciseList; track $index){
-        <p>{{exercise.exerciseName}} - {{exercise.duration}} 分鐘</p>
-        }
-        <p>共消耗 {{totalConsumed.toFixed(1)}} 大卡</p>
-        }
-        @else{
-        <p>無資料</p>
-        }
+          @for(exercise of exerciseList; track $index){
+
+          @if(exercise.frequency == 0){
+          <p>{{exercise.exerciseName}} - {{exercise.duration}} 分鐘</p>
+          }
+          @else{
+          <p>{{exercise.exerciseName}} - {{exercise.frequency}} 次數</p>
+          }
+          }
+          <p>共消耗 {{totalConsumed.toFixed(1)}} 大卡</p>
+          }
+          @else{
+          <p>無資料</p>
+          }
         </div>
       </div>
     </div>
@@ -79,22 +85,22 @@
         <h1>報告與建議</h1>
         <div class="show-data">
           @if(report){
-        <p>{{report}}</p>
-        }
-        @else{
-        <!-- @if(isToday){
+          <p>{{report}}</p>
+          }
+          @else{
+          <!-- @if(isToday){
       <div style="display: flex; justify-content: center;">
         <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true" />
       </div>
       } -->
-        <!-- @else { -->
-        <p>無資料</p>
-        <div style="display: flex; justify-content: center;">
-          <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true"
-          [disabled]="(mealsList?.length < 1 && sleepList?.length < 1 && exerciseList.length < 1)"/>
-        </div>
-        <!-- } -->
-        }
+          <!-- @else { -->
+          <p>無資料</p>
+          <div style="display: flex; justify-content: center;">
+            <p-button class="report-btn" label="產生報告" icon="pi pi-check" iconPos="right" (click)="visible = true"
+              [disabled]="(mealsList?.length < 1 && sleepList?.length < 1 && exerciseList?.length < 1)" />
+          </div>
+          <!-- } -->
+          }
         </div>
       </div>
     </div>

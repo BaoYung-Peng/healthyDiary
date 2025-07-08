@@ -47,7 +47,12 @@
       <div *ngIf="getRecordsForDate(date).length; else noRecord">
         <ul>
           <li *ngFor="let record of getRecordsForDate(date)">
+            @if(record.frequency == 0){
             {{ record.exerciseName }} - {{ record.duration }} 分鐘
+            }
+            @else if (record.frequency != 0) {
+            {{ record.exerciseName }} - {{ record.frequency }} 次數
+            }
           </li>
         </ul>
       </div>
@@ -110,7 +115,7 @@
           <!-- 重訓：輸入次數 -->
           <div *ngSwitchCase="'重訓'">
             請輸入訓練次數（次）
-            <input type="number" [(ngModel)]="trainingCount" placeholder="輸入次數">
+            <input type="number" [(ngModel)]="frequency" placeholder="輸入次數">
             <button class="btn">設定次數</button>
           </div>
         </ng-container>

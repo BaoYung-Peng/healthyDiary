@@ -8,7 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputNumber } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 interface Items {

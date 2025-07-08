@@ -21,11 +21,19 @@
   </div>
   <div class="input-box">
     <p-floatlabel variant="in">
-      <p-datepicker inputId="sleepTime" size="large" [(ngModel)]="sleepTime" [showTime]="true" [hourFormat]="'12'"
-      [maxDate]="today" (ngModelChange)="calculateSleepHours()" />
-      <label for="sleepTime"> 就寢時間 </label>
+      <p-datepicker inputId="date" size="large" [(ngModel)]="date" [showTime]="false" [hourFormat]="'12'"
+        [maxDate]="today" />
+      <label for="date"> 選擇日期 </label>
     </p-floatlabel>
   </div>
+  <div class="input-box">
+    <p-floatlabel variant="in">
+      <p-inputnumber [(ngModel)]="sleepHours" inputId="sleepHours" mode="decimal" [min]="1" [max]="24"
+        [minFractionDigits]="0" [maxFractionDigits]="0" [showButtons]="true" />
+      <label for="sleepHours">睡眠時間</label>
+    </p-floatlabel>
+  </div>
+
   <!-- <div class="input-box">
     <p-floatlabel variant="in">
       <p-datepicker inputId="awakeTime" size="large" [(ngModel)]="awakeTime" [showTime]="true" [hourFormat]="'12'"

@@ -121,8 +121,10 @@ export class ReportComponent implements OnInit {
         this.sleepList = res.sleepList;
 
         this.exerciseList = res.exerciseList ? res.exerciseList : null;
+        console.log(this.exerciseList);
         this.totalConsumed = this.exerciseList.reduce((sum: number, exercise: any) => sum + exercise.totalConsumed, 0);
       },
+
       error: (err: any) => {
         console.log('API回應', err);
       }

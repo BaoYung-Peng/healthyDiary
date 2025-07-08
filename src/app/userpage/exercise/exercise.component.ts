@@ -232,7 +232,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
 
   //================== 時鐘與時間輸入邏輯 ==================//
   minutesInput = 0; // 使用者輸入的分鐘數
-  trainingCount: number = 0;      // 重訓輸入的次數
+  frequency: number = 0;      // 重訓輸入的次數
   endTime: string = ''; // 顯示的結束時間
   isTimeSet: boolean = false; // 是否已設定時間
   date: Date | undefined;
@@ -364,28 +364,24 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       alert('請選擇運動項目與日期');
       return;
     }
-
-    let durationText = '';
-
     if (this.activeType === '重訓') {
-      if (!this.trainingCount || this.trainingCount <= 0) {
+      if (!this.frequency || this.frequency <= 0) {
         alert('請輸入有效的訓練次數');
         return;
       }
-      durationText = `${this.trainingCount} 次`;
     } else {
       if (!this.minutesInput || this.minutesInput <= 0) {
         alert('請輸入有效的分鐘數');
         return;
       }
-      durationText = `${this.minutesInput} 分鐘`;
     }
 
     const exerciseData = {
       token: this.token,
       exerciseName: this.selectedImageName,
-      duration: durationText,
-      date: this.date
+      duration: this.minutesInput,
+      date: this.date,
+      frequency: this.frequency
     };
 
     console.log('送出資料：', exerciseData);
@@ -498,5 +494,8 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   getRecordsForDate(date: Date) {
     const formattedDate = date.toISOString().split('T')[0];
     return this.exerciseRecords.filter(record => record.date === formattedDate);
+
+
+
   }
 }

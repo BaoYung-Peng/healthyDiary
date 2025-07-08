@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DatePicker } from 'primeng/datepicker';
 import { FloatLabel } from 'primeng/floatlabel';
+import { InputNumber } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Message } from 'primeng/message';
@@ -16,6 +17,7 @@ import { ShootingStarsBackgroundComponent } from '../../shooting-stars-backgroun
     FormsModule,
     DatePicker,
     FloatLabel,
+    InputNumber,
     ButtonModule,
     SelectButtonModule,
     Message,
@@ -28,10 +30,11 @@ import { ShootingStarsBackgroundComponent } from '../../shooting-stars-backgroun
 export class SleepComponent {
   today!: Date;
   yesterDay!: Date;
+  date:Date = new Date();
 
-  sleepTime!: Date;
-  awakeTime!: Date;
-  sleepHours: number = 0;
+  // sleepTime!: Date;
+  // awakeTime!: Date;
+  sleepHours: number = 7;
 
   usePhone: boolean = true;
   insomnia: boolean = false;
@@ -67,31 +70,32 @@ export class SleepComponent {
 
     const defaultSleepTime = new Date();
     defaultSleepTime.setDate(defaultSleepTime.getDate() - 1); // 設定為昨天
-    defaultSleepTime.setHours(21, 0, 0, 0); // 設定時間為 21:00 (9 PM)
-    const defaultAwakeTime = new Date();
-    defaultAwakeTime.setHours(7, 0, 0, 0); // 設定時間為 07:00 (7 AM)
-    this.sleepTime = defaultSleepTime; // 指定預設值
-    this.awakeTime = defaultAwakeTime;
-    console.log('睡覺', this.sleepTime);
-    console.log('起床', this.awakeTime);
-    this.calculateSleepHours();
+    // defaultSleepTime.setHours(21, 0, 0, 0); // 設定時間為 21:00 (9 PM)
+    // const defaultAwakeTime = new Date();
+    // defaultAwakeTime.setHours(7, 0, 0, 0); // 設定時間為 07:00 (7 AM)
+    // this.sleepTime = defaultSleepTime; // 指定預設值
+    // this.awakeTime = defaultAwakeTime;
+    // console.log('睡覺', this.sleepTime);
+    // console.log('起床', this.awakeTime);
+    // this.calculateSleepHours();
 
   }
 
-  calculateSleepHours() {
-    if (this.sleepTime && this.awakeTime) {
-      if (this.awakeTime <= this.sleepTime) {
-        this.awakeTime.setDate(this.awakeTime.getDate() + 1);
-      }
-      this.sleepHours = Number(((this.awakeTime.getTime() - this.sleepTime.getTime()) / (1000 * 60 * 60)).toFixed(1)); // 轉換為小時
-    }
-  }
+  // calculateSleepHours() {
+  //   if (this.sleepTime && this.awakeTime) {
+  //     if (this.awakeTime <= this.sleepTime) {
+  //       this.awakeTime.setDate(this.awakeTime.getDate() + 1);
+  //     }
+  //     this.sleepHours = Number(((this.awakeTime.getTime() - this.sleepTime.getTime()) / (1000 * 60 * 60)).toFixed(1)); // 轉換為小時
+  //   }
+  // }
 
   save() {
     const req = {
       token: localStorage.getItem('token'),
       // sleepTime: this.sleepTime,
       // awakeTime: this.awakeTime,
+      date:this.date,
       hours: this.sleepHours,
       phone: this.usePhone,
       insomnia: this.insomnia,
