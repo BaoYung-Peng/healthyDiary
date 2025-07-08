@@ -96,16 +96,7 @@ export class ReportComponent implements OnInit {
     // 取得該天健康資料
     this.http.getDataByDateApi(req).subscribe({
       next: (res: any) => {
-        // this.mealsList = res.mealsList
-        // console.log(this.mealsList);
-
-        // this.diet = {
-        //   breakfast: res.mealsList.filter((meal: any) => meal.mealsType === "早餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-        //   lunch: res.mealsList.filter((meal: any) => meal.mealsType === "午餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-        //   dinner: res.mealsList.filter((meal: any) => meal.mealsType === "晚餐").map((meal: any) => JSON.parse(meal.mealsName)).flat(),
-        //   other: res.mealsList.filter((meal: any) => meal.mealsType === "其他").map((meal: any) => JSON.parse(meal.mealsName)).flat()
-        // };
-        console.log(res);
+       console.log(res);
 
         this.mealsList = res.mealsList;
         console.log(this.mealsList);
@@ -219,7 +210,6 @@ export class ReportComponent implements OnInit {
     { "id": 23, "prompt": "每周2次爬樓梯訓練，提升腿部力量和心肺功能，慢慢來沒問題！" },
     { "id": 24, "prompt": "每日5分鐘高膝踏步，激活全身肌肉，熱身超到位！" },
     { "id": 25, "prompt": "每周2次皮拉提斯，提升柔韌性和核心力量，讓你更健康自信！" }]
-
 
 
     const exercisePrompts = [

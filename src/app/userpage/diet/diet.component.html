@@ -16,9 +16,10 @@
           <p>膳食纖維: {{totalDietaryFiber.toFixed(1)}}</p>
         </div>
         <div class="btn-box">
+          <p>日期: {{ today | date: 'yyyy/MM/dd' }}</p>
           <p>選擇用餐時段:
             <p-selectbutton class="time-btn" size="large" [options]="times" [(ngModel)]="mealsType" optionLabel="label"
-              optionValue="value" />
+              optionValue="value"   (ngModelChange)="onMealsTypeChange($event)" />
           </p>
           <p-button class="save-btn" icon="pi pi-save" label="儲存" iconPos="right" (click)="save()"
             [disabled]="!this.mealsType || (this.myDiet.length == 0)" />

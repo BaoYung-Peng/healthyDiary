@@ -9,7 +9,7 @@ export class HttpService {
   constructor(private httpClient: HttpClient) { }
 
 
-  // IP: string = '172.16.0.195';
+  // IP: string = '172.16.0.122';
   IP: string = 'localhost';
 
   // 登入
@@ -79,7 +79,7 @@ export class HttpService {
   }
 
   //查詢食物營養資訊
-  saerchFoodApi(postData: any) {
+  searchFoodApi(postData: any) {
     const url = `http://${this.IP}:8080/food/search_food`;
     return this.httpClient.post(url, postData);
   }
@@ -150,6 +150,11 @@ export class HttpService {
     return this.httpClient.post(url, postData);
   }
 
+  // 依照日期取得飲食紀錄
+  getDateMealApi(postData: any) {
+    const url = `http://${this.IP}:8080/meals/get_date_meals`;
+    return this.httpClient.post(url, postData);
+  }
   // 取得運動紀錄
   getExerciseApi(postData: any) {
     const url = `http://${this.IP}:8080/exercise/get_exercise`;

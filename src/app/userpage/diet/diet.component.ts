@@ -50,6 +50,9 @@ interface Food {
   styleUrl: './diet.component.scss'
 })
 export class DietComponent implements OnInit {
+  today: Date = new Date(); // 取得今天的日期
+
+  // 顯示儲存成功訊息
   showMessage: boolean = false;
 
   selectedFoods: any[] = []; // 選擇的食物
@@ -102,8 +105,10 @@ export class DietComponent implements OnInit {
 
   ];
 
-
+  // db食物列表
   foods!: Food[];
+
+  // 搜尋後的食物列表
   searchedFood = [];
 
   visible: boolean = false;
@@ -118,15 +123,14 @@ export class DietComponent implements OnInit {
   ngOnInit() {
     this.http.getFoodInfoApi().subscribe((res: any) => {
       this.foods = res.foodList;
-      console.log(this.foods);
-    })
+    });
 
     this.token = localStorage.getItem('token') ?? '';
 
-    const req = {
+    const getUserReq = {
       token: this.token
     }
-    this.http.getUserByTokenApi(req).subscribe((res: any) => {
+    this.http.getUserByTokenApi(getUserReq).subscribe((res: any) => {
       this.user = res.user;
     });
 
@@ -134,7 +138,63 @@ export class DietComponent implements OnInit {
       token: this.token,
       mealsName: []
     }
+
+    const getMealsReq = {
+      token: this.token,
+      date: new Date().toISOString().split('T')[0] // 取得今天的日期
+    }
   }
+
+  // 取得特定時段食物
+  onMealsTypeChange(type: string) {
+    if (!type) return;
+
+    // 先清空
+    this.selectedFoods = [];
+    this.myDiet = [];
+    this.calculateNutri();
+
+    const req = {
+      token: this.token,
+      date: new Date().toISOString().split('T')[0],
+    };
+
+    this.http.getDateMealApi(req).subscribe({
+      next: (res: any) => {
+        if (res.code === 200 && res.meals?.length > 0) {
+          const mealsOfType = res.meals.find((meal: any) => meal.mealsType === type);
+
+          if (mealsOfType) {
+            const foodNames: string[] = JSON.parse(mealsOfType.mealsName);
+            for (const food of foodNames) {
+              const req = {
+                foodName: food,
+                type: '',
+                cookingMethod: ''
+              };
+              this.http.searchFoodApi(req).subscribe((res: any) => {
+                this.addFood(res.foodList[0]);
+              });
+            }
+          } else {
+            // 沒有該時段紀錄就清空
+            this.selectedFoods = [];
+            this.myDiet = [];
+            this.calculateNutri();
+          }
+        } else {
+          // 全部沒紀錄也清空
+          this.selectedFoods = [];
+          this.myDiet = [];
+          this.calculateNutri();
+        }
+      },
+      error: (err) => {
+        console.error('取得餐點資料失敗', err);
+      }
+    });
+  }
+
 
   reset(event: Event) {
     if (!(event.target as HTMLInputElement).value) {
@@ -143,9 +203,8 @@ export class DietComponent implements OnInit {
         type: '',
         cookingMethod: ''
       };
-      console.log(req);
 
-      this.http.saerchFoodApi(req).subscribe((res: any) => {
+      this.http.searchFoodApi(req).subscribe((res: any) => {
         this.foods = res.foodList;
       })
     }
@@ -161,10 +220,8 @@ export class DietComponent implements OnInit {
       type: this.searchedType,
       cookingMethod: this.searchedMethod
     }
-    console.log(req);
 
-
-    this.http.saerchFoodApi(req).subscribe({
+    this.http.searchFoodApi(req).subscribe({
       next: (res: any) => {
         this.foods = res.foodList;
         console.log('API回應', res);
@@ -184,8 +241,11 @@ export class DietComponent implements OnInit {
       };
       this.selectedFoods.push(foodWithServe);
       this.myDiet.push(food.foodName);
-      console.log(this.selectedFoods);
       this.calculateNutri();
+
+      console.log("selectedFoods");
+      console.log(this.selectedFoods);
+
     }
   }
 
