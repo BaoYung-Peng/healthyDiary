@@ -53,6 +53,8 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   count = signal(0);  // 建立一個 Signal
   showMessage: boolean = false; // 提示訊息
 
+
+
   token: string | null = null;
   weekDays: Date[] = [];
   groupedRecords: { [date: string]: ExerciseRecord[] } = {};
@@ -73,7 +75,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   // 運動強度卡片資料
   cards = [
     {
-      title: '輕度',
+      title: '輕度運動',
       description: '輕度：適合新手或恢復期的簡單活動。',
       note: '如伸展、瑜珈、輕鬆散步',
       backgroundImage: '/imgs/light.png'
@@ -95,7 +97,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   // 各類型運動圖片列表
   imageList = [
     {
-      type: 'light',
+      type: '輕度運動',
       data: [
         { name: '散步', src: '/imgs/Walk.jpeg' },
         { name: '瑜珈', src: '/imgs/Yoga.jpeg' },
@@ -105,7 +107,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       ],
     },
     {
-      type: 'aerobic',
+      type: '有氧運動',
       data: [
         { name: '網球', src: '/imgs/Tennis.jpeg' },
         { name: '游泳', src: '/imgs/Swim.jpeg' },
@@ -115,7 +117,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       ],
     },
     {
-      type: 'training',
+      type: '重訓',
       data: [
         { name: '深蹲', src: '/imgs/Squat.jpeg' },
         { name: '臥推', src: '/imgs/Bench-press.jpeg' },
@@ -221,15 +223,16 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   // 將卡片標題轉換為對應的類型名稱
   private mapCardTitleToType(title: string): string {
     switch (title) {
-      case '輕度': return 'light';
-      case '有氧': return 'aerobic';
-      case '重訓': return 'training';
+      case '輕度運動': return '輕度運動';
+      case '有氧': return '有氧運動';
+      case '重訓': return '重訓';
       default: return '';
     }
   }
 
   //================== 時鐘與時間輸入邏輯 ==================//
   minutesInput = 0; // 使用者輸入的分鐘數
+  trainingCount: number = 0;      // 重訓輸入的次數
   endTime: string = ''; // 顯示的結束時間
   isTimeSet: boolean = false; // 是否已設定時間
   date: Date | undefined;
@@ -357,30 +360,51 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       return;
     }
 
-    const exerciseData = {
-      token: this.token, // 加入 token
-      // email: "Baoyungpeng1999@gmail.com",
-      exerciseName: this.selectedImageName,
-      duration: this.duration,
-      date: this.date
+    if (!this.selectedImageName || !this.date) {
+      alert('請選擇運動項目與日期');
+      return;
     }
-    console.log(exerciseData);
+
+    let durationText = '';
+
+    if (this.activeType === '重訓') {
+      if (!this.trainingCount || this.trainingCount <= 0) {
+        alert('請輸入有效的訓練次數');
+        return;
+      }
+      durationText = `${this.trainingCount} 次`;
+    } else {
+      if (!this.minutesInput || this.minutesInput <= 0) {
+        alert('請輸入有效的分鐘數');
+        return;
+      }
+      durationText = `${this.minutesInput} 分鐘`;
+    }
+
+    const exerciseData = {
+      token: this.token,
+      exerciseName: this.selectedImageName,
+      duration: durationText,
+      date: this.date
+    };
+
+    console.log('送出資料：', exerciseData);
 
     this.httpservice.fillInExercise(exerciseData).subscribe({
       next: (res: any) => {
         console.log('API回應', res);
-        if (res.code == 200) {
+        if (res.code === 200) {
           this.showMessage = true;
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate(['userpage/exercise']);
           });
           setTimeout(() => {
-            this.showMessage = false
+            this.showMessage = false;
           }, 2000);
         }
       },
       error: (err: any) => {
-        console.log('API錯誤', err);
+        console.error('API錯誤', err);
       }
     });
   }
@@ -411,7 +435,6 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
       }
     });
   }
-
 
   // next: (res) => {
   //   console.log('運動記錄成功', res);
