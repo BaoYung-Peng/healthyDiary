@@ -89,23 +89,39 @@
           點擊的圖片名稱
           <p>{{ selectedImageName || '運動項目' }}</p>
         </div>
-        請選擇運動多久(分鐘)
-        <input type="number" [(ngModel)]="minutesInput" (ngModelChange)="onMinutesChange($event)"
-          (change)="setStartMinutes()" placeholder="輸入分鐘數">
-        <button class="btn">設定時間</button>
 
-        @if (isTimeSet) {
-        <div class="time-display">
-          <p>運動將於 {{ endTime }} 結束</p>
-          <p>持續時間：{{ duration }} 分鐘</p>
-        </div>
-        }
+        <!-- 動態切換輸入項目：分鐘 or 次數 -->
+        <ng-container [ngSwitch]="activeType">
+          <!-- 一般情況（非重訓）輸入分鐘 -->
+          <div *ngSwitchDefault>
+            請選擇運動多久(分鐘)
+            <input type="number" [(ngModel)]="minutesInput" (ngModelChange)="onMinutesChange($event)"
+              (change)="setStartMinutes()" placeholder="輸入分鐘數">
+            <button class="btn">設定時間</button>
 
+            @if (isTimeSet) {
+            <div class="time-display">
+              <p>運動將於 {{ endTime }} 結束</p>
+              <p>持續時間：{{ duration }} 分鐘</p>
+            </div>
+            }
+          </div>
+
+          <!-- 重訓：輸入次數 -->
+          <div *ngSwitchCase="'重訓'">
+            請輸入訓練次數（次）
+            <input type="number" [(ngModel)]="trainingCount" placeholder="輸入次數">
+            <button class="btn">設定次數</button>
+          </div>
+        </ng-container>
+
+        <!-- 日期選擇區 -->
         請選擇日期
         <input type="date" [min]="minDate" [max]="maxDate" [(ngModel)]="date">
+
+        <!-- 確認按鈕 -->
         <button class="btn" (click)="confirm()">確認</button>
       </div>
-
     </div>
 
     <div class="weight-img-wrapper">
