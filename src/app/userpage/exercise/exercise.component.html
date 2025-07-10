@@ -102,7 +102,7 @@
             請選擇運動多久(分鐘)
             <input type="number" [(ngModel)]="minutesInput" (ngModelChange)="onMinutesChange($event)"
               (change)="setStartMinutes()" placeholder="輸入分鐘數">
-            <button class="btn">設定時間</button>
+            <button class="btn" (click)="setTime()">設定時間</button>
 
             @if (isTimeSet) {
             <div class="time-display">
@@ -116,7 +116,7 @@
           <div *ngSwitchCase="'重訓'">
             請輸入訓練次數（次）
             <input type="number" [(ngModel)]="frequency" placeholder="輸入次數">
-            <button class="btn">設定次數</button>
+            <button class="btn" (click)="setFrequency()">設定次數</button>
           </div>
         </ng-container>
 

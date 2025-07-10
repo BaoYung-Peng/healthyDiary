@@ -352,6 +352,25 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   }
 
   //============================================================
+
+  setTime() {
+    if (this.minutesInput && this.minutesInput > 0) {
+      // 計算結束時間邏輯
+      this.duration = this.minutesInput;
+      this.isTimeSet = true;
+    } else {
+      alert('請輸入有效的分鐘數');
+    }
+  }
+
+  setFrequency() {
+    if (this.frequency && this.frequency > 0) {
+      alert(`已設定 ${this.frequency} 次，請選擇日期`);
+    } else {
+      alert('請輸入有效的次數');
+    }
+  }
+
   // 提交運動紀錄資料至後端 API
   confirm() {
     if (!this.token) {
