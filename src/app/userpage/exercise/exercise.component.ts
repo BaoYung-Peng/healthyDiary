@@ -398,10 +398,16 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     const exerciseData = {
       token: this.token,
       exerciseName: this.selectedImageName,
+<<<<<<< HEAD
       duration: this.minutesInput,
       date: this.date,
       frequency: this.frequency
+=======
+      duration: this.activeType === '重訓' ? this.trainingCount : this.minutesInput,
+      date: this.date
+>>>>>>> Bao
     };
+
 
     console.log('送出資料：', exerciseData);
 
