@@ -119,39 +119,39 @@ $ans-text-color: black;
 }
 
 // 第三區塊 註冊按鈕 ////////////////////////////
-.block3 {
-  h1 {
-    font-size: 10rem;
-    margin-bottom: 20px;
-  }
+// .block3 {
+//   h1 {
+//     font-size: 10rem;
+//     margin-bottom: 20px;
+//   }
 
-  .btn-box {
-    width: 50%;
+//   .btn-box {
+//     width: 50%;
 
-    display: flex;
-    justify-content: space-evenly;
-  }
+//     display: flex;
+//     justify-content: space-evenly;
+//   }
 
-  button {
-    width: 30%;
-    max-width: 300px;
-    min-width: 50px;
-    font-size: 25px;
-    padding: 15px;
+//   button {
+//     width: 30%;
+//     max-width: 300px;
+//     min-width: 50px;
+//     font-size: 25px;
+//     padding: 15px;
 
-    border-radius: 10px;
+//     border-radius: 10px;
 
-    background-color: #054b22;
-    color: white;
-    transition: background-color 0.3s ease;
-  }
+//     background-color: #054b22;
+//     color: white;
+//     transition: background-color 0.3s ease;
+//   }
 
-  button:hover {
-    background-color: #168654;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-}
+//   button:hover {
+//     background-color: #168654;
+//     transform: translateY(-2px);
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   }
+// }
 
 // 第四區塊 Q&A ////////////////////////////
 .block4 {
@@ -169,12 +169,12 @@ $ans-text-color: black;
   }
 
   p-accordion-header {
-    background-color: #F0E4D4;
+    background-color: #EFF6EB;
     color: $ques-color;
   }
 
   p-accordion-header:hover {
-    background-color: #F0E4D4;
+    background-color: #f9ffdaa6;
     color: $ques-hover-color;
   }
 }
@@ -183,11 +183,11 @@ $ans-text-color: black;
   display: inline-block;
   padding: 10px;
   /* 相框內邊距 */
-  background-color: white;
+  // background-color: #ffffdd47;
   /* 相框顏色 */
-  border: 5px solid #ccc;
+  // border: 5px solid #ccc;
   /* 相框邊框 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   margin: 10px;
 }
