@@ -8,7 +8,7 @@ import { Observable, map } from 'rxjs';
 export class GptService {
   private apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
   // private apiKey = 'Bearer APIKEY'
-  private apiKey = 'APIKEY'
+  private apiKey = 'Bearer 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'
   private headers = new HttpHeaders({
     'Authorization': this.apiKey,
     'HTTP-Referer': 'https://www.your-site.com',
@@ -20,8 +20,7 @@ export class GptService {
 
   sendMessage(message: string): Observable<string> {
     const body = {
-      // model: 'deepseek/deepseek-r1:free',
-      model: 'microsoft/mai-ds-r1:free',
+      model: 'google/gemma-3n-e4b-it:free',
       messages: [
         {
           role: 'user',

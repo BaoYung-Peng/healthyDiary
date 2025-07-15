@@ -54,7 +54,6 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   showMessage: boolean = false; // 提示訊息
 
 
-
   token: string | null = null;
   weekDays: Date[] = [];
   groupedRecords: { [date: string]: ExerciseRecord[] } = {};
@@ -232,6 +231,8 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
 
   //================== 時鐘與時間輸入邏輯 ==================//
   minutesInput = 0; // 使用者輸入的分鐘數
+  trainingCount: number = 0;
+
   frequency: number = 0;      // 重訓輸入的次數
   endTime: string = ''; // 顯示的結束時間
   isTimeSet: boolean = false; // 是否已設定時間
@@ -398,14 +399,9 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     const exerciseData = {
       token: this.token,
       exerciseName: this.selectedImageName,
-<<<<<<< HEAD
-      duration: this.minutesInput,
       date: this.date,
-      frequency: this.frequency
-=======
+      frequency: this.frequency,
       duration: this.activeType === '重訓' ? this.trainingCount : this.minutesInput,
-      date: this.date
->>>>>>> Bao
     };
 
 

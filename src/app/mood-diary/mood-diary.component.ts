@@ -439,7 +439,6 @@ export class MoodDiaryComponent implements AfterViewInit, OnInit {
     drawRain();
   }
 
-
   // 晴天動畫
   sunAnimation() {
     gsap.killTweensOf(this);

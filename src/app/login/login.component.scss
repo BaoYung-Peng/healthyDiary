@@ -89,29 +89,27 @@
 }
 
 .content-scene {
-  position: relative;
-  min-height: 100vh;
-  z-index: 10;
-  pointer-events: auto;
   display: flex;
-
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .content-section {
   // position: fixed;
   z-index: 15;
   width: 100vw;
-  height: 300vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
 }
 
-/* 左側登入表單 (50%寬度，100%高度) */
+/* 登入表單須置中 (50%寬度，100%高度) */
 .login-section {
   width: 50vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,28 +121,28 @@
 }
 
 /* 右側圖片區域 (50%寬度，100%高度) */
-.image-section {
-  width: 50vw;
-  height: 300vh;
-  overflow: hidden;
-  // height: 100vh;
+// .image-section {
+//   width: 50vw;
+//   height: 300vh;
+//   overflow: hidden;
+// height: 100vh;
 
 
-  .scroll-page {
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+//   .scroll-page {
+//     height: 100vh;
+//     position: sticky;
+//     top: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
 
-  img {
-    width: 50vw;
-    height: 100vh;
-    object-fit: cover;
-  }
-}
+//   img {
+//     width: 50vw;
+//     height: 100vh;
+//     object-fit: cover;
+//   }
+// }
 
 .login-box {
   z-index: 16;
@@ -266,4 +264,114 @@
     flex-direction: column;
     gap: 10px;
   }
+}
+
+.image-section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scroll-page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* 第一張背景圖，預設顯示 */
+.image-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/imgs/loginphoto1.jpeg');
+  /* 放你的圖路徑 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 1s ease;
+  z-index: 1;
+  opacity: 1;
+}
+
+/* 第二張圖：hover 時才出現 */
+.image-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/imgs/loginphoto2.jpeg');
+  /* 第二張圖 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 1s ease;
+  z-index: 2;
+  opacity: 0;
+}
+
+/* 滑鼠進入背景區時，顯示第二張圖 */
+.image-section:hover::after {
+  opacity: 1;
+}
+
+.background-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  animation: bgFade 10s infinite;
+  transition: background-image 1s ease-in-out;
+}
+
+@keyframes bgFade {
+  0% {
+    background-image: url('/imgs/loginphoto1.jpeg');
+  }
+  50% {
+    background-image: url('/imgs/loginphoto2.jpeg');
+  }
+  100% {
+    background-image: url('/imgs/loginphoto1.jpeg');
+  }
+}
+
+
+.login-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  padding: 4rem; /* 增加內距 */
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 550px;  /* 原本是 400px，可調整為 500~600px */
+  min-height: 500px; /* 增加高度 */
+  font-size: 18px;   /* 提高整體字體 */
+}
+
+.login-wrapper {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+.login-wrapper.show {
+  opacity: 1;
+  pointer-events: auto;
 }

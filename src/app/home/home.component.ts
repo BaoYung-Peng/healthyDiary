@@ -6,19 +6,22 @@ import { AccordionModule } from 'primeng/accordion';
 
 import Lenis from '@studio-freight/lenis';
 import { BackgroundComponent } from "../background/background/background.component";
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-home',
   imports: [
     AccordionModule,
-    BackgroundComponent
-],
+    BackgroundComponent,
+    CommonModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('block1') block1!: ElementRef;
+  // @ViewChild('block1') block1!: ElementRef;
+  @ViewChild('block1', { static: true }) block1!: ElementRef;
   @ViewChild('title') title!: ElementRef;
   @ViewChild('block2') block2Ref!: ElementRef;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
@@ -26,6 +29,15 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   private lenis!: Lenis;
   currentImage = 0;
   private isLocked = false;
+
+  forestImages = [
+    'assets/forest1.jpg',
+    'assets/forest2.jpg',
+    'assets/forest3.jpg',
+  ];
+
+  scrollTop = 0;
+
 
   constructor(private router: Router) { }
   tabs = [
@@ -46,8 +58,30 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.block1.nativeElement.classList.add('animate-in');
+    }, 200); // 延遲一點呈現動畫
+    this.scrollContainer.nativeElement.addEventListener('scroll', () => {
+      this.scrollTop = this.scrollContainer.nativeElement.scrollTop;
+    });
     this.initSmoothScroll();
     this.setupScrollLock();
+  }
+
+
+  getStyle(index: number) {
+    const pageHeight = window.innerHeight;
+    const scrollY = this.scrollTop;
+    const centerOffset = (index * pageHeight) - scrollY;
+    const normalized = Math.abs(centerOffset / pageHeight); // 0 ~ 1 ~ 2
+
+    const scale = 1.2 - Math.min(normalized * 0.2, 0.4);
+    const opacity = 1 - Math.min(normalized * 0.8, 1);
+
+    return {
+      transform: `scale(${scale})`,
+      opacity: opacity,
+    };
   }
 
   ngOnDestroy() {
@@ -130,3 +164,4 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     console.log('解锁区域');
   }
 }
+

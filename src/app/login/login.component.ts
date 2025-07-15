@@ -43,6 +43,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('block2', { static: false }) block2Ref!: ElementRef;
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
+  @ViewChild('loginWrapper') loginWrapper!: ElementRef; // 顯示登入介面
+
   private lenis!: Lenis;
   currentImage = 0;
   private isLocked = false;
@@ -110,11 +113,28 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       onComplete: () => { //整段動畫結束後要做的事（這邊是解鎖畫面滾動，以及隱藏光束元素）。
         this.unlockScroll();
         // 動畫完成後隱藏所有光效元素
+        // 隱藏不必要光效
         gsap.set([this.lightLine.nativeElement, this.lightBeam.nativeElement], {
           opacity: 0,
           display: 'none'
         });
-        // 確保內容場景可交互
+        gsap.set(this.lightExpansion.nativeElement, { opacity: 0 });
+
+        // 登入介面用 GSAP 出現動畫
+        gsap.fromTo(this.loginWrapper.nativeElement,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.08,
+            ease: 'power2.out',
+            onComplete: () => {
+              this.renderer.setStyle(this.loginWrapper.nativeElement, 'pointer-events', 'auto');
+            }
+          }
+        );
+
+        // 可交互
         this.renderer.setStyle(this.contentScene.nativeElement, 'pointer-events', 'auto');
       }
     });
@@ -138,7 +158,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     // x:表示水平位移 第 0 個元素（左門）往左 -100% / 右門 往右 100%
     tl.to([this.leftDoor.nativeElement, this.rightDoor.nativeElement], {
       x: (i) => i === 0 ? "-100%" : "100%",
-      duration: 1.5,
+      duration: 1.0,
       ease: "power3.inOut"
     }, ">"); // 這個動畫會接在上個動畫結束之後
 
@@ -153,13 +173,13 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     tl.to(this.lightBeam.nativeElement, {
       opacity: 0,
       scaleY: 0,
-      duration: 0.3
+      duration: 0.5
     }, "-=0.2"); // 結束後立刻關閉，或你也可以用 ">” 接續
 
     // 階段3: 強力閃光
     tl.to(this.lightFlash.nativeElement, {
       opacity: 1,
-      duration: 0.1,
+      duration: 0.05,
       onComplete: () => {
         // 閃光後將 登入頁面內容（contentScene）顯示出來，並讓它可以點擊。
         gsap.set(this.contentScene.nativeElement, {
@@ -171,19 +191,19 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     // 接著讓閃光慢慢淡出。
     tl.to(this.lightFlash.nativeElement, {
       opacity: 0,
-      duration: 0.6
+      duration: 0.3
     });
 
     // 階段4: 光擴散效果
     tl.to(this.lightExpansion.nativeElement, {
       opacity: 1,
-      duration: 0.1
+      duration: 0.05
     });
 
     tl.to(this.lightExpansion.nativeElement, {
       scale: 20,
       opacity: 0,
-      duration: 1.5,
+      duration: 0.8,
       ease: "power2.inOut",
       onComplete: () => {
         gsap.set(this.lightExpansion.nativeElement, { opacity: 0 });

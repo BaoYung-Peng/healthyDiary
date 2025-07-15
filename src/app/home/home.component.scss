@@ -7,7 +7,6 @@ $ques-color: black;
 $ques-hover-color: rgb(103, 103, 103);
 $ans-text-color: black;
 
-
 .block {
   height: 100vh;
 
@@ -38,15 +37,25 @@ $ans-text-color: black;
   font-size: 2rem; // 可根據實際調整
 }
 
+.block1 {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.block1.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 // 第二區塊 說明文字 3張圖片 ////////////////////////////
 .block2 {
   height: 300vh;
-
   position: relative;
 
   .grid {
     height: 100%;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
@@ -61,12 +70,12 @@ $ans-text-color: black;
     position: sticky;
     top: 0;
 
-    padding: 2rem;
+    // padding: 2rem;
 
     .content-box {
       height: 100%;
-      width: 50vw;
-      margin-left: 40%;
+      width: 100%;
+      margin-left: 20%;
 
       display: flex;
       justify-content: center;
@@ -79,7 +88,7 @@ $ans-text-color: black;
         text-align: start;
         font-size: 30px;
         font-weight: 25px;
-        line-height: 1.6; // 閱讀性提升（可選）
+        line-height: 1.6; // 閱讀性提升
       }
 
       li {
@@ -156,8 +165,11 @@ $ans-text-color: black;
 // 第四區塊 Q&A ////////////////////////////
 .block4 {
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 30vh;
+  // flex-direction: column;
 
   .qa-box {
     width: 80%;
@@ -169,11 +181,7 @@ $ans-text-color: black;
   }
 
   p-accordion-header {
-<<<<<<< HEAD
-    background-color: #f7f3ed;
-=======
     background-color: #EFF6EB;
->>>>>>> Bao
     color: $ques-color;
   }
 
@@ -201,3 +209,98 @@ $ans-text-color: black;
   height: auto;
   display: block;
 }
+
+.home-wrapper {
+  display: flex;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+// 與Toolbar保持60px距離
+ul.topics-menu {
+  position: sticky;
+  top: 60px;
+  padding-top: 10px;
+  z-index: 100;
+}
+
+/* 左側 AMANATION 側邊選單 */
+.sidebar {
+  width: 600px;
+  background: rgba(243, 255, 214, 0.114);
+  backdrop-filter: blur(10px);
+  padding: 60px 50px;
+  box-sizing: border-box;
+}
+
+.logo {
+  top: 1rem;
+  font-size: 45px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 40px auto 100px 60px;
+}
+
+.topics-menu {
+  position: sticky;
+  top: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 40px auto auto 60px;
+}
+
+.topics-menu li {
+  margin: 30px 0;
+}
+
+.topics-menu a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.block2 {
+  background: rgba(247, 255, 163, 0.221);
+}
+
+.photo-frame h2 {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  margin-top: 20px;
+  text-align: start;
+}
+
+// .cardbox {
+//   width: 100%;
+//   margin: 50px auto 5px auto;
+// }
+
+// .cardbox.horizontal {
+//   display: flex;
+//   width: 80%;
+//   height: 100px;
+// }
+
+// .card {
+//   flex: 1;
+//   /* 每張寬度相等 */
+//   height: 70vh;
+//   text-align: center;
+//   line-height: 100px;
+//   font-size: 20px;
+//   color: white;
+// }
+
+// .card1 {
+//   background-color: #4CAF50;
+// }
+
+// .card2 {
+//   background-color: #2196F3;
+// }
+
+// .card3 {
+//   background-color: #FF9800;
+// }

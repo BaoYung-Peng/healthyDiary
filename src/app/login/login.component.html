@@ -12,47 +12,35 @@
 
 <!-- 主要內容 -->
 <div #contentScene class="content-scene">
-  <div class="split-layout">
-    <!-- 左側登入表單 -->
-    <div class="login-section">
-      <div class="login-box">
-        <h2>登入</h2>
+<div class="background-slider"></div>
 
-        <p-floatlabel>
-          <input pInputText
-          id="email"
-          [(ngModel)]="email"
-          />
-          <label for="email">電子郵件地址</label>
-        </p-floatlabel>
+<!-- 登入主體內容 -->
+<div #loginWrapper class="login-wrapper">
+  <div class="login-box">
+    <h2>登入</h2>
 
-        <p-floatLabel class="input">
-          <p-password
-            [(ngModel)]="password"
-            name="password"
-            inputId="password"
-            [feedback]="false"
-            [toggleMask]="true"
-            promptLabel="請輸入密碼"
-            required />
-          <label for="password">密碼</label>
-        </p-floatLabel>
+    <p-floatlabel>
+      <input pInputText id="email" [(ngModel)]="email" />
+      <label for="email">電子郵件地址</label>
+    </p-floatlabel>
 
-        <button (click)="submit()" class="login-btn">登入</button>
+    <p-floatLabel>
+      <p-password
+        [(ngModel)]="password"
+        name="password"
+        inputId="password"
+        [feedback]="false"
+        [toggleMask]="true"
+        required />
+      <label for="password">密碼</label>
+    </p-floatLabel>
 
-        <div class="footer-links">
-          <a routerLink="/forgotpassword">忘記密碼</a>
-          <a routerLink="/register">註冊</a>
-        </div>
-      </div>
-    </div>
+    <button (click)="submit()" class="login-btn">登入</button>
 
-    <!-- 右側圖片 -->
-    <div class="image-section" #scrollContainer>
-      <!-- 這裡放您的圖片 -->
-      <div class="scroll-page page1"><img src="/imgs/loginphoto1.jpeg" alt="登入頁面圖片"></div>
-      <div class="scroll-page page2"><img src="/imgs/loginphoto2.jpeg" alt="登入頁面圖片"></div>
-      <div class="scroll-page page3"><img src="/imgs/loginphoto3.png" alt="登入頁面圖片"></div>
+    <div class="footer-links">
+      <a routerLink="/forgotpassword">忘記密碼</a>
+      <a routerLink="/register">註冊</a>
     </div>
   </div>
 </div>
+

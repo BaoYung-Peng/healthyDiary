@@ -7,38 +7,53 @@
   </p>
 </div>
 
-<!-- 第二區塊 文字、照片-->
-<div class="block2" #block2>
-  <div class="grid">
-    <!-- 左側固定内容 -->
-    <div class="left-box">
-      <div class="sticky-content">
-        <div class="content-box">
-          <div>
-            <p class="context">你知道....
-              食物不只填飽你的肚子，他也悄悄的定義了你的人生
+<div class="home-wrapper">
+  <!-- 左側 Sidebar -->
+  <aside class="sidebar">
+    <h1 class="logo">功能<br></h1>
+    <ul class="topics-menu">
+      <li><a href="#">飲食</a></li>
+      <li><a href="#">睡眠</a></li>
+      <li><a href="#">運動</a></li>
+    </ul>
+  </aside>
+
+  <!-- 中間文字 -->
+  <div class="block2">
+    <div class="grid">
+      <!-- 左邊黏住的敘述 -->
+      <div class="left-box">
+        <div class="sticky-content">
+          <div class="content-box">
+            <p class="context">
+              你知道....<br>
+              食物不只填飽你的肚子，他也悄悄的定義了你的人生<br>
               身體的強壯與內在的平靜交織出情緒的網。
-              活著為了講述，每一次的與自己對話都是為了將來有好故事可以說</p>
+              活著為了講述，每一次的與自己對話都是為了將來有好故事可以說
+            </p>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 右側滾動圖片 -->
-    <div class="right-box" #scrollContainer>
-      <div class="scroll-page page1">
-        <div class="photo-frame">
-          <img src="imgs/foodDiary.png" alt="food diary" />
+      <!-- 右邊滾動的圖片 -->
+      <div class="right-box" #scrollContainer>
+        <div class="scroll-page page1">
+          <div class="photo-frame">
+            <img src="imgs/foodDiary.png" alt="food diary" />
+            <h2>Food Diary</h2>
+          </div>
         </div>
-      </div>
-      <div class="scroll-page page2">
-        <div class="photo-frame">
-          <img src="imgs/sleep.png" alt="sleep" />
+        <div class="scroll-page page2">
+          <div class="photo-frame">
+            <img src="imgs/sleep.png" alt="sleep" />
+            <h2>Sleep Diary</h2>
+          </div>
         </div>
-      </div>
-      <div class="scroll-page page3">
-        <div class="photo-frame">
-          <img src="imgs/exerciselog.png" alt="exercise log" />
+        <div class="scroll-page page3">
+          <div class="photo-frame">
+            <img src="imgs/exerciselog.png" alt="exercise log" />
+            <h2>Exercise Diary</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -55,7 +70,15 @@
 </div> -->
 
 <!-- 第四區塊 Q&A畫面-->
-<div class="block block4">
+ <!-- <div class="block4">
+<div class="cardbox horizontal">
+  <div class="card card1">Q1</div>
+  <div class="card card2">Q2</div>
+  <div class="card card3">Q3</div>
+</div>
+</div> -->
+
+<div class="block4">
   <div class="qa-box">
     <p-accordion [value]="0">
       @for (tab of tabs; track $index; let i = $index;) {
@@ -63,9 +86,9 @@
         <p-accordion-header>
           <ng-template #toggleicon let-active="active">
             @if (active) {
-            <i class="pi pi-chevron-up"></i> <!-- 收起時的箭頭 -->
+            <i class="pi pi-chevron-up"></i>
             } @else {
-            <i class="pi pi-chevron-down"></i> <!-- 展開時的箭頭 -->
+            <i class="pi pi-chevron-down"></i>
             }
           </ng-template>
           <h2>問題{{i+1}}:{{ tab.title }}</h2>
