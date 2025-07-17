@@ -115,6 +115,7 @@
           <p-message severity="success" icon="pi pi-times-circle" styleClass="mb-2">註冊成功</p-message>
           }
           <form class="flex flex-col gap-4" [formGroup]="formGroup">
+            <h3>請選擇您的工作類型</h3><br><br>
             <div *ngFor="let category of categories" class="field-checkbox">
               <p-radiobutton [inputId]="category.key" [value]="category.key" formControlName="selectedCategory" />
               <label [for]="category.key" class="ml-2">{{ category.name }}</label>

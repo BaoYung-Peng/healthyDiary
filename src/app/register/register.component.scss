@@ -6,7 +6,8 @@
 .step-indicator {
   display: flex;
   text-align: center;
-  margin: 20px auto 40px 550px;
+  margin: 20px 0 30px 518px;
+  justify-content: start;
   font-weight: bold;
   font-size: 20px;
   color: var(--progressbar-color);
@@ -19,6 +20,8 @@
 }
 
 :host ::ng-deep .p-progressbar {
+  display: flex;
+  margin-right:50px ;
   height: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -32,7 +35,7 @@
   align-items: center;
   justify-items: center;
   padding: 40px;
-  background: #F2EEE5;
+  background: #f9ffdaa6;
 }
 
 .card-area {
@@ -58,7 +61,7 @@
   height: 70vh;
   position: absolute;
   border: 1px solid #F0E4D4;
-  background-color: #F0E4D4;
+  background-color: #EFF6EB;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -171,7 +174,7 @@ li {
   height: 70vh;
   position: absolute;
   border: 1px solid #F0E4D4;
-  background-color: #F0E4D4;
+  background-color: #EFF6EB;
   display: flex;
   justify-content: center;
   align-items: center;
