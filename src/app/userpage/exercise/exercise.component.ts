@@ -54,6 +54,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
   showMessage: boolean = false; // 提示訊息
 
 
+
   token: string | null = null;
   weekDays: Date[] = [];
   groupedRecords: { [date: string]: ExerciseRecord[] } = {};
@@ -129,8 +130,10 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
 
   // 選擇卡片：處理點擊後動畫與資料更新
   selectCard(card: any, event: Event) {
-    this.selectedCard = card;                          // 記錄選擇的卡片
+    // this.selectedCard = card;                          // 記錄選擇的卡片
+    this.selectedCard = this.selectedCard === card ? null : card; // ← 修正這行
     this.activeType = this.mapCardTitleToType(card.title);  // 根據卡片標題設定運動類型
+
 
     const clickedCard = event.currentTarget as HTMLElement;
 
@@ -483,6 +486,7 @@ export class ExerciseComponent implements AfterViewInit, OnInit {
     this.httpservice.getCalendarExercise(postData).subscribe({
       next: (res: any) => {
         this.exerciseRecords = res.exerciseList || []; // 如果 res.exerciselist 是 undefined，就設為 []
+
         console.log(res);
       },
       error: (err) => {

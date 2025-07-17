@@ -40,6 +40,7 @@ p-message {
 }
 
 .card {
+  position: relative; /* 關鍵：讓底部描述可以絕對定位在裡面 */
   width: 27vw;
   height: 75vh;
   min-height: 80vh;
@@ -49,7 +50,7 @@ p-message {
   border: 5px solid black;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -101,7 +102,7 @@ p-message {
 }
 
 .card-description {
-  background-color: rgba(200, 200, 200, 0.4);
+  background-color: rgba(220, 236, 169, 0.788);
   padding: 2rem;
   font-size: 26px;
   height:18%;
