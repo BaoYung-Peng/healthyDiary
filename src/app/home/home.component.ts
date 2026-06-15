@@ -57,13 +57,19 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.block1.nativeElement.classList.add('animate-in');
-    }, 200); // 延遲一點呈現動畫
-    this.scrollContainer.nativeElement.addEventListener('scroll', () => {
-      this.scrollTop = this.scrollContainer.nativeElement.scrollTop;
-    });
+ngAfterViewInit() {
+    if (this.block1?.nativeElement) {
+      setTimeout(() => {
+        this.block1.nativeElement.classList.add('animate-in');
+      }, 200);
+    }
+
+    if (this.scrollContainer?.nativeElement) {
+      this.scrollContainer.nativeElement.addEventListener('scroll', () => {
+        this.scrollTop = this.scrollContainer.nativeElement.scrollTop;
+      });
+    }
+
     this.initSmoothScroll();
     this.setupScrollLock();
   }
@@ -103,10 +109,13 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   private setupScrollLock() {
-    // 监听全局滚动事件
+    // 檢查 DOM 是否存在，防止 undefined 報錯
+    if (!this.block2Ref?.nativeElement || !this.scrollContainer?.nativeElement) {
+      return; 
+    }
+
     window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
 
-    // 锁定区域检测
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -124,28 +133,23 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   }
 
   private handleWheel(e: WheelEvent) {
-    if (!this.isLocked) return;
+    if (!this.isLocked || !this.scrollContainer?.nativeElement) return;
 
     e.preventDefault();
     const delta = e.deltaY;
     const container = this.scrollContainer.nativeElement;
 
-    // 计算新位置
     let newPos = container.scrollTop + delta * 0.5;
     newPos = Math.max(0, Math.min(newPos, container.scrollHeight - container.clientHeight));
 
-    // 平滑滚动
     container.scrollTo({
       top: newPos,
       behavior: 'smooth'
     });
 
-    // 更新当前图片索引
     this.currentImage = Math.round(newPos / container.clientHeight);
 
-    // 边界检测
-    if ((this.currentImage === 0 && delta < 0) ||
-      (this.currentImage === 2 && delta > 0)) {
+    if ((this.currentImage === 0 && delta < 0) || (this.currentImage === 2 && delta > 0)) {
       this.unlockSection();
     }
   }
@@ -164,4 +168,3 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     console.log('解锁区域');
   }
 }
-

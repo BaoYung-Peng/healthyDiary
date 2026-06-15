@@ -1,17 +1,16 @@
 // bookcase.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpService } from '../@services/http.service';
-import { formatDate } from '@angular/common'; // ✅ 加這行
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-bookcase',
   imports: [
     FormsModule,
     CommonModule,
-    RouterLink
   ],
   templateUrl: './bookcase.component.html',
   styleUrl: './bookcase.component.scss',

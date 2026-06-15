@@ -8,7 +8,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular
 })
 export class BackgroundComponent implements AfterViewInit {
   ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 //   @ViewChild('canvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
