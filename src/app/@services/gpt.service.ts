@@ -7,8 +7,7 @@ import { Observable, map } from 'rxjs';
 })
 export class GptService {
   private apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-  // private apiKey = 'Bearer APIKEY'
-  private apiKey = 'Bearer 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'
+  private apiKey = 'Bearer APIKEY' // openrouter.ai的API密鑰，請替換為你的實際密鑰
   private headers = new HttpHeaders({
     'Authorization': this.apiKey,
     'HTTP-Referer': 'https://www.your-site.com',

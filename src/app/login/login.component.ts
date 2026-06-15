@@ -272,7 +272,7 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
     }
     //   password: trimmedPassword,
     // }
-    console.log(submitData);
+    // console.log(submitData);
     this.httpservice.loginApi(submitData).subscribe((res: any) => {
 
       if (res.code == 200) {
@@ -286,5 +286,9 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       }
       console.log(res);
     });
+  }
+
+  goToHome(){
+    this.router.navigateByUrl('/home');
   }
 }
