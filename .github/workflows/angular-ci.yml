@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Angular CI
 
 on:
   push:
@@ -12,7 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        # 注意：Angular 22+ 強制要求較新的 Node 版本
+        node-version: [22.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -22,8 +23,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Install dependencies
+      run: npm install
+
     - name: Build
-      run: |
-        npm install
-        npm install -D webpack-cli
-        npx webpack                 
+      run: npm run build
