@@ -15,6 +15,7 @@ import Lenis from '@studio-freight/lenis/types';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     RouterLink,
     ReactiveFormsModule,
