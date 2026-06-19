@@ -120,20 +120,20 @@
   will-change: transform;
 }
 
+/* 1. 將重複的 .login-box 合併 */
 .login-box {
   z-index: 16;
-  padding: 2.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 4rem; /* 使用較大的值 */
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 450px;
-  height: auto;
-  min-height: 400px;
+  max-width: 550px; 
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #F0E4D4;
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.9); /* 使用半透明白色 */
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
   h2 {
@@ -142,6 +142,27 @@
     color: #333;
     margin-bottom: 30px;
     text-align: center;
+  }
+}
+
+/* 2. 確保 wrapper 正確控制顯示 */
+.login-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
@@ -313,40 +334,4 @@
   100% {
     background-image: url('/imgs/loginphoto1.jpeg');
   }
-}
-
-
-.login-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.login-box {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  padding: 4rem; /* 增加內距 */
-  border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 550px;  /* 原本是 400px，可調整為 500~600px */
-  min-height: 500px; /* 增加高度 */
-  font-size: 18px;   /* 提高整體字體 */
-}
-
-.login-wrapper {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  pointer-events: none;
-}
-
-.login-wrapper.show {
-  opacity: 1;
-  pointer-events: auto;
 }
