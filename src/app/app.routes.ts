@@ -1,30 +1,10 @@
 import { Routes } from '@angular/router';
-
 import { authGuard } from './@guards/auth.guard';
-
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { UserpageComponent } from './userpage/userpage.component';
-import { VerifyComponent } from './verify/verify.component';
-import { DietComponent } from './userpage/diet/diet.component';
-import { ExerciseComponent } from './userpage/exercise/exercise.component';
-import { SleepComponent } from './userpage/sleep/sleep.component';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { EditpasswordComponent } from './editpassword/editpassword.component';
-import { EditVerifyComponent } from './edit-verify/edit-verify.component';
-import { AdminComponent } from './admin/admin.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ReportComponent } from './userpage/report/report.component';
-import { BookcaseComponent } from './bookcase/bookcase.component';
-import { MoodDiaryComponent } from './mood-diary/mood-diary.component';
-import { WriteMoodComponent } from './write-mood/write-mood.component';
 
 export const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
   },
   {
     path: 'login',
@@ -32,53 +12,55 @@ export const routes: Routes = [
   },
   {
     path: 'forgotpassword',
-    component: ForgotpasswordComponent
+    loadComponent: () => import('./forgotpassword/forgotpassword.component').then(m => m.ForgotpasswordComponent)
   },
   {
     path: 'editpassword',
-    component: EditpasswordComponent
+    loadComponent: () => import('./editpassword/editpassword.component').then(m => m.EditpasswordComponent)
   },
   {
     path: 'editconfirm',
-    component: EditVerifyComponent
+    loadComponent: () => import('./edit-verify/edit-verify.component').then(m => m.EditVerifyComponent)
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent)
   },
   {
     path: 'userpage',
-    component: UserpageComponent,
+    loadComponent: () => import('./userpage/userpage.component').then(m => m.UserpageComponent),
     children: [
-      { path: 'diet', component: DietComponent },
-      { path: 'exercise', component: ExerciseComponent },
-      { path: 'sleep', component: SleepComponent },
-      { path: 'report', component: ReportComponent }
+      { path: 'diet', loadComponent: () => import('./userpage/diet/diet.component').then(m => m.DietComponent) },
+      { path: 'exercise', loadComponent: () => import('./userpage/exercise/exercise.component').then(m => m.ExerciseComponent) },
+      { path: 'sleep', loadComponent: () => import('./userpage/sleep/sleep.component').then(m => m.SleepComponent) },
+      { path: 'report', loadComponent: () => import('./userpage/report/report.component').then(m => m.ReportComponent) }
     ],
     canActivate: [authGuard]
   },
   {
-    path: 'admin', component: AdminComponent,
+    path: 'admin',
+    loadComponent: () => import('./admin/admin.component').then(m => m.AdminComponent),
     canActivate: [authGuard]
   },
   {
-    path: 'profile', component: ProfileComponent
+    path: 'profile',
+    loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent)
   },
   {
     path: 'confirm',
-    component: VerifyComponent
+    loadComponent: () => import('./verify/verify.component').then(m => m.VerifyComponent)
   },
   {
     path: 'bookcase',
-    component: BookcaseComponent
+    loadComponent: () => import('./bookcase/bookcase.component').then(m => m.BookcaseComponent)
   },
-    {
+  {
     path: 'write-mood',
-    component: WriteMoodComponent
+    loadComponent: () => import('./write-mood/write-mood.component').then(m => m.WriteMoodComponent)
   },
-   {
-    path: 'mood-diary/:monthId',  // 使用動態路徑參數
-    component: MoodDiaryComponent
+  {
+    path: 'mood-diary/:monthId',
+    loadComponent: () => import('./mood-diary/mood-diary.component').then(m => m.MoodDiaryComponent)
   },
   {
     path: '',
@@ -87,6 +69,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent
+    loadComponent: () => import('./not-found/not-found.component').then(m => m.NotFoundComponent)
   }
 ];
