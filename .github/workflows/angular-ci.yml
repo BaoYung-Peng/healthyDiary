@@ -28,3 +28,14 @@ jobs:
 
     - name: Build
       run: npm run build
+      
+# --- 新增的 Slack 通知步驟 ---
+    - name: Slack Notification
+      if: always() # 這行確保無論建置成功或失敗都會執行
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }} # 務必確保 GitHub Secrets 的名稱與此一致
+        SLACK_CHANNEL: '社交' # 頻道名稱
+        SLACK_COLOR: ${{ job.status }} # 成功變綠色，失敗變紅色
+        SLACK_TITLE: 'Angular CI Build Status'
+        SLACK_MESSAGE: '建置結果: ${{ job.status }}'
